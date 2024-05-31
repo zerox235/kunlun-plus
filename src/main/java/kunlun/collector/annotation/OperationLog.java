@@ -3,7 +3,7 @@
  * Kunlun is licensed under the "LICENSE" file in the project's root directory.
  */
 
-package kunlun.event.annotation;
+package kunlun.collector.annotation;
 
 import java.lang.annotation.*;
 
@@ -11,11 +11,11 @@ import java.lang.annotation.*;
  * Record API access information and print parameters logs.
  * @author Kahle
  */
-@Deprecated // TODO: Can delete
+@Inherited
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ApiRecord {
+public @interface OperationLog {
 
     /**
      * The name of the API.
@@ -40,17 +40,5 @@ public @interface ApiRecord {
      * @return True or false
      */
     boolean print() default true;
-
-    /**
-     * Whether to print more information.
-     * @return True or false
-     */
-    boolean more() default false;
-
-    /**
-     * Whether to record the corresponding data.
-     * @return True or false
-     */
-    boolean record() default true;
 
 }

@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.List;
 
+@Deprecated // TODO: Can delete
 public abstract class AbstractApiRecordAspect extends AbstractAspect {
     private static Class<?>[] ignoreTypes = new Class[]{
             HttpServletRequest.class, HttpServletResponse.class, MultipartFile.class };
