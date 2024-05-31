@@ -9,6 +9,7 @@ package kunlun.track.support;
  * The track level.
  * @author Kahle
  */
+@Deprecated // TODO: Can delete
 public enum TrackLevel {
     /**
      * The trace level.

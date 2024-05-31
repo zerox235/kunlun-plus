@@ -13,6 +13,7 @@ import kunlun.util.Assert;
  * The track record.
  * @author Kahle
  */
+@Deprecated // TODO: Can delete
 public class TrackRecord implements Builder {
     private final StringBuilder content = new StringBuilder();
     private final StringBuilder message = new StringBuilder();

@@ -19,6 +19,7 @@ import java.util.Map;
  * The abstract web track provider.
  * @author Kahle
  */
+@Deprecated // TODO: Can delete
 public abstract class AbstractWebTrackProvider extends SimpleTrackProvider {
 
     protected AbstractWebTrackProvider(Map<String, Object> commonProperties) {
