@@ -5,48 +5,46 @@
 
 package kunlun.codec.support;
 
-import static kunlun.common.constant.Numbers.MINUS_ONE;
-import static kunlun.common.constant.Numbers.ZERO;
+import kunlun.util.Assert;
 
 public class ApacheBase64 extends Base64 {
-    private final org.apache.commons.codec.binary.Base64 apacheBase64;
+    private final org.apache.commons.codec.binary.Base64
+            urlSafeBase64 = new org.apache.commons.codec.binary.Base64(true);
+    private final org.apache.commons.codec.binary.Base64
+            defBase64 = new org.apache.commons.codec.binary.Base64();
+
+    public ApacheBase64(Cfg cfg) {
+
+        super(cfg);
+    }
 
     public ApacheBase64() {
 
-        this(false, false, MINUS_ONE, null);
     }
 
-    public ApacheBase64(boolean urlSafe) {
-
-        this(urlSafe, false, MINUS_ONE, null);
-    }
-
-    public ApacheBase64(boolean mime, int lineLength, byte[] lineSeparator) {
-
-        this(false, mime, lineLength, lineSeparator);
-    }
-
-    protected ApacheBase64(boolean urlSafe, boolean mime, int lineLength, byte[] lineSeparator) {
-        super(urlSafe, mime, lineLength, lineSeparator);
-        if (mime) {
-            lineLength = lineLength > ZERO ? lineLength : DEFAULT_MIME_LINE_LENGTH;
+    protected org.apache.commons.codec.binary.Base64 obtainBase64(Cfg cfg) {
+        if (cfg.isUrlSafe()) {
+            return urlSafeBase64;
         }
-        else { lineLength = MINUS_ONE; }
-        apacheBase64 = new org.apache.commons.codec.binary.Base64(
-                lineLength, lineSeparator, urlSafe
-        );
+        else if (cfg.isMime()) {
+            return new org.apache.commons.codec.binary.Base64(
+                    cfg.getLineLength(), cfg.getLineSeparator().getBytes());
+        }
+        else { return defBase64; }
     }
 
     @Override
-    public byte[] encode(byte[] source) {
-
-        return apacheBase64.encode(source);
+    public String encodeToString(Config config, byte[] source) {
+        Assert.notNull(source, "Parameter \"source\" must not null. ");
+        Cfg cfg = config != null ? (Cfg) config : getConfig();
+        return obtainBase64(cfg).encodeToString(source);
     }
 
     @Override
-    public byte[] decode(byte[] source) {
-
-        return apacheBase64.decode(source);
+    public byte[] decodeFromString(Config config, String source) {
+        Assert.notNull(source, "Parameter \"source\" must not null. ");
+        Cfg cfg = config != null ? (Cfg) config : getConfig();
+        return obtainBase64(cfg).decode(source);
     }
 
 }
