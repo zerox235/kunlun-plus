@@ -5,7 +5,7 @@
 
 package kunlun.action.support.exchange;
 
-import kunlun.action.ActionHandler;
+import kunlun.core.Action;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * @param <D> The type of data parsed
  * @author Kahle
  */
-public interface ImportHandler<P, D> extends ActionHandler, ImportExportHandler<P, D> {
+public interface ImportHandler<P, D> extends Action, ImportExportHandler<P, D> {
 
     List<D> parseData(ImportContext<P> context, Object cursor, Object rawData);
 
