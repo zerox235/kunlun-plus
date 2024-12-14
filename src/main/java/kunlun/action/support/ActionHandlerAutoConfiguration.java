@@ -24,16 +24,16 @@ public class ActionHandlerAutoConfiguration {
 
     public ActionHandlerAutoConfiguration(ApplicationContext appContext) {
         // If not have beans, handlerMap is empty map, not is null.
-        Map<String, AutoActionHandler> handlerMap = appContext.getBeansOfType(AutoActionHandler.class);
-        for (AutoActionHandler actionHandler : handlerMap.values()) {
-            if (actionHandler == null) { continue; }
-            String actionName = actionHandler.getName();
+        Map<String, AutoAction> handlerMap = appContext.getBeansOfType(AutoAction.class);
+        for (AutoAction autoAction : handlerMap.values()) {
+            if (autoAction == null) { continue; }
+            String actionName = autoAction.getName();
             if (StringUtils.isBlank(actionName)) {
-                log.warn("The action handler \"{}\"'s name is blank, it will be ignored. "
-                        , actionHandler.getClass());
+                log.warn("The action \"{}\"'s name is blank, it will be ignored. "
+                        , autoAction.getClass());
                 continue;
             }
-            ActionUtils.registerHandler(actionName, actionHandler);
+            ActionUtils.registerAction(actionName, autoAction);
         }
     }
 

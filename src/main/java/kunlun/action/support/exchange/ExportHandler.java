@@ -5,7 +5,7 @@
 
 package kunlun.action.support.exchange;
 
-import kunlun.action.ActionHandler;
+import kunlun.core.Action;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * @param <D> The type of data obtained
  * @author Kahle
  */
-public interface ExportHandler<P, D> extends ActionHandler, ImportExportHandler<P, D> {
+public interface ExportHandler<P, D> extends Action, ImportExportHandler<P, D> {
 
     /**
      * Obtain the data to be exported by paging.
