@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
     <name>kunlun-plus</name>
     <url>https://github.com/kahle23/kunlun-plus</url>
-    <description>Kunlun is a java technology framework based on the facade pattern.</description>
+    <description>Kunlun Plus is a Java technology framework that is encapsulated based on common business scenarios.</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
