@@ -597,7 +597,14 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-core</artifactId>
-            <version>3.4.2</version>
+            <version>3.5.3</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+            <version>3.5.3</version>
             <scope>provided</scope>
         </dependency>
 
@@ -621,6 +628,13 @@
             <artifactId>js</artifactId>
             <version>20.3.11</version>
             <!--<version>21.3.7</version>-->
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
             <scope>provided</scope>
         </dependency>
 
