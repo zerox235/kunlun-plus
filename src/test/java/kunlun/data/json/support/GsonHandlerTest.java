@@ -7,8 +7,8 @@ package kunlun.data.json.support;
 
 import kunlun.common.constant.Words;
 import kunlun.data.json.JsonUtils;
+import kunlun.data.mock.MockUtils;
 import kunlun.entity.Student;
-import kunlun.mock.MockUtils;
 import kunlun.util.TypeUtils;
 import org.junit.Before;
 import org.junit.Test;

@@ -5,10 +5,10 @@
 
 package kunlun.time.support;
 
-import kunlun.thread.SimpleThreadFactory;
 import kunlun.time.SimpleClock;
 import kunlun.util.Assert;
 import kunlun.util.ShutdownHookUtils;
+import kunlun.util.thread.SimpleThreadFactory;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;

@@ -7,9 +7,9 @@ package kunlun.file;
 
 import com.alibaba.fastjson.JSON;
 import kunlun.data.bean.BeanUtils;
+import kunlun.data.mock.MockUtils;
 import kunlun.entity.Student;
 import kunlun.io.util.FileUtils;
-import kunlun.mock.MockUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 

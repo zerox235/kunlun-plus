@@ -7,9 +7,9 @@ package kunlun.data.bean.support;
 
 import com.alibaba.fastjson.JSON;
 import kunlun.data.bean.BeanUtils;
+import kunlun.data.mock.MockUtils;
 import kunlun.entity.Person;
 import kunlun.entity.Student;
-import kunlun.mock.MockUtils;
 import org.junit.Test;
 
 /**

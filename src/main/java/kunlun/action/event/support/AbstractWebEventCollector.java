@@ -3,9 +3,10 @@
  * Kunlun is licensed under the "LICENSE" file in the project's root directory.
  */
 
-package kunlun.collector.support;
+package kunlun.action.event.support;
 
-import kunlun.collector.support.model.Event;
+import kunlun.action.event.Event;
+import kunlun.action.event.EventCollector;
 import kunlun.servlet.RequestUtils;
 import kunlun.spring.RequestContextUtils;
 import kunlun.util.StringUtils;
@@ -18,7 +19,7 @@ import java.util.Map;
  * The abstract web event collector.
  * @author Kahle
  */
-public abstract class AbstractWebEventCollector extends SimpleEventCollector {
+public abstract class AbstractWebEventCollector extends EventCollector {
 
     /**
      * Get the value from the event data based on the key.
