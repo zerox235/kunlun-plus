@@ -3,7 +3,7 @@
  * Kunlun is licensed under the "LICENSE" file in the project's root directory.
  */
 
-package kunlun.collector.support.aspect;
+package kunlun.action.event.support.aspect;
 
 import cn.hutool.core.date.StopWatch;
 import org.aspectj.lang.JoinPoint;
@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class OperationLogAspect extends AbstractOperationLogAspect {
     private static final Logger log = LoggerFactory.getLogger(OperationLogAspect.class);
 
-    @Pointcut("@annotation(kunlun.collector.annotation.OperationLog)")
+    @Pointcut("@annotation(kunlun.core.annotation.OperationLog)")
     public void pointcut() {
 
     }

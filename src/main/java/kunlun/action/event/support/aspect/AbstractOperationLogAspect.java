@@ -3,12 +3,12 @@
  * Kunlun is licensed under the "LICENSE" file in the project's root directory.
  */
 
-package kunlun.collector.support.aspect;
+package kunlun.action.event.support.aspect;
 
+import kunlun.action.ActionUtils;
+import kunlun.action.event.Event;
 import kunlun.aop.support.aspectj.AbstractAspect;
-import kunlun.collector.CollectorUtils;
-import kunlun.collector.annotation.OperationLog;
-import kunlun.collector.support.model.Event;
+import kunlun.core.annotation.OperationLog;
 import kunlun.data.json.JsonUtils;
 import kunlun.exception.ExceptionUtils;
 import org.aspectj.lang.JoinPoint;
@@ -56,7 +56,7 @@ public abstract class AbstractOperationLogAspect extends AbstractAspect {
             event.setLevel(Event.Level.ERROR)
                     .appendError(ExceptionUtils.toString(th));
         }
-        CollectorUtils.collect(event);
+        ActionUtils.execute(event);
     }
 
 }

@@ -6,13 +6,13 @@
 package kunlun.data.xml.support;
 
 import com.alibaba.fastjson.JSON;
+import kunlun.data.mock.MockUtils;
 import kunlun.data.xml.XmlClassAlias;
 import kunlun.data.xml.XmlFieldAlias;
 import kunlun.data.xml.XmlHandler;
 import kunlun.entity.Student;
 import kunlun.logging.Logger;
 import kunlun.logging.LoggerFactory;
-import kunlun.mock.MockUtils;
 import org.junit.Test;
 
 import java.util.ArrayList;
