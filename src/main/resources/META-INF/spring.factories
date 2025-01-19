@@ -6,7 +6,6 @@ kunlun.spring.config.action.ActionHandlerAutoConfiguration,\
 kunlun.spring.config.data.bean.BeanToolsAutoConfiguration,\
 kunlun.spring.config.data.json.JsonAutoConfiguration,\
 kunlun.spring.config.data.xml.XmlAutoConfiguration,\
-kunlun.ai.support.AIHandlerAutoConfiguration,\
 kunlun.spring.config.logging.LoggingAutoConfiguration,\
 kunlun.mock.support.JMockDataAutoConfiguration,\
 kunlun.message.support.mq.rocketmq.RocketMqListenerAutoConfiguration,\
