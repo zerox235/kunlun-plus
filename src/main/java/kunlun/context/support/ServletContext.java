@@ -53,7 +53,7 @@ public interface ServletContext extends Context {
      * Set the http response body.
      * @param responseBody The http response body
      * @see org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice
-     * @see kunlun.spring.context.ContextSupportResponseBodyAdvice
+     * @see kunlun.spring.context.support.ContextSupportResponseBodyAdvice
      */
     void setResponseBody(Object responseBody);
 
@@ -67,7 +67,7 @@ public interface ServletContext extends Context {
      * Set the http request body.
      * @param requestBody The http request body
      * @see org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice
-     * @see kunlun.spring.context.ContextSupportRequestBodyAdvice
+     * @see kunlun.spring.context.support.ContextSupportRequestBodyAdvice
      */
     void setRequestBody(Object requestBody);
 

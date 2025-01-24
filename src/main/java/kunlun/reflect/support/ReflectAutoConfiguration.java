@@ -7,7 +7,7 @@ package kunlun.reflect.support;
 
 import kunlun.aop.AbstractInterceptor;
 import kunlun.aop.ProxyUtils;
-import kunlun.spring.config.data.bean.BeanToolsAutoConfiguration;
+import kunlun.spring.data.bean.BeanToolsAutoConfiguration;
 import kunlun.reflect.ReflectService;
 import kunlun.reflect.ReflectUtils;
 import org.slf4j.Logger;
