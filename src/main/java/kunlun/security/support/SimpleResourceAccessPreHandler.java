@@ -8,9 +8,9 @@ package kunlun.security.support;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
+import kunlun.common.Errors;
 import kunlun.common.Result;
 import kunlun.core.handler.ResourceAccessPreHandler;
-import kunlun.data.CodeDefinition;
 import kunlun.data.json.JsonUtils;
 import kunlun.exception.ExceptionUtils;
 import kunlun.security.SecurityUtils;
@@ -55,39 +55,6 @@ public class SimpleResourceAccessPreHandler implements ResourceAccessPreHandler 
         return false;
     }
 
-
-    public enum Errors implements CodeDefinition {
-        /**
-         *
-         */
-        FAILED(500, "failed"),
-        UNAUTHORIZED_ERROR(401, "Unauthorized"),
-        FORBIDDEN(403, "forbidden"),
-        NOT_LOGIN_ERROR(403, "not login error"),
-        NOT_FOUND_ERROR(404,"request url not found"),
-        ;
-
-        private String message;
-        private long code;
-
-        Errors(long code, String message) {
-            this.message = message;
-            this.code = code;
-        }
-
-        @Override
-        public Long getCode() {
-
-            return code;
-        }
-
-        @Override
-        public String getDescription() {
-
-            return message;
-        }
-    }
-
     protected void write(HttpServletResponse response, Result<Object> result) {
         try {
             response.setCharacterEncoding("UTF-8");
@@ -104,7 +71,7 @@ public class SimpleResourceAccessPreHandler implements ResourceAccessPreHandler 
                                String requestUrl,
                                String token) {
         if (StrUtil.isBlank(requestUrl)) {
-            write(response, Result.failure(Errors.NOT_FOUND_ERROR));
+            write(response, Result.failure(Errors.notFound));
             return false;
         }
         requestUrl = requestUrl.trim();
@@ -121,11 +88,11 @@ public class SimpleResourceAccessPreHandler implements ResourceAccessPreHandler 
         if (verifyToken != ONE) {
             // not token
             if (verifyToken == MINUS_ONE) {
-                write(response, Result.failure(Errors.NOT_LOGIN_ERROR));
+                write(response, Result.failure(Errors.noLogin));
             } else if (verifyToken == MINUS_TWO || verifyToken == MINUS_THREE) {
-                write(response, Result.failure(Errors.NOT_LOGIN_ERROR));
+                write(response, Result.failure(Errors.noLogin));
             } else {
-                write(response, Result.failure(Errors.UNAUTHORIZED_ERROR));
+                write(response, Result.failure(Errors.unauthorized));
             }
             return false;
         }
@@ -145,7 +112,7 @@ public class SimpleResourceAccessPreHandler implements ResourceAccessPreHandler 
         }
         catch (Exception e) {
             log.error("Resource access pre handler error", e);
-            write(response, Result.failure(Errors.FAILED));
+            write(response, Result.failure());
             return false;
         }
     }

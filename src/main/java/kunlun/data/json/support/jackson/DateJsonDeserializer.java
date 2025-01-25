@@ -23,7 +23,7 @@ import java.util.Date;
 public class DateJsonDeserializer extends JsonDeserializer<Date> {
 
     @Override
-    public Date deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+    public Date deserialize(JsonParser p, DeserializationContext context) throws IOException {
         String text = p.getText();
         if (StringUtils.isNumeric(text)) {
             return DateUtils.parse(Long.parseLong(text));

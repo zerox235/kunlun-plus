@@ -47,4 +47,10 @@ public @interface Permission {
      */
     String data() default "";
 
+    /**
+     * The information about the configuration of access permission or data permission.
+     * @return The configuration
+     */
+    String config() default "";
+
 }
