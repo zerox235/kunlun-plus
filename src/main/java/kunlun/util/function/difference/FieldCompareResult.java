@@ -3,7 +3,7 @@
  * Kunlun is licensed under the "LICENSE" file in the project's root directory.
  */
 
-package kunlun.data.comparison.support.difference;
+package kunlun.util.function.difference;
 
 /**
  * The field compare result.
@@ -12,8 +12,8 @@ package kunlun.data.comparison.support.difference;
 public class FieldCompareResult {
     private String name;
     private String description;
-    private Object leftValue;
-    private Object rightValue;
+    private Object oldValue;
+    private Object newValue;
 
     public FieldCompareResult(String name, String description) {
         this.description = description;
@@ -44,24 +44,23 @@ public class FieldCompareResult {
         this.description = description;
     }
 
-    public Object getLeftValue() {
+    public Object getOldValue() {
 
-        return leftValue;
+        return oldValue;
     }
 
-    public void setLeftValue(Object leftValue) {
+    public void setOldValue(Object oldValue) {
 
-        this.leftValue = leftValue;
+        this.oldValue = oldValue;
     }
 
-    public Object getRightValue() {
+    public Object getNewValue() {
 
-        return rightValue;
+        return newValue;
     }
 
-    public void setRightValue(Object rightValue) {
+    public void setNewValue(Object newValue) {
 
-        this.rightValue = rightValue;
+        this.newValue = newValue;
     }
-
 }

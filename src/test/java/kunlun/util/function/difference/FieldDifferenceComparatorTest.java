@@ -3,11 +3,9 @@
  * Kunlun is licensed under the "LICENSE" file in the project's root directory.
  */
 
-package kunlun.data.comparison;
+package kunlun.util.function.difference;
 
 import com.alibaba.fastjson.JSON;
-import kunlun.data.comparison.support.difference.FieldCompareResult;
-import kunlun.data.comparison.support.difference.FieldDifferenceComparator;
 import kunlun.data.mock.MockUtils;
 import kunlun.entity.User;
 import org.junit.Test;
@@ -17,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class FieldDifferenceComparatorTest {
-    private static final FieldDifferenceComparator comparator1 = new FieldDifferenceComparator(Boolean.TRUE);
+    private static final FieldDifferenceComparator comparator1 = new FieldDifferenceComparator(true);
     private static final FieldDifferenceComparator comparator = new FieldDifferenceComparator();
     private static final Logger log = LoggerFactory.getLogger(FieldDifferenceComparatorTest.class);
 
@@ -25,7 +23,7 @@ public class FieldDifferenceComparatorTest {
     public void test1() {
         User user1 = MockUtils.mock(User.class);
         User user2 = MockUtils.mock(User.class);
-        List<FieldCompareResult> list = comparator.compare(user1, user2);
+        List<FieldCompareResult> list = comparator.apply(user1, user2);
         log.info("compare: {}", JSON.toJSONString(list, true));
     }
 
@@ -35,7 +33,7 @@ public class FieldDifferenceComparatorTest {
         User user2 = MockUtils.mock(User.class);
         user2.setUsername(null);
         user2.setPassword(null);
-        List<FieldCompareResult> list = comparator1.compare(user1, user2);
+        List<FieldCompareResult> list = comparator1.apply(user1, user2);
         log.info("compare: {}", JSON.toJSONString(list, true));
     }
 
