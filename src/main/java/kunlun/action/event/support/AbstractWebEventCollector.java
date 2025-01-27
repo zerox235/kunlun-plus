@@ -6,7 +6,6 @@
 package kunlun.action.event.support;
 
 import kunlun.action.event.Event;
-import kunlun.action.event.EventCollector;
 import kunlun.servlet.RequestUtils;
 import kunlun.spring.RequestContextUtils;
 import kunlun.util.StringUtils;
@@ -19,7 +18,7 @@ import java.util.Map;
  * The abstract web event collector.
  * @author Kahle
  */
-public abstract class AbstractWebEventCollector extends EventCollector {
+public abstract class AbstractWebEventCollector extends SimpleEventCollector {
 
     /**
      * Get the value from the event data based on the key.
@@ -110,7 +109,7 @@ public abstract class AbstractWebEventCollector extends EventCollector {
     }
 
     @Override
-    protected void process(Event event) {
+    public void process(Event event) {
         // Filling common properties has already been done.
         // Get the HTTP request and response objects.
         HttpServletResponse response = RequestContextUtils.getResponse();
