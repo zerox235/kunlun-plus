@@ -7,7 +7,7 @@ package kunlun.generator.id.support;
 
 import kunlun.exception.ExceptionUtils;
 import kunlun.util.Assert;
-import kunlun.util.CollectionUtils;
+import kunlun.util.CollUtils;
 import org.springframework.jdbc.core.*;
 import org.springframework.lang.Nullable;
 import org.springframework.transaction.TransactionStatus;
@@ -102,7 +102,7 @@ public class JdbcStringIdGenerator extends AbstractIncrementalIdGenerator {
         String name = getConfig().getName();
         List<Long> longList = query(name);
         Long result;
-        if (CollectionUtils.isNotEmpty(longList)) {
+        if (CollUtils.isNotEmpty(longList)) {
             result = longList.get(ZERO);
             result = result != null
                     ? result + stepLength : stepLength;

@@ -15,7 +15,7 @@ import kunlun.security.SecurityContext;
 import kunlun.security.TokenManager;
 import kunlun.security.UserManager;
 import kunlun.util.Assert;
-import kunlun.util.StringUtils;
+import kunlun.util.StrUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -242,7 +242,7 @@ public abstract class AbstractSecurityContext extends AbstractServletContext imp
 
     public ServiceInfo createServiceInfo() {
         ServiceInfo serviceInfo = new ServiceInfo();
-        serviceInfo.setServerName(StringUtils.isNotBlank(HOST_NAME) ? HOST_NAME : COMPUTER_NAME);
+        serviceInfo.setServerName(StrUtils.isNotBlank(HOST_NAME) ? HOST_NAME : COMPUTER_NAME);
         serviceInfo.setServerAddr(getIpAddress());
         //serviceInfo.setServerPort()
         //serviceInfo.setAppName()

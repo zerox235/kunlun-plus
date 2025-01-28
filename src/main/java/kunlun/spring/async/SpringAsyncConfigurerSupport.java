@@ -6,7 +6,7 @@
 package kunlun.spring.async;
 
 import kunlun.util.Assert;
-import kunlun.util.StringUtils;
+import kunlun.util.StrUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
@@ -53,7 +53,7 @@ public class SpringAsyncConfigurerSupport extends AsyncConfigurerSupport {
         Integer keepAliveSeconds = springAsyncProperties.getKeepAliveSeconds();
         // Build thread pool.
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        if (StringUtils.isNotBlank(threadNamePrefix)) {
+        if (StrUtils.isNotBlank(threadNamePrefix)) {
             executor.setThreadNamePrefix(threadNamePrefix);
         }
         if (corePoolSize != null) {

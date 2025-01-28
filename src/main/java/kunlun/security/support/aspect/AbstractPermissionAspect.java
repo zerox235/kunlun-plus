@@ -14,8 +14,8 @@ import kunlun.security.SecurityUtils;
 import kunlun.security.support.AbstractDataController;
 import kunlun.security.support.AbstractSecurityContext;
 import kunlun.security.support.util.DataScope;
-import kunlun.util.CollectionUtils;
-import kunlun.util.StringUtils;
+import kunlun.util.CollUtils;
+import kunlun.util.StrUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -43,9 +43,9 @@ public abstract class AbstractPermissionAspect extends AbstractAspect {
         String access = permission.access();
         String data   = permission.data();
         String config = permission.config();
-        if (StringUtils.isNotBlank(value)) {
-            access = StringUtils.isBlank(access) ? value : access;
-            data   = StringUtils.isBlank(data) ? value : data;
+        if (StrUtils.isNotBlank(value)) {
+            access = StrUtils.isBlank(access) ? value : access;
+            data   = StrUtils.isBlank(data) ? value : data;
         }
         // Get the current login user information.
         Object userType = SecurityUtils.getUserType();
@@ -65,7 +65,7 @@ public abstract class AbstractPermissionAspect extends AbstractAspect {
             context.setUserGroups(SecurityUtils.getUserGroups("nested"));
             // Build data permission rule.
             SimpleRule rule = null;
-            if (StringUtils.isNotBlank(config)) {
+            if (StrUtils.isNotBlank(config)) {
                 rule = JsonUtils.parseObject(config, SimpleRule.class);
             }
             if (rule == null) { rule = new SimpleRule(); }
@@ -76,7 +76,7 @@ public abstract class AbstractPermissionAspect extends AbstractAspect {
                 if (userRule.getDataScope() != null && DataScope.ALL.equals(userRule.getDataScope())) {
                     rule.setDataScope(userRule.getDataScope());
                 }
-                if (CollectionUtils.isNotEmpty(userRule.getDataConfigs())) {
+                if (CollUtils.isNotEmpty(userRule.getDataConfigs())) {
                     rule.setDataConfigs(userRule.getDataConfigs());
                 }
             }

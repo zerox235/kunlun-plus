@@ -7,8 +7,8 @@ package kunlun.action.nlp.support.similarity;
 
 import kunlun.action.AbstractAction;
 import kunlun.action.nlp.TextSimilarity;
-import kunlun.util.CollectionUtils;
-import kunlun.util.StringUtils;
+import kunlun.util.CollUtils;
+import kunlun.util.StrUtils;
 import org.xm.similarity.text.CosineSimilarity;
 import org.xm.tokenizer.Word;
 
@@ -32,12 +32,12 @@ public class XmTextSimilarityAction extends AbstractAction {
         String text1 = textSimilarity.getText1();
         String text2 = textSimilarity.getText2();
 
-        if (CollectionUtils.isNotEmpty(words1) &&
-                CollectionUtils.isNotEmpty(words2)) {
+        if (CollUtils.isNotEmpty(words1) &&
+                CollUtils.isNotEmpty(words2)) {
             return cosineSimilarity.getSimilarity(convert(words1), convert(words2));
         }
-        else if (StringUtils.isNotBlank(text1) &&
-                StringUtils.isNotBlank(text2)) {
+        else if (StrUtils.isNotBlank(text1) &&
+                StrUtils.isNotBlank(text2)) {
             return cosineSimilarity.getSimilarity(text1, text2);
         }
         else {
@@ -46,7 +46,7 @@ public class XmTextSimilarityAction extends AbstractAction {
     }
 
     protected List<Word> convert(List<String> words) {
-        if (CollectionUtils.isEmpty(words)) { return Collections.emptyList(); }
+        if (CollUtils.isEmpty(words)) { return Collections.emptyList(); }
         List<Word> list = new ArrayList<Word>();
         for (String word : words) {
             list.add(new Word(word));

@@ -8,7 +8,7 @@ package kunlun.action.event.support;
 import kunlun.action.event.Event;
 import kunlun.servlet.RequestUtils;
 import kunlun.spring.RequestContextUtils;
-import kunlun.util.StringUtils;
+import kunlun.util.StrUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +32,7 @@ public abstract class AbstractWebEventCollector extends SimpleEventCollector {
         if (valueObj == null) { return defaultValue; }
         String value = String.valueOf(valueObj);
         trackData.remove(key);
-        return StringUtils.isNotBlank(value) ? value : defaultValue;
+        return StrUtils.isNotBlank(value) ? value : defaultValue;
     }
 
     /**
@@ -45,13 +45,13 @@ public abstract class AbstractWebEventCollector extends SimpleEventCollector {
         // The client app id.
         String clientAppIdName = takeOut(event.getData(), "clientAppIdName", "appId");
         String clientAppId = request.getHeader(clientAppIdName);
-        if (StringUtils.isNotBlank(clientAppId)) {
+        if (StrUtils.isNotBlank(clientAppId)) {
             event.putData("clientAppId", clientAppId);
         }
         // The client device id.
         String clientDeviceIdName = takeOut(event.getData(), "clientDeviceIdName", "deviceId");
         String clientDeviceId = request.getHeader(clientDeviceIdName);
-        if (StringUtils.isNotBlank(clientDeviceId)) {
+        if (StrUtils.isNotBlank(clientDeviceId)) {
             event.putData("clientDeviceId", clientDeviceId);
         }
         // The client net address.
@@ -70,7 +70,7 @@ public abstract class AbstractWebEventCollector extends SimpleEventCollector {
         // The token.
         String tokenName = takeOut(event.getData(), "tokenName", "authorization");
         String token = request.getHeader(tokenName);
-        if (StringUtils.isNotBlank(token)) {
+        if (StrUtils.isNotBlank(token)) {
             event.putData("token", token);
         }
     }

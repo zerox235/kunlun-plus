@@ -2,14 +2,11 @@ package kunlun.jdbc;
 
 import kunlun.data.bean.BeanUtils;
 import kunlun.exception.ExceptionUtils;
-import kunlun.jdbc.JdbcAtom;
-import kunlun.jdbc.JdbcCallback;
-import kunlun.jdbc.JdbcException;
 import kunlun.logging.Logger;
 import kunlun.logging.LoggerFactory;
 import kunlun.util.Assert;
 import kunlun.util.CloseUtils;
-import kunlun.util.StringUtils;
+import kunlun.util.StrUtils;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -139,7 +136,7 @@ public class DatabaseClient {
             String[] keys = new String[count];
             for (int i = ZERO; i < count; i++) {
                 String key = metaData.getColumnName(i + ONE);
-                keys[i] = StringUtils.underlineToCamel(key);
+                keys[i] = StrUtils.underlineToCamel(key);
             }
             // Handle result to map.
             List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();

@@ -8,7 +8,7 @@ package kunlun.cache.support;
 import kunlun.cache.AbstractCache;
 import kunlun.data.bean.BeanUtils;
 import kunlun.util.Assert;
-import kunlun.util.CollectionUtils;
+import kunlun.util.CollUtils;
 import kunlun.util.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static kunlun.common.constant.Symbols.COLON;
-import static kunlun.util.ObjectUtils.cast;
+import static kunlun.util.ObjUtils.cast;
 
 public class RedisTemplateCache extends AbstractCache {
     private static final Logger log = LoggerFactory.getLogger(RedisTemplateCache.class);
@@ -164,7 +164,7 @@ public class RedisTemplateCache extends AbstractCache {
 
     @Override
     public void removeAll(Collection<?> keys) {
-        if (CollectionUtils.isEmpty(keys)) { return; }
+        if (CollUtils.isEmpty(keys)) { return; }
         List<String> redisKeys = new ArrayList<String>();
         for (Object key : keys) {
             redisKeys.add(getRedisKey(key));

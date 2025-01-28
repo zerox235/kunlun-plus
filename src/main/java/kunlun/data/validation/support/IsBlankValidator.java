@@ -7,7 +7,7 @@ package kunlun.data.validation.support;
 
 import kunlun.data.validation.BooleanValidator;
 import kunlun.util.Assert;
-import kunlun.util.StringUtils;
+import kunlun.util.StrUtils;
 
 /**
  * The is blank validator.
@@ -20,7 +20,7 @@ public class IsBlankValidator implements BooleanValidator {
         if (target == null) { return true; }
         Assert.isInstanceOf(CharSequence.class, target
                 , "The argument must be of type char sequence. ");
-        return StringUtils.isBlank((CharSequence) target);
+        return StrUtils.isBlank((CharSequence) target);
     }
 
 }

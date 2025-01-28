@@ -15,7 +15,7 @@ import kunlun.data.tuple.Pair;
 import kunlun.exception.ExceptionUtils;
 import kunlun.util.Assert;
 import kunlun.util.CloseUtils;
-import kunlun.util.StringUtils;
+import kunlun.util.StrUtils;
 
 import java.io.Closeable;
 import java.io.File;
@@ -26,7 +26,7 @@ import static kunlun.common.constant.Charsets.STR_UTF_8;
 import static kunlun.common.constant.Numbers.*;
 import static kunlun.common.constant.Symbols.DOT;
 import static kunlun.common.constant.Symbols.SLASH;
-import static kunlun.util.ObjectUtils.cast;
+import static kunlun.util.ObjUtils.cast;
 
 /**
  * The freemarker text renderer.
@@ -78,7 +78,7 @@ public class FreemarkerTextRenderer extends AbstractTextRenderer {
                 Pair<String, String> pair = cast(template);
                 String encoding = pair.getRight();
                 String path = pair.getLeft();
-                if (StringUtils.isBlank(encoding)) { encoding = STR_UTF_8; }
+                if (StrUtils.isBlank(encoding)) { encoding = STR_UTF_8; }
                 Template tp = configuration.getTemplate(path, encoding);
                 tp.process(data, writer);
             }

@@ -18,8 +18,8 @@ import kunlun.data.json.JsonUtils;
 import kunlun.data.tuple.KeyValue;
 import kunlun.data.tuple.KeyValueImpl;
 import kunlun.time.DateUtils;
-import kunlun.util.CollectionUtils;
-import kunlun.util.StringUtils;
+import kunlun.util.CollUtils;
+import kunlun.util.StrUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -65,7 +65,7 @@ public abstract class AbstractScriptBasedHutoolHttpInvokeAction extends Abstract
         }
 
         Collection<KeyValue<String, Object>> parameters = convertedInput.getParameters();
-        if (CollectionUtils.isNotEmpty(parameters)) {
+        if (CollUtils.isNotEmpty(parameters)) {
             for (KeyValue<String, Object> keyValue : parameters) {
                 request.form(keyValue.getKey(), keyValue.getValue());
             }
@@ -112,7 +112,7 @@ public abstract class AbstractScriptBasedHutoolHttpInvokeAction extends Abstract
         // RawObject must init in doInvoke.
         if (outputType == 3) {
             String rawString = rawOutput.getRawString();
-            boolean notBlank = StringUtils.isNotBlank(rawString);
+            boolean notBlank = StrUtils.isNotBlank(rawString);
             if (notBlank && JsonUtils.isJsonObject(rawString)) {
                 rawOutput.setRawObject(JsonUtils.parseObject(rawString, Dict.class));
             }

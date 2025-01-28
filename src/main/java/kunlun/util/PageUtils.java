@@ -60,7 +60,7 @@ public class PageUtils {
         if (pageSize == null) { pageSize = defaultPageSize; }
         if (pageNum == null) { pageNum = defaultPageNum; }
         PageHelper.startPage(pageNum, pageSize, doCount);
-        if (StringUtils.isNotBlank(orderBy)) {
+        if (StrUtils.isNotBlank(orderBy)) {
             PageHelper.orderBy(orderBy);
         }
     }

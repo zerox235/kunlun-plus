@@ -12,7 +12,7 @@ import kunlun.action.nlp.SegmentResult;
 import kunlun.action.nlp.TextSegment;
 import kunlun.action.nlp.Word;
 import kunlun.util.Assert;
-import kunlun.util.CollectionUtils;
+import kunlun.util.CollUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class HankcsSegmentAction extends AbstractAction {
         String text = textSegment.getText();
         Assert.notBlank(text, "Parameter \"TextSegment.text\" must not blank. ");
         List<Term> termList = HanLP.segment(text);
-        if (CollectionUtils.isEmpty(termList)) { return null; }
+        if (CollUtils.isEmpty(termList)) { return null; }
         List<Word> list = new ArrayList<Word>();
         for (Term term : termList) {
             if (term == null) { continue; }
