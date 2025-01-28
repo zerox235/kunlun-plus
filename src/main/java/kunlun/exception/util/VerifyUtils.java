@@ -9,9 +9,9 @@ import kunlun.data.CodeDefinition;
 import kunlun.data.validation.ValidatorUtils;
 import kunlun.exception.BusinessException;
 import kunlun.util.ArrayUtils;
-import kunlun.util.CollectionUtils;
+import kunlun.util.CollUtils;
 import kunlun.util.MapUtils;
-import kunlun.util.StringUtils;
+import kunlun.util.StrUtils;
 
 import java.util.Collection;
 import java.util.Map;
@@ -127,26 +127,26 @@ public class VerifyUtils {
 
 
     public static void isEmpty(Collection<?> collection, CodeDefinition errorCode, Object... arguments) {
-        if (CollectionUtils.isNotEmpty(collection)) {
+        if (CollUtils.isNotEmpty(collection)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void isEmpty(Collection<?> collection, String message) {
-        if (CollectionUtils.isNotEmpty(collection)) {
+        if (CollUtils.isNotEmpty(collection)) {
             throw new BusinessException(message);
         }
     }
 
 
     public static void notEmpty(Collection<?> collection, CodeDefinition errorCode, Object... arguments) {
-        if (CollectionUtils.isEmpty(collection)) {
+        if (CollUtils.isEmpty(collection)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void notEmpty(Collection<?> collection, String message) {
-        if (CollectionUtils.isEmpty(collection)) {
+        if (CollUtils.isEmpty(collection)) {
             throw new BusinessException(message);
         }
     }
@@ -179,52 +179,52 @@ public class VerifyUtils {
 
 
     public static void isEmpty(String text, CodeDefinition errorCode, Object... arguments) {
-        if (StringUtils.isNotEmpty(text)) {
+        if (StrUtils.isNotEmpty(text)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void isEmpty(String text, String message) {
-        if (StringUtils.isNotEmpty(text)) {
+        if (StrUtils.isNotEmpty(text)) {
             throw new BusinessException(message);
         }
     }
 
 
     public static void notEmpty(String text, CodeDefinition errorCode, Object... arguments) {
-        if (StringUtils.isEmpty(text)) {
+        if (StrUtils.isEmpty(text)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void notEmpty(String text, String message) {
-        if (StringUtils.isEmpty(text)) {
+        if (StrUtils.isEmpty(text)) {
             throw new BusinessException(message);
         }
     }
 
 
     public static void isBlank(String text, CodeDefinition errorCode, Object... arguments) {
-        if (StringUtils.isNotBlank(text)) {
+        if (StrUtils.isNotBlank(text)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void isBlank(String text, String message) {
-        if (StringUtils.isNotBlank(text)) {
+        if (StrUtils.isNotBlank(text)) {
             throw new BusinessException(message);
         }
     }
 
 
     public static void notBlank(String text, CodeDefinition errorCode, Object... arguments) {
-        if (StringUtils.isBlank(text)) {
+        if (StrUtils.isBlank(text)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void notBlank(String text, String message) {
-        if (StringUtils.isBlank(text)) {
+        if (StrUtils.isBlank(text)) {
             throw new BusinessException(message);
         }
     }

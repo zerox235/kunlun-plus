@@ -6,7 +6,7 @@
 package kunlun.data.desensitize.support;
 
 import kunlun.data.desensitize.Desensitizer;
-import kunlun.util.StringUtils;
+import kunlun.util.StrUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,7 +22,7 @@ public class WithPhoneNumberDesensitizer implements Desensitizer {
 
     public WithPhoneNumberDesensitizer(String regex, String cover) {
         this.phoneNumberMasker = new PhoneNumberDesensitizer(cover);
-        if (StringUtils.isBlank(regex)) {
+        if (StrUtils.isBlank(regex)) {
             regex = "1[3|4|5|6|7|8|9]\\d{9}";
         }
         this.pattern = Pattern.compile(regex);
@@ -30,7 +30,7 @@ public class WithPhoneNumberDesensitizer implements Desensitizer {
 
     @Override
     public String desensitize(CharSequence data) {
-        if (StringUtils.isBlank(data)) {
+        if (StrUtils.isBlank(data)) {
             return String.valueOf(data);
         }
         String dataTmp = String.valueOf(data);
@@ -38,7 +38,7 @@ public class WithPhoneNumberDesensitizer implements Desensitizer {
         while (matcher.find()) {
             String phoneNumber = matcher.group();
             String mask = phoneNumberMasker.desensitize(phoneNumber);
-            dataTmp = StringUtils.replace(dataTmp, phoneNumber, mask);
+            dataTmp = StrUtils.replace(dataTmp, phoneNumber, mask);
         }
         return dataTmp;
     }

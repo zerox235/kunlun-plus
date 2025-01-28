@@ -58,7 +58,7 @@ public class PinyinUtils {
     }
 
     public static String convertChineseToPinyin(String inputChinese, boolean capitalize, HanyuPinyinOutputFormat outputFormat) {
-        if (StringUtils.isBlank(inputChinese)) { return inputChinese; }
+        if (StrUtils.isBlank(inputChinese)) { return inputChinese; }
         StringBuilder result = new StringBuilder();
         char[] chineseCharArray = inputChinese.toCharArray();
         for (char singleChinese : chineseCharArray) {
@@ -72,7 +72,7 @@ public class PinyinUtils {
             }
             String pinyin = pinyinArray[ZERO];
             if (capitalize) {
-                pinyin = StringUtils.capitalize(pinyin);
+                pinyin = StrUtils.capitalize(pinyin);
             }
             result.append(pinyin);
         }

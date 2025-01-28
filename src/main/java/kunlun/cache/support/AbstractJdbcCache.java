@@ -10,7 +10,7 @@ import kunlun.data.Dict;
 import kunlun.data.bean.BeanUtils;
 import kunlun.data.serialize.support.Base64TextSerializer;
 import kunlun.util.Assert;
-import kunlun.util.StringUtils;
+import kunlun.util.StrUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,19 +36,19 @@ public abstract class AbstractJdbcCache extends AbstractCache {
             cacheConfig.setSerializer(new Base64TextSerializer());
         }
         // Process the table fields.
-        if (StringUtils.isBlank(cacheConfig.getTableName())) {
+        if (StrUtils.isBlank(cacheConfig.getTableName())) {
             cacheConfig.setTableName("t_cache");
         }
-        if (StringUtils.isBlank(cacheConfig.getFieldCacheName())) {
+        if (StrUtils.isBlank(cacheConfig.getFieldCacheName())) {
             cacheConfig.setFieldCacheName("name");
         }
-        if (StringUtils.isBlank(cacheConfig.getFieldCacheKey())) {
+        if (StrUtils.isBlank(cacheConfig.getFieldCacheKey())) {
             cacheConfig.setFieldCacheKey("key");
         }
-        if (StringUtils.isBlank(cacheConfig.getFieldCacheValue())) {
+        if (StrUtils.isBlank(cacheConfig.getFieldCacheValue())) {
             cacheConfig.setFieldCacheValue("value");
         }
-        if (StringUtils.isBlank(cacheConfig.getFieldExpireTime())) {
+        if (StrUtils.isBlank(cacheConfig.getFieldExpireTime())) {
             cacheConfig.setFieldExpireTime("expire_time");
         }
     }
@@ -96,7 +96,7 @@ public abstract class AbstractJdbcCache extends AbstractCache {
         }
         // value
         String valueStr = record.getString(getConfig().getFieldCacheValue());
-        if (StringUtils.isBlank(valueStr)) { return null; }
+        if (StrUtils.isBlank(valueStr)) { return null; }
         return getConfig().getSerializer().deserialize(valueStr);
     }
 

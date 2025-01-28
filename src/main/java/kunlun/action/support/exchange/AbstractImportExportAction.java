@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.concurrent.Future;
 
 import static kunlun.common.constant.Numbers.*;
-import static kunlun.util.ObjectUtils.cast;
+import static kunlun.util.ObjUtils.cast;
 
 /**
  * The abstract import and export action.

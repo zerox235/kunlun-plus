@@ -15,7 +15,7 @@ import kunlun.action.support.exchange.ExportHandler;
 import kunlun.data.collect.PageArrayList;
 import kunlun.exception.ExceptionUtils;
 import kunlun.util.Assert;
-import kunlun.util.StringUtils;
+import kunlun.util.StrUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import static kunlun.common.constant.Numbers.*;
-import static kunlun.util.ObjectUtils.cast;
+import static kunlun.util.ObjUtils.cast;
 
 /**
  * The abstract hutool big excel export action.
@@ -91,7 +91,7 @@ public abstract class AbstractHutoolBigExcelExportAction<P, D>
         Assert.notBlank(context.getModule(), "Parameter \"module\" must not blank. ");
         // Default value processing.
         if (context.getAsync() == null) { context.setAsync(false); }
-        if (StringUtils.isBlank(context.getResultMessage()) && context.getAsync()) {
+        if (StrUtils.isBlank(context.getResultMessage()) && context.getAsync()) {
             context.setResultMessage("Please wait for a moment while data is being exported! ");
         }
         // End.

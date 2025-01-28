@@ -12,9 +12,9 @@ import kunlun.action.support.exchange.ImportHandler;
 import kunlun.data.bean.BeanUtils;
 import kunlun.exception.ExceptionUtils;
 import kunlun.util.Assert;
-import kunlun.util.CollectionUtils;
+import kunlun.util.CollUtils;
 import kunlun.util.MapUtils;
-import kunlun.util.StringUtils;
+import kunlun.util.StrUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import static kunlun.common.constant.Numbers.*;
-import static kunlun.util.ObjectUtils.cast;
+import static kunlun.util.ObjUtils.cast;
 
 /**
  * The abstract hutool small excel import action.
@@ -105,7 +105,7 @@ public abstract class AbstractHutoolSmallExcelImportAction<P, D>
         Assert.notNull(exchangeClass, "Parameter \"exchangeClass\" must not null. ");
         // Default value processing.
         if (context.getAsync() == null) { context.setAsync(false); }
-        if (StringUtils.isBlank(context.getResultMessage()) && context.getAsync()) {
+        if (StrUtils.isBlank(context.getResultMessage()) && context.getAsync()) {
             context.setResultMessage("Please wait for a moment while the data is being imported! ");
         }
         // Read the data.
@@ -140,7 +140,7 @@ public abstract class AbstractHutoolSmallExcelImportAction<P, D>
             List<D> parsedData = parseData(nowContext, null, rawData);
             if (nowContext.getTotalCount() == null) {
                 nowContext.setTotalCount(0L);
-                if (CollectionUtils.isNotEmpty(parsedData)) {
+                if (CollUtils.isNotEmpty(parsedData)) {
                     Integer size = parsedData.size();
                     nowContext.setTotalCount(size.longValue());
                 }

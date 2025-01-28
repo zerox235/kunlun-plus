@@ -8,8 +8,8 @@ package kunlun.spring.feign.support;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import kunlun.spring.RequestContextUtils;
-import kunlun.util.CollectionUtils;
-import kunlun.util.StringUtils;
+import kunlun.util.CollUtils;
+import kunlun.util.StrUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -35,20 +35,20 @@ public class FeignRequestTransferInterceptor implements RequestInterceptor {
      */
     protected void transferHeaders(RequestTemplate feignRequest, List<String> headerNames) {
         // Transfer request headers.
-        if (CollectionUtils.isEmpty(headerNames)) { return; }
+        if (CollUtils.isEmpty(headerNames)) { return; }
         HttpServletRequest request = RequestContextUtils.getRequest();
         if (request == null) { return; }
         Map<String, Collection<String>> headers = new LinkedHashMap<String, Collection<String>>();
         for (String headerName : headerNames) {
-            if (StringUtils.isBlank(headerName)) { continue; }
+            if (StrUtils.isBlank(headerName)) { continue; }
             Enumeration<String> values = request.getHeaders(headerName);
-            if (CollectionUtils.isEmpty(values)) { continue; }
+            if (CollUtils.isEmpty(values)) { continue; }
             Collection<String> collection = headers.get(headerName);
             if (collection == null) {
                 collection = new ArrayList<String>();
                 headers.put(headerName, collection);
             }
-            CollectionUtils.addAll(collection, values);
+            CollUtils.addAll(collection, values);
         }
         headers.putAll(feignRequest.headers());
         feignRequest.headers(headers);

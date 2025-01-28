@@ -13,7 +13,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import kunlun.exception.ExceptionUtils;
 import kunlun.io.util.FilenameUtils;
 import kunlun.util.Assert;
-import kunlun.util.StringUtils;
+import kunlun.util.StrUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -292,7 +292,7 @@ public class Barcode {
     public boolean encodeToFile(String content, File file) throws WriterException, IOException {
         BufferedImage image = encode(content);
         String extension = FilenameUtils.getExtension(file.toString());
-        if (StringUtils.isBlank(extension)) {
+        if (StrUtils.isBlank(extension)) {
             file = new File(file.toString(), DEFAULT_FILE_EXTENSION);
             extension = FilenameUtils.getExtension(file.toString());
         }

@@ -21,7 +21,7 @@ import java.util.Map;
 
 import static kunlun.common.constant.Symbols.EMPTY_STRING;
 import static kunlun.common.constant.Symbols.QUESTION_MARK;
-import static kunlun.util.StringUtils.isNotBlank;
+import static kunlun.util.StrUtils.isNotBlank;
 
 /**
  * The configurable feign client.

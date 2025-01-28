@@ -11,8 +11,8 @@ import kunlun.security.SecurityUtils;
 import kunlun.security.support.AbstractSecurityContext;
 import kunlun.security.support.AbstractSqlBasedDataController;
 import kunlun.util.Assert;
-import kunlun.util.CollectionUtils;
-import kunlun.util.StringUtils;
+import kunlun.util.CollUtils;
+import kunlun.util.StrUtils;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.NullValue;
 import net.sf.jsqlparser.expression.StringValue;
@@ -170,7 +170,7 @@ public abstract class AbstractJSqlParserDataController extends AbstractSqlBasedD
         FromItem fromItem = plainSelect.getFromItem();
         String nowFromTable = fromItem instanceof Table
                 ? ((Table) fromItem).getName() : (fromItem != null ? String.valueOf(fromItem) : null);
-        if (StringUtils.isBlank(nowFromTable)) { return; }
+        if (StrUtils.isBlank(nowFromTable)) { return; }
         //
         Collection<ColumnCfg> configs = new ArrayList<ColumnCfg>();
         switch (rule.getDataScope()) {
@@ -180,12 +180,12 @@ public abstract class AbstractJSqlParserDataController extends AbstractSqlBasedD
                 if (dataConfigs == null) { dataConfigs = emptyList(); }
                 for (DataConfig dataCfg : dataConfigs) {
                     String fromTable = dataCfg.getFromTable();
-                    if (StringUtils.isNotBlank(fromTable) &&
+                    if (StrUtils.isNotBlank(fromTable) &&
                             !nowFromTable.equals(fromTable)) {
                         continue;
                     }
                     Collection<String> userIdFields = dataCfg.getUserIdFields();
-                    if (CollectionUtils.isEmpty(userIdFields)) {
+                    if (CollUtils.isEmpty(userIdFields)) {
                         userIdFields = getDefaultUserIdFields();
                     }
                     for (String str : userIdFields) {
@@ -199,7 +199,7 @@ public abstract class AbstractJSqlParserDataController extends AbstractSqlBasedD
                 boolean isSkip = false;
                 for (DataConfig dataCfg : dataConfigs) {
                     String tableName = dataCfg.getFromTable();
-                    if (StringUtils.isNotBlank(tableName) &&
+                    if (StrUtils.isNotBlank(tableName) &&
                             !nowFromTable.equals(tableName)) {
                         isSkip = true; break;
                     }
@@ -213,12 +213,12 @@ public abstract class AbstractJSqlParserDataController extends AbstractSqlBasedD
                 if (dataConfigs == null) { dataConfigs = emptyList(); }
                 for (DataConfig dataCfg : dataConfigs) {
                     String tableName = dataCfg.getFromTable();
-                    if (StringUtils.isNotBlank(tableName) &&
+                    if (StrUtils.isNotBlank(tableName) &&
                             !nowFromTable.equals(tableName)) {
                         continue;
                     }
                     Collection<String> orgIdFields = dataCfg.getOrgIdFields();
-                    if (CollectionUtils.isEmpty(orgIdFields)) {
+                    if (CollUtils.isEmpty(orgIdFields)) {
                         orgIdFields = getDefaultOrgIdFields();
                     }
                     for (String str : orgIdFields) {

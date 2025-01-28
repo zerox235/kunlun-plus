@@ -7,7 +7,7 @@ package kunlun.generator.id.support;
 
 import kunlun.time.DateUtils;
 import kunlun.util.Assert;
-import kunlun.util.StringUtils;
+import kunlun.util.StrUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
@@ -30,7 +30,7 @@ public class RedisIncrementalIdGenerator extends AbstractIncrementalIdGenerator 
                 , "Parameter \"stringRedisTemplate\" must not null. ");
         this.stringRedisTemplate = stringRedisTemplate;
         String redisKeyPrefix = config.getRedisKeyPrefix();
-        if (StringUtils.isBlank(redisKeyPrefix)) {
+        if (StrUtils.isBlank(redisKeyPrefix)) {
             config.setRedisKeyPrefix("_identifier:");
         }
     }

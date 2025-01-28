@@ -6,7 +6,7 @@
 package kunlun.spring.elasticsearch;
 
 import kunlun.util.Assert;
-import kunlun.util.StringUtils;
+import kunlun.util.StrUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.Credentials;
@@ -57,13 +57,13 @@ public class RestClientAutoConfiguration {
         HttpHost[] hosts = new HttpHost[size];
         for (int i = ZERO; i < size; i++) {
             String uri = uris.get(i);
-            if (StringUtils.isBlank(uri)) {
+            if (StrUtils.isBlank(uri)) {
                 continue;
             }
             hosts[i] = HttpHost.create(uri);
         }
         RestClientBuilder restClientBuilder = RestClient.builder(hosts);
-        if (StringUtils.isNotBlank(username)) {
+        if (StrUtils.isNotBlank(username)) {
             final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
             Credentials credentials = new UsernamePasswordCredentials(username, password);
             credentialsProvider.setCredentials(AuthScope.ANY, credentials);

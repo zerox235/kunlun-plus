@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 
-import static kunlun.util.ObjectUtils.cast;
+import static kunlun.util.ObjUtils.cast;
 
 /**
  * The beetl text renderer.

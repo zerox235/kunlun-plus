@@ -391,12 +391,12 @@ public class Excel extends BinaryFile implements Table {
         boolean isFirst = true;
         for (int i = columnStartNumber; i <= lastRowNumber; i++) {
             List<Object> rowContent = getRowContent(i);
-            if (CollectionUtils.isEmpty(rowContent)) { continue; }
+            if (CollUtils.isEmpty(rowContent)) { continue; }
             if (isFirst) {
                 for (Object cellObj : rowContent) {
                     String cell = cellObj == null ? EMPTY_STRING : cellObj + EMPTY_STRING;
                     String property = haveHeaders ? headersMapping.get(cell) : cell;
-                    property = StringUtils.isNotBlank(property) ? property : cell;
+                    property = StrUtils.isNotBlank(property) ? property : cell;
                     propertyList.add(property);
                 }
                 isFirst = false;

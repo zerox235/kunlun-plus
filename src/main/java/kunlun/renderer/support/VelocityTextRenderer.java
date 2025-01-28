@@ -8,7 +8,7 @@ package kunlun.renderer.support;
 import kunlun.data.tuple.Pair;
 import kunlun.util.Assert;
 import kunlun.util.CloseUtils;
-import kunlun.util.StringUtils;
+import kunlun.util.StrUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
@@ -24,7 +24,7 @@ import java.util.Properties;
 
 import static kunlun.common.constant.Charsets.STR_DEFAULT_CHARSET;
 import static kunlun.common.constant.Charsets.STR_UTF_8;
-import static kunlun.util.ObjectUtils.cast;
+import static kunlun.util.ObjUtils.cast;
 import static org.apache.velocity.app.Velocity.FILE_RESOURCE_LOADER_CACHE;
 import static org.apache.velocity.app.Velocity.RESOURCE_LOADER;
 
@@ -123,7 +123,7 @@ public class VelocityTextRenderer extends AbstractTextRenderer {
             else if (template instanceof Pair) {
                 Pair<String, String> pair = cast(template);
                 String encoding = pair.getRight();
-                if (StringUtils.isBlank(encoding)) { encoding = STR_UTF_8; }
+                if (StrUtils.isBlank(encoding)) { encoding = STR_UTF_8; }
                 String path = pair.getLeft();
                 if (isInit) {
                     Velocity.mergeTemplate(path, encoding, context, writer);

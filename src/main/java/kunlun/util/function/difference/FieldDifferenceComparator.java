@@ -11,7 +11,7 @@ import kunlun.exception.ExceptionUtils;
 import kunlun.reflect.ReflectUtils;
 import kunlun.util.ArrayUtils;
 import kunlun.util.Assert;
-import kunlun.util.ObjectUtils;
+import kunlun.util.ObjUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class FieldDifferenceComparator implements BiFunction<Object, Object, Lis
 
     protected boolean equals(Object oldValue, Object newValue) {
 
-        return ObjectUtils.equals(oldValue, newValue);
+        return ObjUtils.equals(oldValue, newValue);
     }
 
     @Override

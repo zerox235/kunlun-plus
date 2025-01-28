@@ -5,8 +5,8 @@
 
 package kunlun.spring.gateway;
 
-import kunlun.util.CollectionUtils;
-import kunlun.util.StringUtils;
+import kunlun.util.CollUtils;
+import kunlun.util.StrUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 
@@ -20,7 +20,7 @@ public abstract class AbstractFilter {
 
     protected String getHeader(HttpHeaders headers, String headerName) {
         List<String> list = headers.get(headerName);
-        if (CollectionUtils.isEmpty(list)) { return null; }
+        if (CollUtils.isEmpty(list)) { return null; }
         // Concat.
         StringBuilder builder = new StringBuilder();
         boolean allIsBlank = true, first = true;
@@ -29,7 +29,7 @@ public abstract class AbstractFilter {
             if (first) { first = false; }
             else { builder.append(COMMA); }
             // Handle blank.
-            boolean isBlank = StringUtils.isBlank(str);
+            boolean isBlank = StrUtils.isBlank(str);
             if (isBlank) { continue; }
             else { allIsBlank = false; }
             // Handle append.
@@ -42,22 +42,22 @@ public abstract class AbstractFilter {
         if (request == null) { return null; }
         HttpHeaders headers = request.getHeaders();
         String address = getHeader(headers, "X-Forwarded-For");
-        if(StringUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
+        if(StrUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
             address = getHeader(headers, "X-Real-IP");
         }
-        if(StringUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
+        if(StrUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
             address = getHeader(headers, "Proxy-Client-IP");
         }
-        if(StringUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
+        if(StrUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
             address = getHeader(headers, "WL-Proxy-Client-IP");
         }
-        if(StringUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
+        if(StrUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
             address = getHeader(headers, "HTTP_CLIENT_IP");
         }
-        if(StringUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
+        if(StrUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
             address = getHeader(headers, "HTTP_X_FORWARDED_FOR");
         }
-        if(StringUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
+        if(StrUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
             address = String.valueOf(request.getRemoteAddress());
         }
         return address;
@@ -78,9 +78,9 @@ public abstract class AbstractFilter {
         builder.append("request-path:   ").append(path).append("\n");
         builder.append("remote-address: ").append(remoteAddress).append("\n");
         builder.append("real-address:   ").append(realAddress).append("\n");
-        if (CollectionUtils.isNotEmpty(headerNames)) {
+        if (CollUtils.isNotEmpty(headerNames)) {
             for (String headerName : headerNames) {
-                if (StringUtils.isBlank(headerName)) { continue; }
+                if (StrUtils.isBlank(headerName)) { continue; }
                 String header = getHeader(headers, headerName);
                 // Build header name.
                 StringBuilder str = new StringBuilder(headerName + ":");

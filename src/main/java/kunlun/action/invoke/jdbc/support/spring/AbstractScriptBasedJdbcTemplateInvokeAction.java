@@ -11,8 +11,8 @@ import kunlun.common.Page;
 import kunlun.data.Array;
 import kunlun.data.Dict;
 import kunlun.data.bean.BeanUtils;
-import kunlun.util.CollectionUtils;
-import kunlun.util.StringUtils;
+import kunlun.util.CollUtils;
+import kunlun.util.StrUtils;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.util.Collection;
@@ -21,7 +21,7 @@ import java.util.Map;
 
 import static kunlun.common.constant.Numbers.*;
 import static kunlun.util.ArrayUtils.toList;
-import static kunlun.util.CollectionUtils.toArray;
+import static kunlun.util.CollUtils.toArray;
 
 public abstract class AbstractScriptBasedJdbcTemplateInvokeAction extends AbstractScriptBasedJdbcInvokeAction {
 
@@ -53,7 +53,7 @@ public abstract class AbstractScriptBasedJdbcTemplateInvokeAction extends Abstra
         // Extract params and fill.
         Dict dict = Dict.of(params);
         int pageSize = dict.getInteger("pageSize", TEN);
-        if (StringUtils.isBlank(dict.getString("scrollId"))) {
+        if (StrUtils.isBlank(dict.getString("scrollId"))) {
             params.put("scrollId", STR_ZERO);
         }
         // Query data.
@@ -61,8 +61,8 @@ public abstract class AbstractScriptBasedJdbcTemplateInvokeAction extends Abstra
         List<Map<String, Object>> mapList = getJdbcTemplate().queryForList(querySql, params);
         // Build result.
         Object idObj = null;
-        if (CollectionUtils.isNotEmpty(mapList)) {
-            idObj = CollectionUtils.getLast(mapList).get("id");
+        if (CollUtils.isNotEmpty(mapList)) {
+            idObj = CollUtils.getLast(mapList).get("id");
         }
         return Page.of(idObj != null ? String.valueOf(idObj) : null, pageSize, mapList);
     }
