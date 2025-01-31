@@ -3,9 +3,11 @@
  * Kunlun is licensed under the "LICENSE" file in the project's root directory.
  */
 
-package kunlun.message.support.delay;
+package kunlun.action.message.support.redisson;
 
 import kunlun.message.MessageListener;
+import kunlun.message.model.DelayMessage;
+import kunlun.message.model.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,8 +15,8 @@ import org.slf4j.LoggerFactory;
  * The abstract classic delay message listener.
  * @author Kahle
  */
-public abstract class AbstractClassicDelayMessageListener implements MessageListener {
-    private static final Logger log = LoggerFactory.getLogger(AbstractClassicDelayMessageListener.class);
+public abstract class AbstractDelayMessageListener implements MessageListener {
+    private static final Logger log = LoggerFactory.getLogger(AbstractDelayMessageListener.class);
 
     /**
      * Get the delay message listener's topic.
@@ -29,9 +31,9 @@ public abstract class AbstractClassicDelayMessageListener implements MessageList
     public abstract void process(DelayMessage message);
 
     @Override
-    public Object onMessage(Object data) {
+    public Object onMessage(Message message) {
         try {
-            process((DelayMessage) data);
+            process((DelayMessage) message);
         }
         catch (Exception e) {
             log.error("Processing the received message error! ", e);

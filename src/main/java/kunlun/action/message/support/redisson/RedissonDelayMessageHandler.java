@@ -3,13 +3,17 @@
  * Kunlun is licensed under the "LICENSE" file in the project's root directory.
  */
 
-package kunlun.message.support.delay.redisson;
+package kunlun.action.message.support.redisson;
 
+import kunlun.action.message.AbstractMessageHandler;
+import kunlun.data.Dict;
 import kunlun.data.tuple.Pair;
 import kunlun.exception.ExceptionUtils;
 import kunlun.message.MessageListener;
-import kunlun.message.support.AbstractClassicMessageHandler;
-import kunlun.message.support.delay.DelayMessage;
+import kunlun.message.model.DelayMessage;
+import kunlun.message.model.Message;
+import kunlun.message.model.Result;
+import kunlun.message.model.Subscribe;
 import kunlun.time.DateUtils;
 import kunlun.util.Assert;
 import kunlun.util.ThreadUtils;
@@ -19,7 +23,7 @@ import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -31,32 +35,32 @@ import java.util.function.Consumer;
  * The redisson delay message handler.
  * @author Kahle
  */
-public class RedissonDelayMessageHandler extends AbstractClassicMessageHandler {
+public class RedissonDelayMessageHandler extends AbstractMessageHandler {
     protected static Logger log = LoggerFactory.getLogger(RedissonDelayMessageHandler.class);
     protected static final Long DEFAULT_SLEEP_TIME = 500L;
+    protected final Map<String, QueuePair> delayedQueues;
     protected final Boolean ignoreException;
     protected final Long    sleepTimeWhenRejected;
-    protected Map<String, QueuePair> delayedQueues;
-    protected ExecutorService executorService;
-    protected RedissonClient redissonClient;
+    protected final ExecutorService executorService;
+    protected final RedissonClient  redissonClient;
 
-    public RedissonDelayMessageHandler(RedissonClient redissonClient,
+    public RedissonDelayMessageHandler(RedissonClient  redissonClient,
                                        ExecutorService executorService) {
 
         this(redissonClient, executorService, null, null);
     }
 
-    public RedissonDelayMessageHandler(RedissonClient redissonClient,
+    public RedissonDelayMessageHandler(RedissonClient  redissonClient,
                                        ExecutorService executorService,
-                                       Long sleepTimeWhenRejected,
+                                       Long    sleepTimeWhenRejected,
                                        Boolean ignoreException) {
         this(redissonClient, executorService, sleepTimeWhenRejected
                 , ignoreException, new ConcurrentHashMap<String, QueuePair>());
     }
 
-    protected RedissonDelayMessageHandler(RedissonClient redissonClient,
+    protected RedissonDelayMessageHandler(RedissonClient  redissonClient,
                                           ExecutorService executorService,
-                                          Long sleepTimeWhenRejected,
+                                          Long    sleepTimeWhenRejected,
                                           Boolean ignoreException,
                                           Map<String, QueuePair> delayedQueues) {
         Assert.notNull(executorService, "Parameter \"executorService\" must not null. ");
@@ -79,85 +83,86 @@ public class RedissonDelayMessageHandler extends AbstractClassicMessageHandler {
         if (pair != null) { return pair; }
         synchronized (topic.intern()) {
             if ((pair = delayedQueues.get(topic)) != null) { return pair; }
-            RBlockingDeque<Object> blockingDeque = redissonClient.getBlockingDeque(topic);
-            RDelayedQueue<Object> delayedQueue = redissonClient.getDelayedQueue(blockingDeque);
+            RBlockingDeque<DelayMessage> blockingDeque = redissonClient.getBlockingDeque(topic);
+            RDelayedQueue<DelayMessage> delayedQueue = redissonClient.getDelayedQueue(blockingDeque);
             delayedQueues.put(topic, pair = new QueuePair(delayedQueue, blockingDeque));
             return pair;
         }
     }
 
     @Override
-    public Object send(Object message, Type type) {
-        Assert.notNull(message, "Parameter \"message\" must not null. ");
-        Assert.isInstanceOf(DelayMessage.class, message);
-        DelayMessage delayMsg = (DelayMessage) message;
-        delayMsg.setTimestamp(DateUtils.getTimeInMillis());
-        TimeUnit timeUnit = delayMsg.getTimeUnit();
-        Long delayTime = delayMsg.getDelayTime();
-        QueuePair pair = getQueuePair(delayMsg.getTopic());
-        pair.getLeft().offer(delayMsg, delayTime, timeUnit);
-        return null;
+    public <T extends Message> Result send(Collection<T> messages) {
+        Assert.notEmpty(messages, "Parameter \"message\" must not empty. ");
+        for (Message message : messages) {
+            Assert.isInstanceOf(DelayMessage.class, message);
+            DelayMessage delayMsg = (DelayMessage) message;
+            if (delayMsg.getCreateTime() == null) {
+                delayMsg.setCreateTime(DateUtils.getTimeInMillis());
+            }
+            TimeUnit timeUnit = delayMsg.getDelayTimeUnit();
+            Long delayTime = delayMsg.getDelayTime();
+            QueuePair pair = getQueuePair(delayMsg.getTopic());
+            pair.getLeft().offer(delayMsg, delayTime, timeUnit);
+        }
+        return new Result();
     }
 
     @Override
-    public Object receive(Object condition, Type type) {
+    public DelayMessage receive(Base condition) {
         Assert.notNull(condition, "Parameter \"condition\" must not null. ");
-        Assert.isInstanceOf(CharSequence.class, condition);
-        QueuePair pair = getQueuePair((String) condition);
+        Assert.notBlank(condition.getTopic(), "Parameter \"condition.topic\" must not blank. ");
+        QueuePair pair = getQueuePair(condition.getTopic());
         return pair.getRight().pollFirst();
     }
 
     @Override
-    public Object subscribe(Object condition, Object messageListener) {
-        Assert.notNull(messageListener, "Parameter \"messageListener\" must not null. ");
-        Assert.notNull(condition, "Parameter \"condition\" must not null. ");
-        Assert.isInstanceOf(MessageListener.class, messageListener);
-        Assert.isInstanceOf(CharSequence.class, condition);
-        QueuePair pair = getQueuePair((String) condition);
-        MessageListener listener = (MessageListener) messageListener;
+    public Result subscribe(Subscribe subscribe) {
+        Assert.notNull(subscribe, "Parameter \"subscribe\" must not null. ");
+        Assert.notNull(subscribe.getTopic()
+                , "Parameter \"subscribe.topic\" must not null. ");
+        Assert.notNull(subscribe.getMessageListener()
+                , "Parameter \"subscribe.messageListener\" must not null. ");
+        Assert.isInstanceOf(MessageListener.class, subscribe.getMessageListener());
+        QueuePair pair = getQueuePair(subscribe.getTopic());
+        MessageListener listener = (MessageListener) subscribe.getMessageListener();
         MessageConsumer consumer = new MessageConsumer(
                 executorService, listener, sleepTimeWhenRejected, ignoreException, pair);
-        return pair.getRight().subscribeOnFirstElements(consumer);
-    }
-
-    @Override
-    public Object execute(Object input, String name, Class<?> clazz) {
-
-        throw new UnsupportedOperationException("This method is not supported! ");
+        int listenerId = pair.getRight().subscribeOnFirstElements(consumer);
+        return new Result(Dict.of("listenerId", listenerId));
     }
 
     /**
      * The inner redisson queue pair.
      * @author Kahle
      */
-    protected static class QueuePair implements Pair<RDelayedQueue<Object>, RBlockingDeque<Object>> {
-        private RBlockingDeque<Object> right;
-        private RDelayedQueue<Object> left;
-        protected QueuePair(RDelayedQueue<Object> left, RBlockingDeque<Object> right) {
+    protected static class QueuePair implements Pair<RDelayedQueue<DelayMessage>, RBlockingDeque<DelayMessage>> {
+        private final RBlockingDeque<DelayMessage> right;
+        private final RDelayedQueue<DelayMessage> left;
+        protected QueuePair(RDelayedQueue<DelayMessage> left, RBlockingDeque<DelayMessage> right) {
             this.right = right;
             this.left = left;
         }
         @Override
-        public RDelayedQueue<Object> getLeft() { return left; }
+        public RDelayedQueue<DelayMessage> getLeft() { return left; }
         @Override
-        public RBlockingDeque<Object> getRight() { return right; }
+        public RBlockingDeque<DelayMessage> getRight() { return right; }
     }
 
     /**
      * The inner message consumer.
      * @author Kahle
      */
-    protected static class MessageConsumer implements Consumer<Object> {
-        private static Logger log = LoggerFactory.getLogger(MessageConsumer.class);
+    protected static class MessageConsumer implements Consumer<DelayMessage> {
+        private static final Logger log = LoggerFactory.getLogger(MessageConsumer.class);
         private final Boolean ignoreException;
         private final Long    sleepTimeWhenRejected;
-        private ExecutorService executorService;
-        private MessageListener messageListener;
-        private QueuePair queuePair;
+        private final ExecutorService executorService;
+        private final MessageListener messageListener;
+        private final QueuePair       queuePair;
         protected MessageConsumer(ExecutorService executorService,
                                   MessageListener messageListener,
-                                  Long sleepTimeWhenRejected,
-                                  Boolean ignoreException,
+                                  Long      sleepTimeWhenRejected,
+                                  Boolean   ignoreException,
                                   QueuePair queuePair) {
             if (sleepTimeWhenRejected == null) { sleepTimeWhenRejected = DEFAULT_SLEEP_TIME; }
             if (ignoreException == null) { ignoreException = false; }
@@ -168,7 +173,7 @@ public class RedissonDelayMessageHandler extends AbstractClassicMessageHandler {
             this.queuePair = queuePair;
         }
         @Override
-        public void accept(final Object message) {
+        public void accept(final DelayMessage message) {
             try {
                 // The redisson's subscribe use "takeFirstAsync"'s RFuture (like callback).
                 // So another thread pool needs to handle the listener logic.
@@ -192,6 +197,7 @@ public class RedissonDelayMessageHandler extends AbstractClassicMessageHandler {
                 if (!ignoreException) { throw ExceptionUtils.wrap(e); }
             }
         }
+        // End.
     }
 
 }
