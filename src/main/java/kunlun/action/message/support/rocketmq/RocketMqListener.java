@@ -3,11 +3,17 @@
  * Kunlun is licensed under the "LICENSE" file in the project's root directory.
  */
 
-package kunlun.message.support.mq.rocketmq;
+package kunlun.action.message.support.rocketmq;
 
-import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
+import org.apache.rocketmq.client.consumer.MQConsumer;
 import org.apache.rocketmq.client.consumer.listener.MessageListener;
 
+/**
+ * @see org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently
+ * @see org.apache.rocketmq.client.consumer.listener.MessageListenerOrderly
+ * @see org.apache.rocketmq.client.consumer.listener.MessageListener
+ * @author Kahle
+ */
 public interface RocketMqListener extends MessageListener {
 
     String getNameServerAddress();
@@ -18,6 +24,6 @@ public interface RocketMqListener extends MessageListener {
 
     String getSubExpression();
 
-    void preProcess(DefaultMQPushConsumer mqConsumer);
+    void preProcess(MQConsumer mqConsumer);
 
 }
