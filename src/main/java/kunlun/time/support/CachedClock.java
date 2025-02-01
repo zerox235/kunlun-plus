@@ -8,7 +8,7 @@ package kunlun.time.support;
 import kunlun.time.SimpleClock;
 import kunlun.util.Assert;
 import kunlun.util.ShutdownHookUtils;
-import kunlun.util.thread.SimpleThreadFactory;
+import kunlun.util.concurrent.SimpleThreadFactory;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;

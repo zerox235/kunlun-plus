@@ -7,6 +7,7 @@ package kunlun.spring.async;
 
 import kunlun.util.Assert;
 import kunlun.util.StrUtils;
+import kunlun.util.concurrent.ThreadPoolUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
@@ -73,7 +74,7 @@ public class SpringAsyncConfigurerSupport extends AsyncConfigurerSupport {
         }
         executor.initialize();
         // End.
-        return executor;
+        return ThreadPoolUtils.wrap(executor);
     }
 
     @Override
