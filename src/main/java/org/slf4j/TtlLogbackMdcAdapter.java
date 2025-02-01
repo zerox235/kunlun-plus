@@ -5,6 +5,7 @@
 
 package org.slf4j;
 
+import ch.qos.logback.classic.util.LogbackMDCAdapter;
 import com.alibaba.ttl.TransmittableThreadLocal;
 import org.slf4j.spi.MDCAdapter;
 
@@ -30,9 +31,9 @@ import static kunlun.common.constant.Numbers.TWENTY;
  * http://logback.qos.ch/manual/mdc.html
  *
  * @author Ceki G&uuml;lc&uuml;
- * @see org.slf4j.MDC
- * @see org.slf4j.spi.MDCAdapter
- * @see ch.qos.logback.classic.util.LogbackMDCAdapter
+ * @see MDC
+ * @see MDCAdapter
+ * @see LogbackMDCAdapter
  */
 public class TtlLogbackMdcAdapter implements MDCAdapter {
 
