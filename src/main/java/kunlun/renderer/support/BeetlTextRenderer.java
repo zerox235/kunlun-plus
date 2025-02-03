@@ -6,12 +6,12 @@
 package kunlun.renderer.support;
 
 import kunlun.data.bean.BeanUtils;
-import kunlun.data.tuple.Pair;
 import kunlun.exception.ExceptionUtils;
 import kunlun.io.util.IOUtils;
 import kunlun.time.DateUtils;
 import kunlun.util.Assert;
 import kunlun.util.CloseUtils;
+import kunlun.util.ObjUtils;
 import org.beetl.core.*;
 import org.beetl.core.exception.BeetlException;
 import org.beetl.core.exception.ErrorInfo;
@@ -19,18 +19,14 @@ import org.beetl.core.resource.ClasspathResourceLoader;
 import org.beetl.core.resource.FileResourceLoader;
 import org.beetl.core.resource.StringTemplateResourceLoader;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 
-import static kunlun.util.ObjUtils.cast;
-
 /**
  * The beetl text renderer.
+ * @see <a href="http://ibeetl.com/">Beetl</a>
  * @author Kahle
- *
- * https://www.kancloud.cn/xiandafu/beetl3_guide/1992542
  */
 public class BeetlTextRenderer extends AbstractTextRenderer {
     private final GroupTemplate groupTemplate;
@@ -38,8 +34,8 @@ public class BeetlTextRenderer extends AbstractTextRenderer {
     private FileResourceLoader fileLoader = new FileResourceLoader();
 
     public BeetlTextRenderer(GroupTemplate groupTemplate) {
-        Assert.notNull(groupTemplate, "Parameter \"groupTemplate\" must not null. ");
-        this.groupTemplate = groupTemplate;
+
+        this.groupTemplate = Assert.notNull(groupTemplate);
     }
 
     public BeetlTextRenderer() {
@@ -122,7 +118,7 @@ public class BeetlTextRenderer extends AbstractTextRenderer {
 
     public void setClasspathLoader(ClasspathResourceLoader classpathLoader) {
 
-        this.classpathLoader = classpathLoader;
+        this.classpathLoader = Assert.notNull(classpathLoader);
     }
 
     public FileResourceLoader getFileLoader() {
@@ -132,56 +128,48 @@ public class BeetlTextRenderer extends AbstractTextRenderer {
 
     public void setFileLoader(FileResourceLoader fileLoader) {
 
-        this.fileLoader = fileLoader;
+        this.fileLoader = Assert.notNull(fileLoader);
     }
 
     @Override
-    public void render(Object template, String name, Object data, Object output) {
-        Assert.isInstanceOf(Writer.class, output, "Parameter \"output\" must instance of Writer. ");
+    public void render(Object template, Object data, Object output) {
         if (template == null) { return; }
-        Writer writer = (Writer) output;
-        Closeable closeable = null;
-        String templateStr;
+        Writer writer = (Writer) Assert.isInstanceOf(Writer.class, output);
+        Reader reader = null;
         try {
             if (template instanceof String) {
-                templateStr = (String) template;
+                Template tp = groupTemplate.getTemplate(template);
+                tp.binding(BeanUtils.beanToMap(data)); tp.renderTo(writer);
             }
             else if (template instanceof Reader) {
-                closeable = (Reader) template;
-                templateStr = IOUtils.toString((Reader) template);
+                Template tp = groupTemplate.getTemplate(IOUtils.toString(reader=(Reader)template));
+                tp.binding(BeanUtils.beanToMap(data)); tp.renderTo(writer);
             }
-            else if (template instanceof Pair) {
-                Pair<String, String> pair = cast(template);
-                String encoding = pair.getRight();
-                String path = pair.getLeft();
-
+            else if (template instanceof Tpl) {
+                Tpl tpl = (Tpl) template;
+                if (ObjUtils.isEmpty(tpl.getContent()) && getTemplateLoader() != null) {
+                    getTemplateLoader().accept(tpl);
+                }
+                if (!ObjUtils.isEmpty(tpl.getContent())) {
+                    render(tpl.getContent(), data, output); return;
+                }
                 String classpathName = "classpath://";
-                if (path != null && path.startsWith(classpathName)) {
-                    path = path.substring(classpathName.length());
-                    Template tp = groupTemplate.getTemplate(path, getClasspathLoader());
+                String tplName = tpl.getName();
+                if (tplName != null && tplName.startsWith(classpathName)) {
+                    tplName = tplName.substring(classpathName.length());
+                    Template tp = groupTemplate.getTemplate(tplName, getClasspathLoader());
                     tp.binding(BeanUtils.beanToMap(data));
                     tp.renderTo(writer);
-                    return;
-                }
-                else {
-                    Template tp = groupTemplate.getTemplate(path, getFileLoader());
+                } else {
+                    Template tp = groupTemplate.getTemplate(tplName, getFileLoader());
                     tp.binding(BeanUtils.beanToMap(data));
                     tp.renderTo(writer);
-                    return;
                 }
-            }
-            else {
-                throw new IllegalArgumentException();
-            }
-            Template tp = groupTemplate.getTemplate(templateStr);
-            tp.binding(BeanUtils.beanToMap(data));
-            tp.renderTo(writer);
-        }
-        catch (Exception e) {
+            } else { throw new IllegalArgumentException("Unsupported template type! "); }
+        } catch (Exception e) {
             throw ExceptionUtils.wrap(e);
-        }
-        finally {
-            CloseUtils.closeQuietly(closeable);
+        } finally {
+            CloseUtils.closeQuietly(reader);
             CloseUtils.closeQuietly(writer);
         }
     }

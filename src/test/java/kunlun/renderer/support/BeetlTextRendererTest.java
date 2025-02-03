@@ -6,13 +6,12 @@
 package kunlun.renderer.support;
 
 import kunlun.data.Dict;
-import kunlun.data.tuple.PairImpl;
 import kunlun.logging.Logger;
 import kunlun.logging.LoggerFactory;
 import kunlun.renderer.RenderUtils;
 import org.junit.Test;
 
-import static kunlun.common.constant.Charsets.STR_UTF_8;
+import static kunlun.core.Renderer.Tpl;
 
 public class BeetlTextRendererTest {
     private static final Logger log = LoggerFactory.getLogger(BeetlTextRendererTest.class);
@@ -31,8 +30,7 @@ public class BeetlTextRendererTest {
     public void test1() {
         log.info(RenderUtils.renderToString(rendererName, source, data));
         log.info(RenderUtils.renderToString(rendererName, source1, data));
-        log.info(RenderUtils.renderToString(rendererName,
-                new PairImpl<String, String>("classpath://testBeetl.btl", STR_UTF_8), data));
+        log.info(RenderUtils.renderToString(rendererName, Tpl.of("classpath://testBeetl.btl"), data));
     }
 
 }
