@@ -5,9 +5,10 @@
 
 package kunlun.renderer.support;
 
-import kunlun.data.tuple.Pair;
+import kunlun.data.Dict;
 import kunlun.util.Assert;
 import kunlun.util.CloseUtils;
+import kunlun.util.ObjUtils;
 import kunlun.util.StrUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -16,15 +17,12 @@ import org.apache.velocity.context.Context;
 import org.apache.velocity.exception.VelocityException;
 import org.apache.velocity.runtime.RuntimeSingleton;
 
-import java.io.Closeable;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.Map;
 import java.util.Properties;
 
-import static kunlun.common.constant.Charsets.STR_DEFAULT_CHARSET;
 import static kunlun.common.constant.Charsets.STR_UTF_8;
-import static kunlun.util.ObjUtils.cast;
 import static org.apache.velocity.app.Velocity.FILE_RESOURCE_LOADER_CACHE;
 import static org.apache.velocity.app.Velocity.RESOURCE_LOADER;
 
@@ -33,114 +31,98 @@ import static org.apache.velocity.app.Velocity.RESOURCE_LOADER;
  * @author Kahle
  */
 public class VelocityTextRenderer extends AbstractTextRenderer {
-    private static final String FILE_LOADER_CLASS = "file.resource.loader.class";
-    private static final String CLASS_LOADER_CLASS = "class.resource.loader.class";
-    private static final String JAR_LOADER_CLASS = "jar.resource.loader.class";
-    private static final String FILE_MODIFY_CHECK_INTERVAL = "file.resource.loader.modificationCheckInterval";
-    private static final String OUTPUT_ENCODING = "output.encoding";
-    private static final String INPUT_ENCODING = "input.encoding";
-    private static VelocityEngine defaultEngine = new VelocityEngine();
+    private static final VelocityEngine DEFAULT_ENGINE = new VelocityEngine();
+    private static final String FIXED_LOG_TAG = "fixed-log-tag";
 
     static {
         Properties properties = new Properties();
-        properties.setProperty(INPUT_ENCODING, STR_DEFAULT_CHARSET);
-        properties.setProperty(OUTPUT_ENCODING, STR_DEFAULT_CHARSET);
         properties.setProperty(RESOURCE_LOADER, "file, class, jar");
-        properties.setProperty(FILE_LOADER_CLASS, "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
-        properties.setProperty(CLASS_LOADER_CLASS, "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-        properties.setProperty(JAR_LOADER_CLASS, "org.apache.velocity.runtime.resource.loader.JarResourceLoader");
         properties.setProperty(FILE_RESOURCE_LOADER_CACHE, "true");
-        properties.setProperty(FILE_MODIFY_CHECK_INTERVAL, "86400");
-        defaultEngine.init(properties);
+        properties.setProperty("input.encoding", "UTF-8");
+        properties.setProperty("output.encoding", "UTF-8");
+        properties.setProperty("file.resource.loader.modificationCheckInterval", "86400");
+        properties.setProperty("file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
+        properties.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+        properties.setProperty("jar.resource.loader.class", "org.apache.velocity.runtime.resource.loader.JarResourceLoader");
+        DEFAULT_ENGINE.init(properties);
     }
 
-    private Boolean isInit = false;
     private VelocityEngine engine;
+    private boolean init;
+
+    public VelocityTextRenderer(VelocityEngine engine) {
+
+        this.engine = Assert.notNull(engine);
+    }
 
     public VelocityTextRenderer() {
 
-        this.isInit = RuntimeSingleton.getRuntimeServices().isInitialized();
+        this.init = RuntimeSingleton.getRuntimeServices().isInitialized();
     }
 
-    public VelocityTextRenderer(VelocityEngine engine) {
-        Assert.notNull(engine, "Parameter \"engine\" must not null. ");
-        this.engine = engine;
-    }
-
-    private Context handle(Object data) {
-        Context context;
-        if (data instanceof Context) {
-            context = (Context) data;
-        }
-        else if (data instanceof Map) {
-            Map model = (Map) data;
-            context = new VelocityContext();
-            for (Object key : model.keySet()) {
-                Object val = model.get(key);
-                context.put((String) key, val);
+    protected Context convert(Object data) {
+        if (data == null) { return new VelocityContext(); }
+        if (data instanceof Context) { return (Context) data; }
+        if (data instanceof Map) {
+            Context context = new VelocityContext();
+            @SuppressWarnings("rawtypes")
+            Dict model = Dict.of((Map) data);
+            for (Map.Entry<String, Object> entry : model.entrySet()) {
+                context.put(entry.getKey(), entry.getValue());
             }
+            return context;
         }
-        else {
-            throw new VelocityException("Parameter \"data\" cannot handle. ");
-        }
-        return context;
+        throw new VelocityException("Parameter \"data\" cannot handle. ");
     }
 
     @Override
-    public void render(Object template, String name, Object data, Object output) {
-        Assert.isInstanceOf(Writer.class, output, "Parameter \"output\" must instance of Writer. ");
+    public void render(Object template, Object data, Object output) {
         if (template == null) { return; }
-        Context context = handle(data);
-        Writer writer = (Writer) output;
-        Closeable closeable = null;
-        String templateStr;
+        Writer writer = (Writer) Assert.isInstanceOf(Writer.class, output);
+        Context context = convert(data);
+        Reader reader = null;
         try {
             if (template instanceof String) {
-                templateStr = (String) template;
-                if (isInit) {
-                    Velocity.evaluate(context, writer, name, templateStr);
-                }
-                else if (engine != null) {
-                    engine.evaluate(context, writer, name, templateStr);
-                }
-                else {
-                    defaultEngine.evaluate(context, writer, name, templateStr);
+                String templateStr = (String) template;
+                if (init) {
+                    Velocity.evaluate(context, writer, FIXED_LOG_TAG, templateStr);
+                } else if (engine != null) {
+                    engine.evaluate(context, writer, FIXED_LOG_TAG, templateStr);
+                } else {
+                    DEFAULT_ENGINE.evaluate(context, writer, FIXED_LOG_TAG, templateStr);
                 }
             }
             else if (template instanceof Reader) {
-                Reader reader = (Reader) template;
-                closeable = (Reader) template;
-                if (isInit) {
-                    Velocity.evaluate(context, writer, name, reader);
-                }
-                else if (engine != null) {
-                    engine.evaluate(context, writer, name, reader);
-                }
-                else {
-                    defaultEngine.evaluate(context, writer, name, reader);
+                reader = (Reader) template;
+                if (init) {
+                    Velocity.evaluate(context, writer, FIXED_LOG_TAG, reader);
+                } else if (engine != null) {
+                    engine.evaluate(context, writer, FIXED_LOG_TAG, reader);
+                } else {
+                    DEFAULT_ENGINE.evaluate(context, writer, FIXED_LOG_TAG, reader);
                 }
             }
-            else if (template instanceof Pair) {
-                Pair<String, String> pair = cast(template);
-                String encoding = pair.getRight();
-                if (StrUtils.isBlank(encoding)) { encoding = STR_UTF_8; }
-                String path = pair.getLeft();
-                if (isInit) {
-                    Velocity.mergeTemplate(path, encoding, context, writer);
+            else if (template instanceof Tpl) {
+                Tpl tpl = (Tpl) template;
+                if (ObjUtils.isEmpty(tpl.getContent()) && getTemplateLoader() != null) {
+                    getTemplateLoader().accept(tpl);
                 }
-                else if (engine != null) {
-                    engine.mergeTemplate(path, encoding, context, writer);
+                if (!ObjUtils.isEmpty(tpl.getContent())) {
+                    render(tpl.getContent(), data, output); return;
                 }
-                else {
-                    defaultEngine.mergeTemplate(path, encoding, context, writer);
+                String charset = tpl.getCharset();
+                String tplName = tpl.getName();
+                if (StrUtils.isBlank(charset)) { charset = STR_UTF_8; }
+                if (init) {
+                    Velocity.mergeTemplate(tplName, charset, context, writer);
+                } else if (engine != null) {
+                    engine.mergeTemplate(tplName, charset, context, writer);
+                } else {
+                    DEFAULT_ENGINE.mergeTemplate(tplName, charset, context, writer);
                 }
-            }
-            else {
-                throw new IllegalArgumentException();
-            }
-        }
-        finally {
-            CloseUtils.closeQuietly(closeable);
+            } else { throw new IllegalArgumentException("Unsupported template type! "); }
+        } finally {
+            CloseUtils.closeQuietly(reader);
             CloseUtils.closeQuietly(writer);
         }
     }
