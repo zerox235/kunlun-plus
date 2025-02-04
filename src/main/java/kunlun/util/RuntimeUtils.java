@@ -5,9 +5,10 @@
 
 package kunlun.util;
 
-import kunlun.io.util.IOUtils;
+import kunlun.io.util.IoUtil;
 
 import java.io.*;
+import java.nio.charset.Charset;
 
 import static kunlun.common.constant.Charsets.STR_DEFAULT_CHARSET;
 import static kunlun.common.constant.Symbols.NEWLINE;
@@ -50,10 +51,10 @@ public class RuntimeUtils {
         InputStream in = null;
         try {
             in = process.getInputStream();
-            return IOUtils.toString(in, encoding);
+            return IoUtil.read(in, Charset.forName(encoding));
         }
         finally {
-            CloseUtils.closeQuietly(in);
+            IoUtil.closeQuietly(in);
             process.destroy();
         }
     }
@@ -82,7 +83,7 @@ public class RuntimeUtils {
             return builder.toString();
         }
         finally {
-            CloseUtils.closeQuietly(reader);
+            IoUtil.closeQuietly(reader);
             process.destroy();
         }
     }

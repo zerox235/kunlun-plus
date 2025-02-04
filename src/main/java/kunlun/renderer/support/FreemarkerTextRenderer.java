@@ -12,8 +12,8 @@ import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import kunlun.exception.ExceptionUtils;
+import kunlun.io.util.IoUtil;
 import kunlun.util.Assert;
-import kunlun.util.CloseUtils;
 import kunlun.util.ObjUtils;
 
 import java.io.File;
@@ -80,8 +80,7 @@ public class FreemarkerTextRenderer extends AbstractTextRenderer {
         } catch (Exception e) {
             throw ExceptionUtils.wrap(e);
         } finally {
-            CloseUtils.closeQuietly(reader);
-            CloseUtils.closeQuietly(writer);
+            IoUtil.closeQuietly(reader, writer);
         }
     }
 

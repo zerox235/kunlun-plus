@@ -17,7 +17,7 @@ import static kunlun.common.constant.Numbers.ONE;
 import static kunlun.common.constant.Symbols.*;
 import static kunlun.common.constant.Words.GET;
 import static kunlun.common.constant.Words.SET;
-import static kunlun.io.util.IOUtils.EOF;
+import static kunlun.io.util.IoUtil.EOF;
 
 /**
  * The java code generator.

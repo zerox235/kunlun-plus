@@ -5,11 +5,12 @@
 
 package kunlun.util;
 
-import kunlun.io.util.IOUtils;
+import kunlun.io.util.IoUtil;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
+import java.nio.charset.Charset;
 
 @Ignore
 public class RuntimeUtilsTest {
@@ -44,7 +45,7 @@ public class RuntimeUtilsTest {
             }
         }
         finally {
-            CloseUtils.closeQuietly(inputStream);
+            IoUtil.closeQuietly(inputStream);
         }
     }
 
@@ -53,7 +54,7 @@ public class RuntimeUtilsTest {
         Runtime runtime = Runtime.getRuntime();
         Process exec = runtime.exec("netstat -ano");
         InputStream in = exec.getInputStream();
-        System.out.println(IOUtils.toString(in, "GB2312"));
+        System.out.println(IoUtil.read(in, Charset.forName("GB2312")));
     }
 
     @Test

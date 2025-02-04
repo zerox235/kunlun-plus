@@ -5,6 +5,7 @@
 
 package kunlun.util;
 
+import kunlun.io.util.IoUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
@@ -199,8 +200,7 @@ public class HttpClientUtils {
             return toString(response.getEntity(), defaultCharsetName);
         }
         finally {
-            CloseUtils.closeQuietly(response);
-            CloseUtils.closeQuietly(httpClient);
+            IoUtil.closeQuietly(response, httpClient);
         }
     }
 
@@ -240,8 +240,7 @@ public class HttpClientUtils {
             return toString(response.getEntity(), defaultCharsetName);
         }
         finally {
-            CloseUtils.closeQuietly(response);
-            CloseUtils.closeQuietly(httpClient);
+            IoUtil.closeQuietly(response, httpClient);
         }
     }
 
