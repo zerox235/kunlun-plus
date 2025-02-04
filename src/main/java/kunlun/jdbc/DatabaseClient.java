@@ -2,10 +2,10 @@ package kunlun.jdbc;
 
 import kunlun.data.bean.BeanUtils;
 import kunlun.exception.ExceptionUtils;
+import kunlun.io.util.IoUtil;
 import kunlun.logging.Logger;
 import kunlun.logging.LoggerFactory;
 import kunlun.util.Assert;
-import kunlun.util.CloseUtils;
 import kunlun.util.StrUtils;
 
 import javax.sql.DataSource;
@@ -64,7 +64,7 @@ public class DatabaseClient {
             return tableMetaList;
         }
         finally {
-            CloseUtils.closeQuietly(tableResultSet);
+            IoUtil.closeIfPossible(tableResultSet);
             closeConnection(connection);
         }
     }
@@ -150,8 +150,8 @@ public class DatabaseClient {
             return result;
         }
         finally {
-            CloseUtils.closeQuietly(resSet);
-            CloseUtils.closeQuietly(prepStat);
+            IoUtil.closeIfPossible(resSet);
+            IoUtil.closeIfPossible(prepStat);
             closeConnection(conn);
         }
     }
@@ -168,7 +168,7 @@ public class DatabaseClient {
             return prepStat.executeUpdate();
         }
         finally {
-            CloseUtils.closeQuietly(prepStat);
+            IoUtil.closeIfPossible(prepStat);
             closeConnection(connection);
         }
     }
@@ -195,7 +195,7 @@ public class DatabaseClient {
     private void closeConnection(Connection connection) {
         if (threadConnection.get() == null) {
             // Indicates that no transaction was executed.
-            CloseUtils.closeQuietly(connection);
+            IoUtil.closeIfPossible(connection);
         }
         // Ignore close if there is a transaction going on.
     }
@@ -240,7 +240,7 @@ public class DatabaseClient {
             return primaryKey.toString();
         }
         finally {
-            CloseUtils.closeQuietly(primaryKeysResultSet);
+            IoUtil.closeIfPossible(primaryKeysResultSet);
         }
     }
 
@@ -275,8 +275,8 @@ public class DatabaseClient {
             }
         }
         finally {
-            CloseUtils.closeQuietly(resultSet);
-            CloseUtils.closeQuietly(statement);
+            IoUtil.closeIfPossible(resultSet);
+            IoUtil.closeIfPossible(statement);
         }
     }
 
@@ -296,7 +296,7 @@ public class DatabaseClient {
             }
         }
         finally {
-            CloseUtils.closeQuietly(columnResultSet);
+            IoUtil.closeIfPossible(columnResultSet);
         }
     }
 

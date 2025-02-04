@@ -6,8 +6,8 @@
 package kunlun.renderer.support;
 
 import kunlun.data.Dict;
+import kunlun.io.util.IoUtil;
 import kunlun.util.Assert;
-import kunlun.util.CloseUtils;
 import kunlun.util.ObjUtils;
 import kunlun.util.StrUtils;
 import org.apache.velocity.VelocityContext;
@@ -122,8 +122,7 @@ public class VelocityTextRenderer extends AbstractTextRenderer {
                 }
             } else { throw new IllegalArgumentException("Unsupported template type! "); }
         } finally {
-            CloseUtils.closeQuietly(reader);
-            CloseUtils.closeQuietly(writer);
+            IoUtil.closeQuietly(reader, writer);
         }
     }
 

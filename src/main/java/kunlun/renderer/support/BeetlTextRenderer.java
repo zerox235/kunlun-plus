@@ -7,10 +7,9 @@ package kunlun.renderer.support;
 
 import kunlun.data.bean.BeanUtils;
 import kunlun.exception.ExceptionUtils;
-import kunlun.io.util.IOUtils;
+import kunlun.io.util.IoUtil;
 import kunlun.time.DateUtils;
 import kunlun.util.Assert;
-import kunlun.util.CloseUtils;
 import kunlun.util.ObjUtils;
 import org.beetl.core.*;
 import org.beetl.core.exception.BeetlException;
@@ -142,7 +141,7 @@ public class BeetlTextRenderer extends AbstractTextRenderer {
                 tp.binding(BeanUtils.beanToMap(data)); tp.renderTo(writer);
             }
             else if (template instanceof Reader) {
-                Template tp = groupTemplate.getTemplate(IOUtils.toString(reader=(Reader)template));
+                Template tp = groupTemplate.getTemplate(IoUtil.read(reader = (Reader) template));
                 tp.binding(BeanUtils.beanToMap(data)); tp.renderTo(writer);
             }
             else if (template instanceof Tpl) {
@@ -169,8 +168,7 @@ public class BeetlTextRenderer extends AbstractTextRenderer {
         } catch (Exception e) {
             throw ExceptionUtils.wrap(e);
         } finally {
-            CloseUtils.closeQuietly(reader);
-            CloseUtils.closeQuietly(writer);
+            IoUtil.closeQuietly(reader, writer);
         }
     }
 

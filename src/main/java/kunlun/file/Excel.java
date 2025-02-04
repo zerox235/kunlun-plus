@@ -7,7 +7,7 @@ package kunlun.file;
 
 import kunlun.exception.ExceptionUtils;
 import kunlun.io.util.FilenameUtils;
-import kunlun.io.util.IOUtils;
+import kunlun.io.util.IoUtil;
 import kunlun.time.DateUtils;
 import kunlun.util.*;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -213,7 +213,7 @@ public class Excel extends BinaryFile implements Table {
     @Override
     public long read(InputStream inputStream) throws IOException {
         Assert.notNull(inputStream, "Parameter \"inputStream\" must not null. ");
-        byte[] byteArray = IOUtils.toByteArray(inputStream);
+        byte[] byteArray = IoUtil.readBytes(inputStream);
         createWorkbook(new ByteArrayInputStream(byteArray));
         return byteArray.length;
     }

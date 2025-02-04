@@ -1,6 +1,6 @@
 package kunlun.jdbc;
 
-import kunlun.util.CloseUtils;
+import kunlun.io.util.IoUtil;
 
 import java.sql.*;
 import java.util.*;
@@ -32,8 +32,8 @@ public class TableMetaUtils {
             return tableMetaList;
         }
         finally {
-            CloseUtils.closeQuietly(tableResultSet);
-            CloseUtils.closeQuietly(connection);
+            IoUtil.closeIfPossible(tableResultSet);
+            IoUtil.closeIfPossible(connection);
         }
     }
 
@@ -53,7 +53,7 @@ public class TableMetaUtils {
             }
         }
         finally {
-            CloseUtils.closeQuietly(columnResultSet);
+            IoUtil.closeIfPossible(columnResultSet);
         }
     }
 
@@ -85,7 +85,7 @@ public class TableMetaUtils {
             return primaryKey.toString();
         }
         finally {
-            CloseUtils.closeQuietly(primaryKeysResultSet);
+            IoUtil.closeIfPossible(primaryKeysResultSet);
         }
     }
 
@@ -106,8 +106,8 @@ public class TableMetaUtils {
             }
         }
         finally {
-            CloseUtils.closeQuietly(resultSet);
-            CloseUtils.closeQuietly(statement);
+            IoUtil.closeIfPossible(resultSet);
+            IoUtil.closeIfPossible(statement);
         }
     }
 
