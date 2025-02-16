@@ -6,7 +6,6 @@
 package kunlun.security.support;
 
 import cn.hutool.core.util.ObjUtil;
-import cn.hutool.core.util.StrUtil;
 import kunlun.context.support.AbstractServletContext;
 import kunlun.core.AccessController;
 import kunlun.core.DataController;
@@ -15,7 +14,7 @@ import kunlun.security.SecurityContext;
 import kunlun.security.TokenManager;
 import kunlun.security.UserManager;
 import kunlun.util.Assert;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -242,7 +241,7 @@ public abstract class AbstractSecurityContext extends AbstractServletContext imp
 
     public ServiceInfo createServiceInfo() {
         ServiceInfo serviceInfo = new ServiceInfo();
-        serviceInfo.setServerName(StrUtils.isNotBlank(HOST_NAME) ? HOST_NAME : COMPUTER_NAME);
+        serviceInfo.setServerName(StrUtil.isNotBlank(HOST_NAME) ? HOST_NAME : COMPUTER_NAME);
         serviceInfo.setServerAddr(getIpAddress());
         //serviceInfo.setServerPort()
         //serviceInfo.setAppName()

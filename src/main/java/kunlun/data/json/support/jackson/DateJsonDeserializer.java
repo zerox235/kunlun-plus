@@ -9,7 +9,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import kunlun.time.DateUtils;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 import org.springframework.boot.jackson.JsonComponent;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class DateJsonDeserializer extends JsonDeserializer<Date> {
     @Override
     public Date deserialize(JsonParser p, DeserializationContext context) throws IOException {
         String text = p.getText();
-        if (StrUtils.isNumeric(text)) {
+        if (StrUtil.isNumeric(text)) {
             return DateUtils.parse(Long.parseLong(text));
         }
         else {

@@ -8,7 +8,7 @@ package kunlun.db.jdbc.support.mybatisplus;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import kunlun.exception.ExceptionUtils;
 import kunlun.util.Assert;
-import kunlun.util.ObjUtils;
+import kunlun.util.ObjUtil;
 import org.apache.ibatis.reflection.MetaObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,7 +99,7 @@ public abstract class AbstractMetaObjectHandler implements MetaObjectHandler {
         for (Map.Entry<String, String> entry : getConfigs().entrySet()) {
             // Invoke command.
             Object fieldVal = invokeCommand(entry.getValue());
-            if (ObjUtils.isNull(fieldVal)) { continue; }
+            if (ObjUtil.isNull(fieldVal)) { continue; }
             // Whether the setter exists?
             if (!metaObject.hasSetter(entry.getKey())) { continue; }
             // Convert type and fill.
@@ -114,7 +114,7 @@ public abstract class AbstractMetaObjectHandler implements MetaObjectHandler {
         for (Map.Entry<String, String> entry : getConfigs().entrySet()) {
             // Invoke command.
             Object fieldVal = invokeCommand(entry.getValue());
-            if (ObjUtils.isNull(fieldVal)) { continue; }
+            if (ObjUtil.isNull(fieldVal)) { continue; }
             // Whether the setter exists?
             if (!metaObject.hasSetter(entry.getKey())) { continue; }
             // Convert type and fill.

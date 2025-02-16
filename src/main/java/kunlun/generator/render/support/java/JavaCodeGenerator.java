@@ -6,9 +6,9 @@ import kunlun.db.jdbc.meta.Column;
 import kunlun.db.jdbc.meta.Table;
 import kunlun.generator.render.support.AbstractRenderFileGenerator;
 import kunlun.util.Assert;
-import kunlun.util.CollUtils;
+import kunlun.util.CollUtil;
 import kunlun.util.MapUtils;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 
 import java.io.File;
 import java.util.*;
@@ -46,7 +46,7 @@ public class JavaCodeGenerator extends AbstractRenderFileGenerator {
     protected String getEntityName(String tableName, Collection<String> removedTableNamePrefixes) {
         Assert.notBlank(tableName, "Parameter \"tableName\" must not blank. ");
         String result = tableName;
-        if (CollUtils.isNotEmpty(removedTableNamePrefixes)) {
+        if (CollUtil.isNotEmpty(removedTableNamePrefixes)) {
             for (String prefix : removedTableNamePrefixes) {
                 if (result.startsWith(prefix)) {
                     result = result.replaceAll(prefix, EMPTY_STRING);
@@ -54,8 +54,8 @@ public class JavaCodeGenerator extends AbstractRenderFileGenerator {
                 }
             }
         }
-        result = StrUtils.underlineToCamel(result);
-        result = StrUtils.capitalize(result);
+        result = StrUtil.underlineToCamel(result);
+        result = StrUtil.capitalize(result);
         return result;
     }
 
@@ -83,11 +83,11 @@ public class JavaCodeGenerator extends AbstractRenderFileGenerator {
             cfg.setTemplateCharset(genConfig.getTemplateCharset());
             cfg.setTemplatePath(new File(baseTemplatePath, templateName + templateSuffix).getPath());
             cfg.setOutputCharset(genConfig.getOutputCharset());
-            if (XML_FILE_SUFFIX.equalsIgnoreCase(fileSuffix) && StrUtils.isNotBlank(xmlBaseOutputPath)) {
+            if (XML_FILE_SUFFIX.equalsIgnoreCase(fileSuffix) && StrUtil.isNotBlank(xmlBaseOutputPath)) {
                 cfg.setOutputPath(xmlBaseOutputPath);
             }
             else {
-                String childPath = StrUtils.replace(basePackageName + bizPackageName, DOT, BACKSLASH);
+                String childPath = StrUtil.replace(basePackageName + bizPackageName, DOT, BACKSLASH);
                 cfg.setOutputPath(new File(baseOutputPath, childPath).getPath());
             }
             cfg.setFileSuffix(fileSuffix);
@@ -122,9 +122,9 @@ public class JavaCodeGenerator extends AbstractRenderFileGenerator {
             columns.add(columnInfo);
             // Set column field, getter and setter.
             String columnName = column.getName();
-            String fieldName = StrUtils.underlineToCamel(columnName);
-            columnInfo.put(FIELD_NAME_KEY, StrUtils.uncapitalize(fieldName));
-            String capFieldName = StrUtils.capitalize(fieldName);
+            String fieldName = StrUtil.underlineToCamel(columnName);
+            columnInfo.put(FIELD_NAME_KEY, StrUtil.uncapitalize(fieldName));
+            String capFieldName = StrUtil.capitalize(fieldName);
             columnInfo.put(GETTER_NAME_KEY, GET + capFieldName);
             columnInfo.put(SETTER_NAME_KEY, SET + capFieldName);
             // Get column's java type.
@@ -135,7 +135,7 @@ public class JavaCodeGenerator extends AbstractRenderFileGenerator {
             int index = javaType.lastIndexOf(DOT);
             if (index != EOF) {
                 String shortName = javaType.substring(index + ONE);
-                if (StrUtils.isNotBlank(shortName)) {
+                if (StrUtil.isNotBlank(shortName)) {
                     javaTypeImports.add(javaType);
                     columnInfo.set(JAVA_TYPE_KEY, shortName);
                 }
@@ -174,7 +174,7 @@ public class JavaCodeGenerator extends AbstractRenderFileGenerator {
             String className = entityName + nameTail;
             attributes.put(templateName + CLASS_NAME_KEY_TAIL, className);
             // Set object name.
-            String objectName = StrUtils.uncapitalize(className);
+            String objectName = StrUtil.uncapitalize(className);
             attributes.put(templateName + OBJECT_NAME_KEY_TAIL, objectName);
             // Set filename.
             attributes.put(templateName + FILENAME_KEY_TAIL, className);

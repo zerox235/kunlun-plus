@@ -7,7 +7,7 @@ package kunlun.data.bean.support;
 
 import kunlun.convert.ConversionService;
 import kunlun.data.bean.BeanMap;
-import kunlun.util.ObjUtils;
+import kunlun.util.ObjUtil;
 import org.springframework.lang.NonNull;
 
 import java.util.Set;
@@ -62,7 +62,7 @@ public class CglibBeanMap extends BeanMap {
     @Override
     public Set<Object> keySet() {
 
-        return ObjUtils.cast(beanMap.keySet());
+        return ObjUtil.cast(beanMap.keySet());
     }
 
 }

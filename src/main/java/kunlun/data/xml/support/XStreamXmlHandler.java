@@ -19,7 +19,7 @@ import com.thoughtworks.xstream.io.xml.XppDriver;
 import kunlun.data.xml.XmlClassAlias;
 import kunlun.data.xml.XmlFieldAlias;
 import kunlun.util.ClassLoaderUtils;
-import kunlun.util.ObjUtils;
+import kunlun.util.ObjUtil;
 
 import java.io.Writer;
 import java.lang.reflect.Type;
@@ -81,7 +81,7 @@ public class XStreamXmlHandler extends AbstractXmlHandler {
         xStream.processAnnotations((Class) type);
         registerAlias(xStream, arguments);
         Object fromXml = xStream.fromXML(xmlString);
-        return ObjUtils.cast(fromXml);
+        return ObjUtil.cast(fromXml);
     }
 
     private static class MapEntryConverter implements Converter {

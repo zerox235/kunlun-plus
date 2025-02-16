@@ -7,7 +7,7 @@ package kunlun.spring.xxljob;
 
 import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
 import kunlun.util.Assert;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -50,17 +50,17 @@ public class XxlJobAutoConfiguration {
         XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
         xxlJobSpringExecutor.setAdminAddresses(adminAddresses);
         xxlJobSpringExecutor.setAppname(appName);
-        if (StrUtils.isNotBlank(address)) {
+        if (StrUtil.isNotBlank(address)) {
             xxlJobSpringExecutor.setAddress(address);
         }
-        if (StrUtils.isNotBlank(ip)) {
+        if (StrUtil.isNotBlank(ip)) {
             xxlJobSpringExecutor.setIp(ip);
         }
         xxlJobSpringExecutor.setPort(port);
-        if (StrUtils.isNotBlank(accessToken)) {
+        if (StrUtil.isNotBlank(accessToken)) {
             xxlJobSpringExecutor.setAccessToken(accessToken);
         }
-        if (StrUtils.isNotBlank(logPath)) {
+        if (StrUtil.isNotBlank(logPath)) {
             xxlJobSpringExecutor.setLogPath(logPath);
         }
         if (logRetentionDays != null) {

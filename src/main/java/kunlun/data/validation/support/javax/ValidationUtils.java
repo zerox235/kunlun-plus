@@ -6,7 +6,7 @@
 package kunlun.data.validation.support.javax;
 
 import kunlun.util.Assert;
-import kunlun.util.CollUtils;
+import kunlun.util.CollUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.Set;
 
-import static kunlun.util.ObjUtils.cast;
+import static kunlun.util.ObjUtil.cast;
 
 /**
  * The javax validator based validation tools.
@@ -97,7 +97,7 @@ public class ValidationUtils {
         @Override
         public Object handle(Object result) {
             Set<ConstraintViolation<?>> set = cast(result);
-            if (CollUtils.isEmpty(set)) {
+            if (CollUtil.isEmpty(set)) {
                 return null;
             }
             throw new ConstraintViolationException(set);

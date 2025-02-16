@@ -47,7 +47,7 @@ public class PagingUtils {
         Assert.notNull(pageSize, "Parameter \"pageSize\" must not null. ");
         Assert.notNull(pageNum, "Parameter \"pageNum\" must not null. ");
         PageHelper.startPage(pageNum, pageSize, doCount);
-        if (StrUtils.isNotBlank(orderBy)) {
+        if (StrUtil.isNotBlank(orderBy)) {
             PageHelper.orderBy(orderBy);
         }
     }

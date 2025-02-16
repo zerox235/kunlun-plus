@@ -6,7 +6,7 @@ import kunlun.io.util.IoUtil;
 import kunlun.logging.Logger;
 import kunlun.logging.LoggerFactory;
 import kunlun.util.Assert;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -136,7 +136,7 @@ public class DatabaseClient {
             String[] keys = new String[count];
             for (int i = ZERO; i < count; i++) {
                 String key = metaData.getColumnName(i + ONE);
-                keys[i] = StrUtils.underlineToCamel(key);
+                keys[i] = StrUtil.underlineToCamel(key);
             }
             // Handle result to map.
             List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();

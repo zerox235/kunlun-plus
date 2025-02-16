@@ -10,7 +10,7 @@ import kunlun.exception.ExceptionUtils;
 import kunlun.io.util.IoUtil;
 import kunlun.time.DateUtils;
 import kunlun.util.Assert;
-import kunlun.util.ObjUtils;
+import kunlun.util.ObjUtil;
 import org.beetl.core.*;
 import org.beetl.core.exception.BeetlException;
 import org.beetl.core.exception.ErrorInfo;
@@ -146,10 +146,10 @@ public class BeetlTextRenderer extends AbstractTextRenderer {
             }
             else if (template instanceof Tpl) {
                 Tpl tpl = (Tpl) template;
-                if (ObjUtils.isEmpty(tpl.getContent()) && getTemplateLoader() != null) {
+                if (ObjUtil.isEmpty(tpl.getContent()) && getTemplateLoader() != null) {
                     getTemplateLoader().accept(tpl);
                 }
-                if (!ObjUtils.isEmpty(tpl.getContent())) {
+                if (!ObjUtil.isEmpty(tpl.getContent())) {
                     render(tpl.getContent(), data, output); return;
                 }
                 String classpathName = "classpath://";

@@ -7,7 +7,7 @@ package kunlun.mock.support;
 
 import kunlun.data.mock.support.SimpleMockHandler;
 import kunlun.util.ArrayUtils;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public class SimpleMockHandler1 extends SimpleMockHandler {
     @Override
     protected Object mockClassData(Class<?> attrType, String attrName
             , Object[] arguments, int nested, Class<?> originalType, Type... genericTypes) {
-        if (StrUtils.isNotBlank(attrName) && originalType != null) {
+        if (StrUtil.isNotBlank(attrName) && originalType != null) {
             Map<Class, ClassMockerConfig> map = parseFeatures(arguments);
             ClassMockerConfig config = map.get(originalType);
             if (config!=null&&config.getMockerMap().get(attrName)!=null) {

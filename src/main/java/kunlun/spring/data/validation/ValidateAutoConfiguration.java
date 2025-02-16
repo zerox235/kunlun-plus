@@ -11,7 +11,7 @@ import kunlun.data.validation.support.*;
 import kunlun.property.PropertySource;
 import kunlun.property.PropertyUtils;
 import kunlun.util.MapUtils;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,9 +80,9 @@ public class ValidateAutoConfiguration {
         if (MapUtils.isEmpty(regexValidators)) { return; }
         for (Map.Entry<String, String> entry : regexValidators.entrySet()) {
             String regex = entry.getValue();
-            if (StrUtils.isBlank(regex)) { continue; }
+            if (StrUtil.isBlank(regex)) { continue; }
             String name = entry.getKey();
-            if (StrUtils.isBlank(name)) { continue; }
+            if (StrUtil.isBlank(name)) { continue; }
             ValidatorUtils.registerValidator(name, new RegexValidator(regex));
         }
     }
@@ -95,9 +95,9 @@ public class ValidateAutoConfiguration {
         if (MapUtils.isEmpty(properties)) { return; }
         for (Map.Entry<String, Object> entry : properties.entrySet()) {
             String regex = entry.getValue() != null ? String.valueOf(entry.getValue()) : null;
-            if (StrUtils.isBlank(regex)) { continue; }
+            if (StrUtil.isBlank(regex)) { continue; }
             String name = entry.getKey();
-            if (StrUtils.isBlank(name)) { continue; }
+            if (StrUtil.isBlank(name)) { continue; }
             ValidatorUtils.registerValidator(name, new RegexValidator(regex));
         }
     }

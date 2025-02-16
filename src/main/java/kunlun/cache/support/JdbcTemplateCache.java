@@ -7,7 +7,7 @@ package kunlun.cache.support;
 
 import kunlun.common.constant.Nulls;
 import kunlun.common.constant.Numbers;
-import kunlun.util.CollUtils;
+import kunlun.util.CollUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -39,7 +39,7 @@ public class JdbcTemplateCache extends AbstractJdbcCache {
                 , getConfig().getTableName(), getConfig().getFieldCacheName()
                 , getConfig().getFieldCacheKey());
         List<Map<String, Object>> maps = getNative().queryForList(sql, getConfig().getName(), key);
-        if (CollUtils.isEmpty(maps)) { return null; }
+        if (CollUtil.isEmpty(maps)) { return null; }
         return maps.get(Numbers.ZERO);
     }
 

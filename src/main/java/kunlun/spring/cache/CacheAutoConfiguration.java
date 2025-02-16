@@ -22,7 +22,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.annotation.Resource;
 import java.util.List;
 
-import static kunlun.util.ObjUtils.cast;
+import static kunlun.util.ObjUtil.cast;
 
 /**
  * The cache tools auto-configuration.

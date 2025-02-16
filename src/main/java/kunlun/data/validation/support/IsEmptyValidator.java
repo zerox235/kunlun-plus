@@ -6,7 +6,7 @@
 package kunlun.data.validation.support;
 
 import kunlun.data.validation.BooleanValidator;
-import kunlun.util.ObjUtils;
+import kunlun.util.ObjUtil;
 
 /**
  * The is empty validator.
@@ -17,7 +17,7 @@ public class IsEmptyValidator implements BooleanValidator {
     @Override
     public Boolean validate(Object target) {
 
-        return ObjUtils.isEmpty(target);
+        return ObjUtil.isEmpty(target);
     }
 
 }

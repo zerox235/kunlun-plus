@@ -7,7 +7,7 @@ package kunlun.generator.id.support;
 
 import kunlun.time.DateUtils;
 import kunlun.util.Assert;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 
 import static kunlun.common.constant.Numbers.STR_ZERO;
 import static kunlun.common.constant.Numbers.ZERO;
@@ -28,7 +28,7 @@ public abstract class AbstractIncrementalIdGenerator
         if (config.getSequenceLength() == null) { config.setSequenceLength(8); }
         if (config.getStepLength() == null) { config.setStepLength(1); }
         if (config.getOffset() == null) { config.setOffset(0L); }
-        if (StrUtils.isBlank(config.getDatePattern())) {
+        if (StrUtil.isBlank(config.getDatePattern())) {
             config.setDatePattern("yyyyMMdd");
         }
     }
@@ -69,13 +69,13 @@ public abstract class AbstractIncrementalIdGenerator
         }
         // Handle date string.
         String datePattern = config.getDatePattern();
-        if (StrUtils.isNotBlank(datePattern)) {
+        if (StrUtil.isNotBlank(datePattern)) {
             String format = DateUtils.format(datePattern);
             identifier.insert(ZERO, format);
         }
         // Handle prefix.
         String prefix = config.getPrefix();
-        if (StrUtils.isNotBlank(prefix)) {
+        if (StrUtil.isNotBlank(prefix)) {
             identifier.insert(ZERO, prefix);
         }
         // Return result.

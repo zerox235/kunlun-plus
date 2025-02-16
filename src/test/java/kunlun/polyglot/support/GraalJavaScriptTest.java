@@ -9,7 +9,7 @@ import kunlun.data.Dict;
 import kunlun.logging.Logger;
 import kunlun.logging.LoggerFactory;
 import kunlun.polyglot.PolyglotUtils;
-import kunlun.util.ObjUtils;
+import kunlun.util.ObjUtil;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -34,7 +34,7 @@ public class GraalJavaScriptTest {
         Object result = PolyglotUtils.eval(name, script, data);
         log.info("result: {}", result);
         // Assert.
-        assertTrue("a = 2; b = 3; a + b should be 5", ObjUtils.equals(result, 5));
+        assertTrue("a = 2; b = 3; a + b should be 5", ObjUtil.equals(result, 5));
         assertSame("data must not updated", 1, data.get("a"));
         assertSame("data must not updated", 2, data.get("b"));
     }
@@ -45,7 +45,7 @@ public class GraalJavaScriptTest {
         Dict data = Dict.of("a", Dict.of("b", 4));
         Object result = PolyglotUtils.eval(name, script, data);
         log.info("result: {}", result);
-        assertTrue(ObjUtils.equals(result, 4));
+        assertTrue(ObjUtil.equals(result, 4));
     }
 
     @Test
@@ -69,12 +69,12 @@ public class GraalJavaScriptTest {
         script = "var a = 1; var b = 2; a + b + e;";
         result = PolyglotUtils.eval(name, script, dict);
         log.info("result: {}", result);
-        assertTrue(ObjUtils.equals(result, 8));
+        assertTrue(ObjUtil.equals(result, 8));
 
         script = "var c = 3; var d = 4; c + d + e;";
         result = PolyglotUtils.eval(name, script, dict);
         log.info("result: {}", result);
-        assertTrue(ObjUtils.equals(result, 12));
+        assertTrue(ObjUtil.equals(result, 12));
     }
 
     @Test
@@ -84,7 +84,7 @@ public class GraalJavaScriptTest {
                 "}\n";
         Object result = PolyglotUtils.invoke(name, script, "test", 1, 2, 3);
         log.info("result: {}", result);
-        assertTrue(ObjUtils.equals(result, 6));
+        assertTrue(ObjUtil.equals(result, 6));
     }
 
     @Test
@@ -100,7 +100,7 @@ public class GraalJavaScriptTest {
         Dict data = Dict.of();
         Object result = PolyglotUtils.eval(name, script, data);
         log.info("result: {}", result);
-        assertTrue(ObjUtils.equals(result, 12));
+        assertTrue(ObjUtil.equals(result, 12));
     }
 
     @Test

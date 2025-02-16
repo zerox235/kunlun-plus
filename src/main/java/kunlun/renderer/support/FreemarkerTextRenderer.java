@@ -14,7 +14,7 @@ import freemarker.template.Template;
 import kunlun.exception.ExceptionUtils;
 import kunlun.io.util.IoUtil;
 import kunlun.util.Assert;
-import kunlun.util.ObjUtils;
+import kunlun.util.ObjUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import static kunlun.common.constant.Charsets.STR_UTF_8;
 import static kunlun.common.constant.Numbers.*;
 import static kunlun.common.constant.Symbols.DOT;
 import static kunlun.common.constant.Symbols.SLASH;
-import static kunlun.util.StrUtils.isNotBlank;
+import static kunlun.util.StrUtil.isNotBlank;
 
 /**
  * The freemarker text renderer.
@@ -67,10 +67,10 @@ public class FreemarkerTextRenderer extends AbstractTextRenderer {
             }
             else if (template instanceof Tpl) {
                 Tpl tpl = (Tpl) template;
-                if (ObjUtils.isEmpty(tpl.getContent()) && getTemplateLoader() != null) {
+                if (ObjUtil.isEmpty(tpl.getContent()) && getTemplateLoader() != null) {
                     getTemplateLoader().accept(tpl);
                 }
-                if (!ObjUtils.isEmpty(tpl.getContent())) {
+                if (!ObjUtil.isEmpty(tpl.getContent())) {
                     render(tpl.getContent(), data, output); return;
                 }
                 String charset = isNotBlank(tpl.getCharset()) ? tpl.getCharset() : STR_UTF_8;

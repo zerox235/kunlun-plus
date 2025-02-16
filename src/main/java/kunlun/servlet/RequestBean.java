@@ -7,7 +7,7 @@ package kunlun.servlet;
 
 import kunlun.time.DateUtils;
 import kunlun.util.MapUtils;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -144,7 +144,7 @@ public class RequestBean {
         builder.append("Remote Address: ");
         builder.append(remoteAddress).append(COLON);
         builder.append(remotePort).append(NEWLINE);
-        if (StrUtils.isNotBlank(characterEncoding)) {
+        if (StrUtil.isNotBlank(characterEncoding)) {
             builder.append("Character Encoding: ");
             builder.append(characterEncoding).append(NEWLINE);
         }
@@ -152,18 +152,18 @@ public class RequestBean {
         for (Map.Entry<String, List<String>> entry : headers.entrySet()) {
             List<String> valList = entry.getValue();
             String key = entry.getKey();
-            if (StrUtils.isBlank(key)) { continue; }
+            if (StrUtil.isBlank(key)) { continue; }
             StringBuilder keyBuilder = new StringBuilder();
             if (key.contains(MINUS)) {
                 String[] split = key.split(MINUS);
                 for (String word : split) {
-                    keyBuilder.append(StrUtils.capitalize(word));
+                    keyBuilder.append(StrUtil.capitalize(word));
                     keyBuilder.append(MINUS);
                 }
                 int length = keyBuilder.length();
                 if (length > ZERO) { keyBuilder.deleteCharAt(length - ONE); }
             }
-            else { keyBuilder.append(StrUtils.capitalize(key)); }
+            else { keyBuilder.append(StrUtil.capitalize(key)); }
             StringBuilder valBuilder = new StringBuilder();
             for (String val : valList) { valBuilder.append(val).append(COMMA); }
             int length = valBuilder.length();

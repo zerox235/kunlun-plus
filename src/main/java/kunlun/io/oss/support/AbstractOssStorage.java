@@ -15,7 +15,7 @@ import kunlun.io.oss.OssObject;
 import kunlun.io.oss.OssStorage;
 import kunlun.io.storage.AbstractDataStorage;
 import kunlun.util.Assert;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -107,7 +107,7 @@ public abstract class AbstractOssStorage extends AbstractDataStorage implements 
         Assert.notBlank(objectKey, "Parameter \"objectKey\" must not blank. ");
         String urlPrefix = objectUrlPrefixes.get(bucketName);
         // if prefix is blank, do not build object url.
-        if (StrUtils.isBlank(urlPrefix)) { return null; }
+        if (StrUtil.isBlank(urlPrefix)) { return null; }
         return mergePrefixAndKey(urlPrefix, objectKey);
     }
 
@@ -115,7 +115,7 @@ public abstract class AbstractOssStorage extends AbstractDataStorage implements 
         OssInfoImpl ossInfo = new OssInfoImpl(bucketName, objectKey, objectUrl);
         ossInfo.setOriginal(original);
         String buildObjectUrl = buildObjectUrl(bucketName, objectKey);
-        ossInfo.setObjectUrl(StrUtils.isNotBlank(buildObjectUrl) ? buildObjectUrl : objectUrl);
+        ossInfo.setObjectUrl(StrUtil.isNotBlank(buildObjectUrl) ? buildObjectUrl : objectUrl);
         return ossInfo;
     }
 

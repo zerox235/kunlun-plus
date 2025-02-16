@@ -6,7 +6,7 @@
 package kunlun.property.support;
 
 import kunlun.property.AbstractPropertySource;
-import kunlun.util.ObjUtils;
+import kunlun.util.ObjUtil;
 import org.slf4j.MDC;
 
 import java.util.Map;
@@ -22,7 +22,7 @@ public class MdcPropertySource extends AbstractPropertySource {
     @Override
     public Map<String, Object> getProperties() {
 
-        return ObjUtils.cast(MDC.getCopyOfContextMap());
+        return ObjUtil.cast(MDC.getCopyOfContextMap());
     }
 
     @Override
