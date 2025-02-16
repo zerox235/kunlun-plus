@@ -9,7 +9,7 @@ import kunlun.codec.CodecUtils;
 import kunlun.core.Serializer;
 import kunlun.data.serialize.support.SimpleSerializer;
 import kunlun.util.Assert;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 
 import static kunlun.codec.CodecUtils.BASE64;
 
@@ -38,7 +38,7 @@ public class Base64TextSerializer implements Serializer {
     public Object deserialize(Object data) {
         if (data == null) { return null; }
         String text = (String) data;
-        if (StrUtils.isBlank(text)) { return null; }
+        if (StrUtil.isBlank(text)) { return null; }
         byte[] bytes = CodecUtils.decodeFromString(BASE64, (String) data);
         return serializer.deserialize(bytes);
     }

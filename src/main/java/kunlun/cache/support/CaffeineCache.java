@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static kunlun.common.constant.Numbers.FIFTY;
 import static kunlun.common.constant.Numbers.ZERO;
-import static kunlun.util.ObjUtils.cast;
+import static kunlun.util.ObjUtil.cast;
 
 public class CaffeineCache extends AbstractCache {
     private final Cache<Object, Object> cache;

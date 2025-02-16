@@ -6,7 +6,7 @@
 package kunlun.data.desensitize.support;
 
 import kunlun.data.desensitize.Desensitizer;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 
 import static kunlun.common.constant.Numbers.FOUR;
 import static kunlun.common.constant.Numbers.ZERO;
@@ -23,7 +23,7 @@ public class BankCardNumberDesensitizer implements Desensitizer {
 
     public BankCardNumberDesensitizer(String cover) {
 
-        this.cover = StrUtils.isNotBlank(cover) ? cover : ASTERISK;
+        this.cover = StrUtil.isNotBlank(cover) ? cover : ASTERISK;
     }
 
     public String getCover() {
@@ -33,7 +33,7 @@ public class BankCardNumberDesensitizer implements Desensitizer {
 
     @Override
     public String desensitize(CharSequence data) {
-        if (StrUtils.isBlank(data)) { return String.valueOf(data); }
+        if (StrUtil.isBlank(data)) { return String.valueOf(data); }
         String dataTmp = String.valueOf(data);
         int dataLength = dataTmp.length();
         if (dataLength <= FOUR) { return dataTmp; }

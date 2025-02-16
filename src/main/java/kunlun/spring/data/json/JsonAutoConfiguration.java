@@ -11,7 +11,7 @@ import kunlun.data.json.support.GsonHandler;
 import kunlun.data.json.support.JacksonHandler;
 import kunlun.util.ClassLoaderUtils;
 import kunlun.util.ClassUtils;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -39,17 +39,17 @@ public class JsonAutoConfiguration implements InitializingBean, DisposableBean {
         }
         if (ClassUtils.isPresent(GSON_CLASS, classLoader)) {
             JsonUtils.registerHandler("gson", new GsonHandler());
-            if (StrUtils.isBlank(defaultHandler)) {
+            if (StrUtil.isBlank(defaultHandler)) {
                 defaultHandler = "gson";
             }
         }
         if (ClassUtils.isPresent(FASTJSON_CLASS, classLoader)) {
             JsonUtils.registerHandler("fastjson", new FastJsonHandler());
-            if (StrUtils.isBlank(defaultHandler)) {
+            if (StrUtil.isBlank(defaultHandler)) {
                 defaultHandler = "fastjson";
             }
         }
-        if (StrUtils.isNotBlank(defaultHandler)) {
+        if (StrUtil.isNotBlank(defaultHandler)) {
             JsonUtils.setDefaultHandlerName(defaultHandler);
         }
         else {

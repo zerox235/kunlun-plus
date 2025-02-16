@@ -15,8 +15,8 @@ import kunlun.action.support.exchange.AbstractImportExportAction;
 import kunlun.action.support.exchange.ImportHandler;
 import kunlun.exception.ExceptionUtils;
 import kunlun.util.Assert;
-import kunlun.util.CollUtils;
-import kunlun.util.StrUtils;
+import kunlun.util.CollUtil;
+import kunlun.util.StrUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 
 import static kunlun.common.constant.Numbers.*;
-import static kunlun.util.ObjUtils.cast;
+import static kunlun.util.ObjUtil.cast;
 
 /**
  * The abstract easy excel one time import action.
@@ -101,7 +101,7 @@ public abstract class AbstractEasyExcelOneTimeImportAction<P, D>
         Assert.notNull(headerClass, "Parameter \"headerClass\" must not null. ");
         // Default value processing.
         if (context.getAsync() == null) { context.setAsync(false); }
-        if (StrUtils.isBlank(context.getResultMessage()) && context.getAsync()) {
+        if (StrUtil.isBlank(context.getResultMessage()) && context.getAsync()) {
             context.setResultMessage("Please wait for a moment while the data is being imported! ");
         }
         if (context.getReadSheets() == null) { context.setReadSheets(new ArrayList<ReadSheet>()); }
@@ -113,7 +113,7 @@ public abstract class AbstractEasyExcelOneTimeImportAction<P, D>
         ExcelReader excelReader = EasyExcel.read(inputStream).build();
         context.setExcelReader(excelReader);
         //
-        if (CollUtils.isEmpty(context.getReadSheets())) {
+        if (CollUtil.isEmpty(context.getReadSheets())) {
             ExcelReaderSheetBuilder sheetBuilder = EasyExcel.readSheet()
                     .head(headerClass)
                     .registerReadListener(new SimpleDataReadListener<D>(context.getParsedData()));
@@ -150,7 +150,7 @@ public abstract class AbstractEasyExcelOneTimeImportAction<P, D>
             List<D> parsedData = parseData(nowContext, null, nowContext.getParsedData());
             if (nowContext.getTotalCount() == null) {
                 nowContext.setTotalCount(0L);
-                if (CollUtils.isNotEmpty(parsedData)) {
+                if (CollUtil.isNotEmpty(parsedData)) {
                     Integer size = parsedData.size();
                     nowContext.setTotalCount(size.longValue());
                 }

@@ -8,14 +8,14 @@ package kunlun.action.event.support.difference;
 import kunlun.core.Builder;
 import kunlun.core.function.BiFunction;
 import kunlun.util.Assert;
-import kunlun.util.CollUtils;
+import kunlun.util.CollUtil;
 import kunlun.util.function.difference.FieldCompareResult;
 import kunlun.util.function.difference.FieldDifferenceComparator;
 
 import java.util.List;
 
 import static kunlun.common.constant.Symbols.EMPTY_STRING;
-import static kunlun.util.StrUtils.isNotBlank;
+import static kunlun.util.StrUtil.isNotBlank;
 
 /**
  * The field difference builder.
@@ -86,7 +86,7 @@ public class FieldDifferenceBuilder implements Builder {
     @Override
     public String build() {
         List<FieldCompareResult> results = comparator.apply(oldData, newData);
-        if (CollUtils.isEmpty(results)) { return EMPTY_STRING; }
+        if (CollUtil.isEmpty(results)) { return EMPTY_STRING; }
         preProcess(results);
         StringBuilder builder = new StringBuilder();
         for (FieldCompareResult result : results) {

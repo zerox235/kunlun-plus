@@ -6,9 +6,9 @@
 package kunlun.servlet;
 
 import kunlun.util.ArrayUtils;
-import kunlun.util.CollUtils;
+import kunlun.util.CollUtil;
 import kunlun.util.MapUtils;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -26,22 +26,22 @@ public class RequestUtils {
     public static String getReferer(HttpServletRequest request) {
         if (request == null) { return null; }
         String referer = request.getHeader("Referer");
-        return StrUtils.isBlank(referer) ? null : referer;
+        return StrUtil.isBlank(referer) ? null : referer;
     }
 
     public static String getUserAgent(HttpServletRequest request) {
         if (request == null) { return null; }
         String userAgent = request.getHeader("User-Agent");
-        return StrUtils.isBlank(userAgent) ? null : userAgent;
+        return StrUtil.isBlank(userAgent) ? null : userAgent;
     }
 
     public static String getRealAddress(HttpServletRequest request) {
         String remoteAddr = RequestUtils.getRemoteAddress(request);
-        if (StrUtils.isBlank(remoteAddr)) { return remoteAddr; }
+        if (StrUtil.isBlank(remoteAddr)) { return remoteAddr; }
         if (!remoteAddr.contains(COMMA)) { return remoteAddr; }
         String[] split = remoteAddr.trim().split(COMMA);
         remoteAddr = split[split.length - 1];
-        if (StrUtils.isNotBlank(remoteAddr)) {
+        if (StrUtil.isNotBlank(remoteAddr)) {
             remoteAddr = remoteAddr.trim();
         }
         return remoteAddr;
@@ -50,22 +50,22 @@ public class RequestUtils {
     public static String getRemoteAddress(HttpServletRequest request) {
         if (request == null) { return null; }
         String address = request.getHeader("X-Forwarded-For");
-        if(StrUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
+        if(StrUtil.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
             address = request.getHeader("X-Real-IP");
         }
-        if(StrUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
+        if(StrUtil.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
             address = request.getHeader("Proxy-Client-IP");
         }
-        if(StrUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
+        if(StrUtil.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
             address = request.getHeader("WL-Proxy-Client-IP");
         }
-        if(StrUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
+        if(StrUtil.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
             address = request.getHeader("HTTP_CLIENT_IP");
         }
-        if(StrUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
+        if(StrUtil.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
             address = request.getHeader("HTTP_X_FORWARDED_FOR");
         }
-        if(StrUtils.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
+        if(StrUtil.isBlank(address) || UNKNOWN.equalsIgnoreCase(address)) {
             address = request.getRemoteAddr();
         }
         return address;
@@ -101,10 +101,10 @@ public class RequestUtils {
         Enumeration<String> headerNameEnumeration = request.getHeaderNames();
         while (headerNameEnumeration.hasMoreElements()) {
             String headerName = headerNameEnumeration.nextElement();
-            if (StrUtils.isBlank(headerName)) { continue; }
+            if (StrUtil.isBlank(headerName)) { continue; }
             Enumeration<String> valEnumeration = request.getHeaders(headerName);
             List<String> list = new ArrayList<String>();
-            CollUtils.addAll(list, valEnumeration);
+            CollUtil.addAll(list, valEnumeration);
             headers.put(headerName, list);
         }
         requestBean.setHeaders(headers);
@@ -126,7 +126,7 @@ public class RequestUtils {
 
     public static String findCookieValue(HttpServletRequest request, String cookieName) {
         if (request == null) { return null; }
-        if (StrUtils.isBlank(cookieName)) {
+        if (StrUtil.isBlank(cookieName)) {
             return null;
         }
         Cookie[] cookies = request.getCookies();

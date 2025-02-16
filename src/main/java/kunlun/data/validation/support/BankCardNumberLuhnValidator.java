@@ -6,7 +6,7 @@
 package kunlun.data.validation.support;
 
 import kunlun.data.validation.Validator;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 
 import static kunlun.common.constant.Numbers.*;
 
@@ -23,11 +23,11 @@ public class BankCardNumberLuhnValidator implements Validator {
     public Boolean validate(Object bankCardNumberObj) {
         String bankCardNumber = (String) bankCardNumberObj;
         // Data verification.
-        if (StrUtils.isBlank(bankCardNumber)) {
+        if (StrUtil.isBlank(bankCardNumber)) {
             return false;
         }
-        bankCardNumber = StrUtils.trimAllWhitespace(bankCardNumber);
-        if (!StrUtils.isNumeric(bankCardNumber)) {
+        bankCardNumber = StrUtil.trimAllWhitespace(bankCardNumber);
+        if (!StrUtil.isNumeric(bankCardNumber)) {
             return false;
         }
         int numberLength = bankCardNumber.length();

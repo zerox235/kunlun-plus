@@ -18,7 +18,7 @@ import org.graalvm.polyglot.Value;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import static kunlun.util.ObjUtils.cast;
+import static kunlun.util.ObjUtil.cast;
 
 /**
  * The polyglot execution provider base on graalvm-js.

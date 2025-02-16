@@ -14,8 +14,8 @@ import kunlun.action.support.exchange.ExportHandler;
 import kunlun.data.collect.PageArrayList;
 import kunlun.exception.ExceptionUtils;
 import kunlun.util.Assert;
-import kunlun.util.CollUtils;
-import kunlun.util.StrUtils;
+import kunlun.util.CollUtil;
+import kunlun.util.StrUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 import static kunlun.common.constant.Numbers.*;
-import static kunlun.util.ObjUtils.cast;
+import static kunlun.util.ObjUtil.cast;
 
 /**
  * The abstract easy excel byte array based export action.
@@ -60,7 +60,7 @@ public abstract class AbstractEasyExcelByteArrayBasedExportAction<P, D>
             if (nowContext.getHeaderClass() != null) {
                 builder.head(nowContext.getHeaderClass());
             }
-            else if (CollUtils.isNotEmpty(nowContext.getHeaders())) {
+            else if (CollUtil.isNotEmpty(nowContext.getHeaders())) {
                 builder.head(nowContext.getHeaders());
             }
             // Set excelWriter and writeSheet.
@@ -94,7 +94,7 @@ public abstract class AbstractEasyExcelByteArrayBasedExportAction<P, D>
         Assert.notBlank(context.getModule(), "Parameter \"module\" must not blank. ");
         // Default value processing.
         if (context.getAsync() == null) { context.setAsync(false); }
-        if (StrUtils.isBlank(context.getResultMessage()) && context.getAsync()) {
+        if (StrUtil.isBlank(context.getResultMessage()) && context.getAsync()) {
             context.setResultMessage("Please wait for a moment while data is being exported! ");
         }
         // End.

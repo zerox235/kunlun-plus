@@ -9,7 +9,7 @@ import kunlun.core.Handler;
 import kunlun.data.Dict;
 import kunlun.lock.LockUtils;
 import kunlun.util.Assert;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,11 +90,11 @@ public abstract class AbstractNotRepeatAspect extends AbstractAspect {
          */
         protected Dict parseConfig(String config) {
             Dict result = Dict.of();
-            if (StrUtils.isBlank(config)) { return result; }
+            if (StrUtil.isBlank(config)) { return result; }
             // If value contains &, escape it.
             String[] split = config.split(AMPERSAND);
             for (String str : split) {
-                if (StrUtils.isBlank(str)) { continue; }
+                if (StrUtil.isBlank(str)) { continue; }
                 int indexOf = str.indexOf(EQUAL), length = str.length();
                 if (indexOf >= ZERO) {
                     int beginIdx = indexOf + ONE;

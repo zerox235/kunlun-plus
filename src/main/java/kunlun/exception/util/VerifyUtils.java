@@ -9,9 +9,9 @@ import kunlun.data.CodeDefinition;
 import kunlun.data.validation.ValidatorUtils;
 import kunlun.exception.BusinessException;
 import kunlun.util.ArrayUtils;
-import kunlun.util.CollUtils;
+import kunlun.util.CollUtil;
 import kunlun.util.MapUtils;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 
 import java.util.Collection;
 import java.util.Map;
@@ -127,26 +127,26 @@ public class VerifyUtils {
 
 
     public static void isEmpty(Collection<?> collection, CodeDefinition errorCode, Object... arguments) {
-        if (CollUtils.isNotEmpty(collection)) {
+        if (CollUtil.isNotEmpty(collection)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void isEmpty(Collection<?> collection, String message) {
-        if (CollUtils.isNotEmpty(collection)) {
+        if (CollUtil.isNotEmpty(collection)) {
             throw new BusinessException(message);
         }
     }
 
 
     public static void notEmpty(Collection<?> collection, CodeDefinition errorCode, Object... arguments) {
-        if (CollUtils.isEmpty(collection)) {
+        if (CollUtil.isEmpty(collection)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void notEmpty(Collection<?> collection, String message) {
-        if (CollUtils.isEmpty(collection)) {
+        if (CollUtil.isEmpty(collection)) {
             throw new BusinessException(message);
         }
     }
@@ -179,52 +179,52 @@ public class VerifyUtils {
 
 
     public static void isEmpty(String text, CodeDefinition errorCode, Object... arguments) {
-        if (StrUtils.isNotEmpty(text)) {
+        if (StrUtil.isNotEmpty(text)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void isEmpty(String text, String message) {
-        if (StrUtils.isNotEmpty(text)) {
+        if (StrUtil.isNotEmpty(text)) {
             throw new BusinessException(message);
         }
     }
 
 
     public static void notEmpty(String text, CodeDefinition errorCode, Object... arguments) {
-        if (StrUtils.isEmpty(text)) {
+        if (StrUtil.isEmpty(text)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void notEmpty(String text, String message) {
-        if (StrUtils.isEmpty(text)) {
+        if (StrUtil.isEmpty(text)) {
             throw new BusinessException(message);
         }
     }
 
 
     public static void isBlank(String text, CodeDefinition errorCode, Object... arguments) {
-        if (StrUtils.isNotBlank(text)) {
+        if (StrUtil.isNotBlank(text)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void isBlank(String text, String message) {
-        if (StrUtils.isNotBlank(text)) {
+        if (StrUtil.isNotBlank(text)) {
             throw new BusinessException(message);
         }
     }
 
 
     public static void notBlank(String text, CodeDefinition errorCode, Object... arguments) {
-        if (StrUtils.isBlank(text)) {
+        if (StrUtil.isBlank(text)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void notBlank(String text, String message) {
-        if (StrUtils.isBlank(text)) {
+        if (StrUtil.isBlank(text)) {
             throw new BusinessException(message);
         }
     }

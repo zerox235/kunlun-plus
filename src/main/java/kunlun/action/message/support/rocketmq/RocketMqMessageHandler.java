@@ -12,7 +12,7 @@ import kunlun.exception.ExceptionUtils;
 import kunlun.message.model.Result;
 import kunlun.message.model.Subscribe;
 import kunlun.util.Assert;
-import kunlun.util.CollUtils;
+import kunlun.util.CollUtil;
 import kunlun.util.IterUtils;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static kunlun.common.constant.Numbers.ONE;
-import static kunlun.util.StrUtils.isNotBlank;
+import static kunlun.util.StrUtil.isNotBlank;
 
 public class RocketMqMessageHandler extends AbstractMessageHandler {
     private static final Logger log = LoggerFactory.getLogger(RocketMqMessageHandler.class);
@@ -57,7 +57,7 @@ public class RocketMqMessageHandler extends AbstractMessageHandler {
         String  topic = message.getTopic();
         byte[]  body = (byte[]) message.getBody();
         Message result = new Message(topic, tags, null, body);
-        if (CollUtils.isNotEmpty(keys)) {
+        if (CollUtil.isNotEmpty(keys)) {
             result.setKeys(keys);
         }
         if (flag != null) {

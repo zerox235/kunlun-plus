@@ -8,7 +8,7 @@ package kunlun.exception.support;
 import kunlun.common.Result;
 import kunlun.exception.ExceptionUtils;
 import kunlun.exception.ServletErrorHandler;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +29,7 @@ public abstract class AbstractServletErrorHandler implements ServletErrorHandler
         "    <h3>\n" +
         "        An error has occurred. \n" +
         "    </h3>\n" +
-        (StrUtils.isNotBlank(errorCode) ?
+        (StrUtil.isNotBlank(errorCode) ?
         "    Error Code: " + errorCode + "<br />\n" : "") +
         "    Error Message: " + errorMessage + "<br />\n" +
         "    Please check the log for details if necessary. <br />\n" +
@@ -72,7 +72,7 @@ public abstract class AbstractServletErrorHandler implements ServletErrorHandler
     public Object handle(HttpServletRequest request, HttpServletResponse response, Throwable throwable) {
         // Get accept info.
         String accept = request.getHeader("Accept");
-        accept = StrUtils.isNotBlank(accept) ? accept.toLowerCase() : null;
+        accept = StrUtil.isNotBlank(accept) ? accept.toLowerCase() : null;
         // Build result.
         if (accept != null && accept.contains(TEXT_HTML)) {
             return buildHtmlResult(request, response, throwable);

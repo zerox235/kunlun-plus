@@ -50,7 +50,7 @@ public class HttpClientUtils {
     }
 
     public static void setDefaultCharsetName(String charsetName) {
-        if (StrUtils.isBlank(charsetName)) {
+        if (StrUtil.isBlank(charsetName)) {
             throw new IllegalArgumentException("Default charset name can not be blank. ");
         }
         defaultCharsetName = charsetName;
@@ -224,7 +224,7 @@ public class HttpClientUtils {
             httpPost.setConfig(defaultRequestConfig);
             addHeaders(httpPost, headers);
             boolean hasParas = MapUtils.isNotEmpty(formParas);
-            boolean hasData = StrUtils.isNotBlank(data);
+            boolean hasData = StrUtil.isNotBlank(data);
             if (hasParas || hasData) {
                 EntityBuilder builder = entityBuilder();
                 if (hasParas) {

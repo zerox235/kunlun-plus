@@ -7,7 +7,7 @@ package kunlun.spring.db;
 
 import kunlun.db.DbUtils;
 import kunlun.db.support.AutoDbHandler;
-import kunlun.util.StrUtils;
+import kunlun.util.StrUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -29,7 +29,7 @@ public class DbHandlerAutoConfiguration {
         for (AutoDbHandler dbHandler : handlerMap.values()) {
             if (dbHandler == null) { continue; }
             String handlerName = dbHandler.getName();
-            if (StrUtils.isBlank(handlerName)) {
+            if (StrUtil.isBlank(handlerName)) {
                 log.warn("The database handler \"{}\"'s name is blank, it will be ignored. "
                         , dbHandler.getClass());
                 continue;
