@@ -10,7 +10,7 @@ import kunlun.data.validation.ValidatorUtils;
 import kunlun.data.validation.support.*;
 import kunlun.property.PropertySource;
 import kunlun.property.PropertyUtils;
-import kunlun.util.MapUtils;
+import kunlun.util.MapUtil;
 import kunlun.util.StrUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,7 +65,7 @@ public class ValidateAutoConfiguration {
 
     private void registerSpringValidator(ApplicationContext applicationContext) {
         Map<String, AutoValidator> beansOfType = applicationContext.getBeansOfType(AutoValidator.class);
-        if (MapUtils.isEmpty(beansOfType)) { return; }
+        if (MapUtil.isEmpty(beansOfType)) { return; }
         for (Map.Entry<String, AutoValidator> entry : beansOfType.entrySet()) {
             AutoValidator validator = entry.getValue();
             if (validator == null) { continue; }
@@ -77,7 +77,7 @@ public class ValidateAutoConfiguration {
         if (validateProperties == null) { return; }
         Map<String, String> regexValidators =
                 validateProperties.getRegexValidators();
-        if (MapUtils.isEmpty(regexValidators)) { return; }
+        if (MapUtil.isEmpty(regexValidators)) { return; }
         for (Map.Entry<String, String> entry : regexValidators.entrySet()) {
             String regex = entry.getValue();
             if (StrUtil.isBlank(regex)) { continue; }
@@ -92,7 +92,7 @@ public class ValidateAutoConfiguration {
         PropertySource source = PropertyUtils.getPropertySource(sourceName);
         if (source == null) { return; }
         Map<String, Object> properties = PropertyUtils.getProperties(sourceName);
-        if (MapUtils.isEmpty(properties)) { return; }
+        if (MapUtil.isEmpty(properties)) { return; }
         for (Map.Entry<String, Object> entry : properties.entrySet()) {
             String regex = entry.getValue() != null ? String.valueOf(entry.getValue()) : null;
             if (StrUtil.isBlank(regex)) { continue; }

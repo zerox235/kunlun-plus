@@ -13,7 +13,7 @@ import kunlun.data.bean.BeanUtils;
 import kunlun.exception.ExceptionUtils;
 import kunlun.util.Assert;
 import kunlun.util.CollUtil;
-import kunlun.util.MapUtils;
+import kunlun.util.MapUtil;
 import kunlun.util.StrUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,7 +110,7 @@ public abstract class AbstractHutoolSmallExcelImportAction<P, D>
         }
         // Read the data.
         ExcelReader excelReader = ExcelUtil.getReader(inputStream);
-        if (MapUtils.isNotEmpty(context.getHeaderAliases())) {
+        if (MapUtil.isNotEmpty(context.getHeaderAliases())) {
             excelReader.setHeaderAlias(context.getHeaderAliases());
         }
         List<Map<String, Object>> mapList = excelReader.readAll();

@@ -9,7 +9,7 @@ import kunlun.cache.AbstractCache;
 import kunlun.data.bean.BeanUtils;
 import kunlun.util.Assert;
 import kunlun.util.CollUtil;
-import kunlun.util.MapUtils;
+import kunlun.util.MapUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -120,7 +120,7 @@ public class RedisTemplateCache extends AbstractCache {
 
     @Override
     public void putAll(Map<?, ?> map) {
-        if (MapUtils.isEmpty(map)) { return; }
+        if (MapUtil.isEmpty(map)) { return; }
         ValueOperations<String, Object> opsForValue = redisTemplate.opsForValue();
         Map<String, Object> newMap = new LinkedHashMap<String, Object>();
         for (Map.Entry<?, ?> entry : map.entrySet()) {

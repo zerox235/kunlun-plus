@@ -9,7 +9,7 @@ import kunlun.cache.CacheUtils;
 import kunlun.cache.support.SimpleCacheConfig;
 import kunlun.cache.support.SpringSimpleCache;
 import kunlun.data.ReferenceType;
-import kunlun.util.MapUtils;
+import kunlun.util.MapUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class ConversionAutoConfiguration {
 
     private void registerSpringConverter(ApplicationContext applicationContext) {
         Map<String, GenericConverter> beansOfType = applicationContext.getBeansOfType(GenericConverter.class);
-        if (MapUtils.isEmpty(beansOfType)) { return; }
+        if (MapUtil.isEmpty(beansOfType)) { return; }
         for (Map.Entry<String, GenericConverter> entry : beansOfType.entrySet()) {
             GenericConverter converter = entry.getValue();
             if (converter == null) { continue; }

@@ -64,7 +64,7 @@ public class PinyinUtils {
         for (char singleChinese : chineseCharArray) {
             String[] pinyinArray;
             if (!CHINESE_VALIDATOR.validate(String.valueOf(singleChinese))
-                    || ArrayUtils.isEmpty(
+                    || ArrayUtil.isEmpty(
                     pinyinArray = convertSingleChineseToPinyin(singleChinese, outputFormat)
             )) {
                 result.append(singleChinese);

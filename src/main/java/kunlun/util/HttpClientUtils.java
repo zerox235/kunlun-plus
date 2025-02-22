@@ -115,7 +115,7 @@ public class HttpClientUtils {
 
     public static List<NameValuePair> convertParams(Map<String, String> params) {
         List<NameValuePair> list = new ArrayList<NameValuePair>();
-        if (MapUtils.isNotEmpty(params)) {
+        if (MapUtil.isNotEmpty(params)) {
             for (Map.Entry<String, String> entry : params.entrySet()) {
                 list.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
             }
@@ -132,7 +132,7 @@ public class HttpClientUtils {
     }
 
     public static void addHeaders(RequestBuilder builder, Map<String, String> headers) {
-        if (MapUtils.isNotEmpty(headers)) {
+        if (MapUtil.isNotEmpty(headers)) {
             for (Map.Entry<String, String> entry : headers.entrySet()) {
                 builder.addHeader(entry.getKey(), entry.getValue());
             }
@@ -140,7 +140,7 @@ public class HttpClientUtils {
     }
 
     public static void addHeaders(HttpRequestBase request, Map<String, String> headers) {
-        if (MapUtils.isNotEmpty(headers)) {
+        if (MapUtil.isNotEmpty(headers)) {
             for (Map.Entry<String, String> entry : headers.entrySet()) {
                 request.addHeader(entry.getKey(), entry.getValue());
             }
@@ -176,7 +176,7 @@ public class HttpClientUtils {
         try {
             httpClient = HttpClientBuilder.create().setDefaultHeaders(defaultHeaders).build();
 
-            if (MapUtils.isNotEmpty(queryParas)) {
+            if (MapUtil.isNotEmpty(queryParas)) {
                 if (!url.contains("?")) { url += "?"; }
                 else { url += "&"; }
 
@@ -223,7 +223,7 @@ public class HttpClientUtils {
             HttpPost httpPost = new HttpPost(url);
             httpPost.setConfig(defaultRequestConfig);
             addHeaders(httpPost, headers);
-            boolean hasParas = MapUtils.isNotEmpty(formParas);
+            boolean hasParas = MapUtil.isNotEmpty(formParas);
             boolean hasData = StrUtil.isNotBlank(data);
             if (hasParas || hasData) {
                 EntityBuilder builder = entityBuilder();

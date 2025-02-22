@@ -8,9 +8,9 @@ package kunlun.exception.util;
 import kunlun.data.CodeDefinition;
 import kunlun.data.validation.ValidatorUtils;
 import kunlun.exception.BusinessException;
-import kunlun.util.ArrayUtils;
+import kunlun.util.ArrayUtil;
 import kunlun.util.CollUtil;
-import kunlun.util.MapUtils;
+import kunlun.util.MapUtil;
 import kunlun.util.StrUtil;
 
 import java.util.Collection;
@@ -75,52 +75,52 @@ public class VerifyUtils {
 
 
     public static void isEmpty(byte[] array, CodeDefinition errorCode, Object... arguments) {
-        if (ArrayUtils.isNotEmpty(array)) {
+        if (ArrayUtil.isNotEmpty(array)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void isEmpty(byte[] array, String message) {
-        if (ArrayUtils.isNotEmpty(array)) {
+        if (ArrayUtil.isNotEmpty(array)) {
             throw new BusinessException(message);
         }
     }
 
 
     public static void notEmpty(byte[] array, CodeDefinition errorCode, Object... arguments) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ArrayUtil.isEmpty(array)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void notEmpty(byte[] array, String message) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ArrayUtil.isEmpty(array)) {
             throw new BusinessException(message);
         }
     }
 
 
     public static void isEmpty(Object[] array, CodeDefinition errorCode, Object... arguments) {
-        if (ArrayUtils.isNotEmpty(array)) {
+        if (ArrayUtil.isNotEmpty(array)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void isEmpty(Object[] array, String message) {
-        if (ArrayUtils.isNotEmpty(array)) {
+        if (ArrayUtil.isNotEmpty(array)) {
             throw new BusinessException(message);
         }
     }
 
 
     public static void notEmpty(Object[] array, CodeDefinition errorCode, Object... arguments) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ArrayUtil.isEmpty(array)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void notEmpty(Object[] array, String message) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ArrayUtil.isEmpty(array)) {
             throw new BusinessException(message);
         }
     }
@@ -153,26 +153,26 @@ public class VerifyUtils {
 
 
     public static void isEmpty(Map<?, ?> map, CodeDefinition errorCode, Object... arguments) {
-        if (MapUtils.isNotEmpty(map)) {
+        if (MapUtil.isNotEmpty(map)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void isEmpty(Map<?, ?> map, String message) {
-        if (MapUtils.isNotEmpty(map)) {
+        if (MapUtil.isNotEmpty(map)) {
             throw new BusinessException(message);
         }
     }
 
 
     public static void notEmpty(Map<?, ?> map, CodeDefinition errorCode, Object... arguments) {
-        if (MapUtils.isEmpty(map)) {
+        if (MapUtil.isEmpty(map)) {
             throw new BusinessException(errorCode, arguments);
         }
     }
 
     public static void notEmpty(Map<?, ?> map, String message) {
-        if (MapUtils.isEmpty(map)) {
+        if (MapUtil.isEmpty(map)) {
             throw new BusinessException(message);
         }
     }
