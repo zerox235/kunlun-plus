@@ -9,7 +9,7 @@ import kunlun.core.annotation.FieldMeta;
 import kunlun.core.function.BiFunction;
 import kunlun.exception.ExceptionUtils;
 import kunlun.reflect.ReflectUtils;
-import kunlun.util.ArrayUtils;
+import kunlun.util.ArrayUtil;
 import kunlun.util.Assert;
 import kunlun.util.ObjUtil;
 
@@ -47,7 +47,7 @@ public class FieldDifferenceComparator implements BiFunction<Object, Object, Lis
     protected List<FieldEntity> getFieldEntities(Object object) {
         try {
             Field[] fields = ReflectUtils.getDeclaredFields(object.getClass());
-            if (ArrayUtils.isEmpty(fields)) { return emptyList(); }
+            if (ArrayUtil.isEmpty(fields)) { return emptyList(); }
             List<FieldEntity> result = new ArrayList<FieldEntity>();
             for (Field field : fields) {
                 ReflectUtils.makeAccessible(field);

@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import static kunlun.common.constant.Numbers.*;
-import static kunlun.util.ArrayUtils.toList;
+import static kunlun.util.ArrayUtil.toList;
 import static kunlun.util.CollUtil.toArray;
 
 public abstract class AbstractScriptBasedJdbcTemplateInvokeAction extends AbstractScriptBasedJdbcInvokeAction {

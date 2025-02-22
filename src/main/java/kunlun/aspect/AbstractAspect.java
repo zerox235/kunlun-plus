@@ -5,7 +5,7 @@
 
 package kunlun.aspect;
 
-import kunlun.util.ArrayUtils;
+import kunlun.util.ArrayUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -22,7 +22,7 @@ public abstract class AbstractAspect {
         if (ignoreTypes == null) { ignoreTypes = new Class<?>[]{}; }
         if (joinPoint == null) { return null; }
         Object[] args = joinPoint.getArgs();
-        if (ArrayUtils.isEmpty(args)) {
+        if (ArrayUtil.isEmpty(args)) {
             return Collections.emptyList();
         }
         List<Object> result = new ArrayList<Object>();

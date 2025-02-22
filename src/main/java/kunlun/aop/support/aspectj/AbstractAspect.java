@@ -5,7 +5,7 @@
 
 package kunlun.aop.support.aspectj;
 
-import kunlun.util.ArrayUtils;
+import kunlun.util.ArrayUtil;
 import kunlun.util.Assert;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
@@ -27,10 +27,10 @@ public abstract class AbstractAspect {
     protected Object[] getArguments(JoinPoint joinPoint, Class<?>... ignoreTypes) {
         Assert.notNull(joinPoint, "Parameter \"joinPoint\" must not null. ");
         Object[] args = joinPoint.getArgs();
-        if (ArrayUtils.isEmpty(ignoreTypes)) {
+        if (ArrayUtil.isEmpty(ignoreTypes)) {
             return args;
         }
-        if (ArrayUtils.isEmpty(args)) {
+        if (ArrayUtil.isEmpty(args)) {
             return new Object[]{};
         }
         List<Object> result = new ArrayList<Object>();

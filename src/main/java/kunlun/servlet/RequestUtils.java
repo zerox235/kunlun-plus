@@ -5,9 +5,9 @@
 
 package kunlun.servlet;
 
-import kunlun.util.ArrayUtils;
+import kunlun.util.ArrayUtil;
 import kunlun.util.CollUtil;
-import kunlun.util.MapUtils;
+import kunlun.util.MapUtil;
 import kunlun.util.StrUtil;
 
 import javax.servlet.http.Cookie;
@@ -73,7 +73,7 @@ public class RequestUtils {
 
     public static Map<String, String> getCookieMap(Cookie[] cookies) {
         Map<String, String> cookieMap = new LinkedHashMap<String, String>();
-        if (ArrayUtils.isEmpty(cookies)) { return cookieMap; }
+        if (ArrayUtil.isEmpty(cookies)) { return cookieMap; }
         for (Cookie cookie : cookies) {
             if (cookie == null) { continue; }
             String cookieValue = cookie.getValue();
@@ -110,7 +110,7 @@ public class RequestUtils {
         requestBean.setHeaders(headers);
         Map<String, List<String>> parameters = new LinkedHashMap<String, List<String>>();
         Map<String, String[]> parameterMap = request.getParameterMap();
-        if (MapUtils.isNotEmpty(parameterMap)) {
+        if (MapUtil.isNotEmpty(parameterMap)) {
             for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
                 if (entry == null) { continue; }
                 String[] val = entry.getValue();
@@ -130,7 +130,7 @@ public class RequestUtils {
             return null;
         }
         Cookie[] cookies = request.getCookies();
-        if (ArrayUtils.isEmpty(cookies)) {
+        if (ArrayUtil.isEmpty(cookies)) {
             return null;
         }
         for (Cookie cookie : cookies) {

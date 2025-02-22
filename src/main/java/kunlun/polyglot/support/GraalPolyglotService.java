@@ -9,7 +9,7 @@ import kunlun.data.Dict;
 import kunlun.data.bean.BeanUtils;
 import kunlun.polyglot.PolyglotService;
 import kunlun.util.Assert;
-import kunlun.util.MapUtils;
+import kunlun.util.MapUtil;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.HostAccess;
 import org.graalvm.polyglot.Source;
@@ -52,7 +52,7 @@ public class GraalPolyglotService implements PolyglotService {
         });
         // Options.
         Map<String, String> options = cast(configDict.get("options", Map.class));
-        if (MapUtils.isNotEmpty(options)) {
+        if (MapUtil.isNotEmpty(options)) {
             builder.options(options);
         }
         // Build.

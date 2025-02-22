@@ -9,7 +9,7 @@ import kunlun.common.SimpleCode;
 import kunlun.data.CodeDefinition;
 import kunlun.renderer.support.FormatTextRenderer;
 import kunlun.renderer.support.PrintfTextRenderer;
-import kunlun.util.ArrayUtils;
+import kunlun.util.ArrayUtil;
 import kunlun.util.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,13 +57,13 @@ public class BusinessException extends UncheckedException {
 
     protected static String render(CodeDefinition errorCode, Object... arguments) {
         Assert.notNull(errorCode, "Parameter \"errorCode\" must not null. ");
-        if (ArrayUtils.isEmpty(arguments)) { return errorCode.getDescription(); }
+        if (ArrayUtil.isEmpty(arguments)) { return errorCode.getDescription(); }
         return getTextRenderer().render(errorCode.getDescription(), arguments);
     }
 
     protected static String render(String template, Object... arguments) {
         Assert.notBlank(template, "Parameter \"template\" must not blank. ");
-        if (ArrayUtils.isEmpty(arguments)) { return template; }
+        if (ArrayUtil.isEmpty(arguments)) { return template; }
         return getTextRenderer().render(template, arguments);
     }
 

@@ -8,7 +8,7 @@ package kunlun.data.json.support;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import kunlun.data.json.JsonFormat;
-import kunlun.util.ArrayUtils;
+import kunlun.util.ArrayUtil;
 import kunlun.util.Assert;
 
 import java.lang.reflect.Type;
@@ -37,7 +37,7 @@ public class GsonHandler extends AbstractJsonHandler {
     }
 
     protected Gson getGson(Object... arguments) {
-        if (ArrayUtils.isEmpty(arguments)) { return gson; }
+        if (ArrayUtil.isEmpty(arguments)) { return gson; }
         for (Object arg : arguments) {
             if (arg == null) { continue; }
             if (arg instanceof JsonFormat

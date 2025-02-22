@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import kunlun.data.json.JsonFormat;
 import kunlun.exception.ExceptionUtils;
-import kunlun.util.ArrayUtils;
+import kunlun.util.ArrayUtil;
 import kunlun.util.Assert;
 
 import java.lang.reflect.Type;
@@ -38,7 +38,7 @@ public class JacksonHandler extends AbstractJsonHandler {
     @Override
     public String toJsonString(Object object, Object... arguments) {
         try {
-            if (ArrayUtils.isEmpty(arguments)) {
+            if (ArrayUtil.isEmpty(arguments)) {
                 return objectMapper.writeValueAsString(object);
             }
             ObjectWriter objectWriter = null;

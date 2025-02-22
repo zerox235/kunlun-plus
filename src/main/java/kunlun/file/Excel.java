@@ -41,7 +41,7 @@ public class Excel extends BinaryFile implements Table {
     private void createWorkbook(InputStream inputStream) throws IOException {
         String extension = getExtension();
         boolean haveStream = inputStream != null;
-        boolean haveTemplate = ArrayUtils.isNotEmpty(template);
+        boolean haveTemplate = ArrayUtil.isNotEmpty(template);
         if (!haveStream && haveTemplate) {
             inputStream = new ByteArrayInputStream(template);
             haveStream = true;
@@ -386,7 +386,7 @@ public class Excel extends BinaryFile implements Table {
     public List<Map<String, Object>> toMapList() {
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         int lastRowNumber = getLastRowNumber();
-        boolean haveHeaders = MapUtils.isNotEmpty(headersMapping);
+        boolean haveHeaders = MapUtil.isNotEmpty(headersMapping);
         List<String> propertyList = new ArrayList<String>();
         boolean isFirst = true;
         for (int i = columnStartNumber; i <= lastRowNumber; i++) {
@@ -431,7 +431,7 @@ public class Excel extends BinaryFile implements Table {
                 headerList.add(EMPTY_STRING);
             }
         }
-        boolean haveHeaders = MapUtils.isNotEmpty(propertiesMapping);
+        boolean haveHeaders = MapUtil.isNotEmpty(propertiesMapping);
         if (haveHeaders) {
             headerList.addAll(propertiesMapping.values());
         }

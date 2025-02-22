@@ -6,7 +6,7 @@
 package kunlun.servlet;
 
 import kunlun.time.DateUtils;
-import kunlun.util.MapUtils;
+import kunlun.util.MapUtil;
 import kunlun.util.StrUtil;
 
 import java.util.Date;
@@ -171,7 +171,7 @@ public class RequestBean {
             builder.append(keyBuilder).append(": ");
             builder.append(valBuilder).append(NEWLINE);
         }
-        if (MapUtils.isNotEmpty(parameters)) {
+        if (MapUtil.isNotEmpty(parameters)) {
             builder.append("---- Parameters ----").append(NEWLINE);
             for (Map.Entry<String, List<String>> entry : parameters.entrySet()) {
                 List<String> valList = entry.getValue();

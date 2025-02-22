@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import kunlun.data.json.JsonFormat;
-import kunlun.util.ArrayUtils;
+import kunlun.util.ArrayUtil;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class FastJsonHandler extends AbstractJsonHandler {
 
     protected SerializerFeature[] serializerFeatures(Object[] arguments) {
         List<SerializerFeature> list = new ArrayList<SerializerFeature>();
-        if (ArrayUtils.isEmpty(arguments)) {
+        if (ArrayUtil.isEmpty(arguments)) {
             return list.toArray(new SerializerFeature[ZERO]);
         }
         for (Object arg : arguments) {

@@ -7,7 +7,7 @@ import kunlun.db.jdbc.meta.Table;
 import kunlun.generator.render.support.AbstractRenderFileGenerator;
 import kunlun.util.Assert;
 import kunlun.util.CollUtil;
-import kunlun.util.MapUtils;
+import kunlun.util.MapUtil;
 import kunlun.util.StrUtil;
 
 import java.io.File;
@@ -195,7 +195,7 @@ public class JavaCodeGenerator extends AbstractRenderFileGenerator {
         }
         // Custom can override the generated.
         Map<String, Object> customAttributes = genConfig.getCustomAttributes();
-        if (MapUtils.isNotEmpty(customAttributes)) {
+        if (MapUtil.isNotEmpty(customAttributes)) {
             attributes.putAll(customAttributes);
         }
         // Set to context.
