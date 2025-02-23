@@ -13,7 +13,7 @@ import kunlun.message.model.Result;
 import kunlun.message.model.Subscribe;
 import kunlun.util.Assert;
 import kunlun.util.CollUtil;
-import kunlun.util.IterUtils;
+import kunlun.util.IterUtil;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerOrderly;
@@ -72,7 +72,7 @@ public class RocketMqMessageHandler extends AbstractMessageHandler {
         try {
             SendResult sendResult;
             if (messages.size() == ONE) {
-                Message mqMessage = convert(IterUtils.getFirst(messages));
+                Message mqMessage = convert(IterUtil.getFirst(messages));
                 sendResult = mqProducer.send(mqMessage);
             } else {
                 List<Message> messageList = new ArrayList<Message>();

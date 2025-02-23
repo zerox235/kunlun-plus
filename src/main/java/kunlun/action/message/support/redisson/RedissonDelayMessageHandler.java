@@ -16,7 +16,7 @@ import kunlun.message.model.Result;
 import kunlun.message.model.Subscribe;
 import kunlun.time.DateUtils;
 import kunlun.util.Assert;
-import kunlun.util.ThreadUtils;
+import kunlun.util.ThreadUtil;
 import org.redisson.api.RBlockingDeque;
 import org.redisson.api.RDelayedQueue;
 import org.redisson.api.RedissonClient;
@@ -189,7 +189,7 @@ public class RedissonDelayMessageHandler extends AbstractMessageHandler {
                         "The rejected message is \"{}\". " +
                         "The message object is \"{}\". ", e.getMessage(), message);
                 queuePair.getLeft().offerAsync(message, sleepTimeWhenRejected, TimeUnit.MILLISECONDS);
-                ThreadUtils.sleepQuietly(sleepTimeWhenRejected);
+                ThreadUtil.sleepQuietly(sleepTimeWhenRejected);
             }
             catch (Exception e) {
                 // If the exception is thrown, the subscription will stop.

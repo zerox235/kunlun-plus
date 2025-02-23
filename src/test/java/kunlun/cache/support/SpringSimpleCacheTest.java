@@ -6,7 +6,7 @@
 package kunlun.cache.support;
 
 import kunlun.data.ReferenceType;
-import kunlun.util.ThreadUtils;
+import kunlun.util.ThreadUtil;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -30,14 +30,14 @@ public class SpringSimpleCacheTest {
             public void run() {
                 for (int i = 0; i < 1000000; i++) {
                     cache.put(i, i, 100, TimeUnit.MILLISECONDS);
-                    ThreadUtils.sleepQuietly(1);
+                    ThreadUtil.sleepQuietly(1);
                 }
             }
         }).start();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ThreadUtils.sleepQuietly(100);
+                ThreadUtil.sleepQuietly(100);
                 for (int i = 0; i < 1000000; i++) {
                     cache.get(i);
                 }

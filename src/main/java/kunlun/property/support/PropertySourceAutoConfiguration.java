@@ -6,7 +6,7 @@
 package kunlun.property.support;
 
 import kunlun.property.PropertyUtils;
-import kunlun.util.ClassUtils;
+import kunlun.util.ClassUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class PropertySourceAutoConfiguration {
 
     @Autowired
     public PropertySourceAutoConfiguration(Environment env) {
-        if (ClassUtils.isPresent("org.slf4j.MDC", getClass().getClassLoader())) {
+        if (ClassUtil.isPresent("org.slf4j.MDC", getClass().getClassLoader())) {
             PropertyUtils.registerSource(new MdcPropertySource("mdc"));
         }
         if (env != null) {

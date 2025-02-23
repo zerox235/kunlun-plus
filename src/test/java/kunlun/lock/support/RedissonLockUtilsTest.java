@@ -6,7 +6,7 @@
 package kunlun.lock.support;
 
 import kunlun.lock.LockUtils;
-import kunlun.util.ThreadUtils;
+import kunlun.util.ThreadUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -53,12 +53,12 @@ public class RedissonLockUtilsTest {
 
     private void bizCalc() {
         num = num + 20;
-        ThreadUtils.sleepQuietly(50);
+        ThreadUtil.sleepQuietly(50);
         num = num - 40;
-        ThreadUtils.sleepQuietly(100);
+        ThreadUtil.sleepQuietly(100);
         num = num + 20;
         num = num + 10;
-        ThreadUtils.sleepQuietly(150);
+        ThreadUtil.sleepQuietly(150);
         num = num - 20;
         num = num + 10;
         num = num - 1;
@@ -85,7 +85,7 @@ public class RedissonLockUtilsTest {
                     finally {
                         log.info("<< {} unlock\n", threadName);
                         LockUtils.unlock(managerName, lockName);
-                        ThreadUtils.sleepQuietly(100);
+                        ThreadUtil.sleepQuietly(100);
                     }
                 }
                 log.info("{}: {}ms", threadName, System.currentTimeMillis() - millis);
@@ -94,7 +94,7 @@ public class RedissonLockUtilsTest {
         for (int i = 0; i < threadNum; i++) {
             threadPool.submit(runnable);
         }
-        ThreadUtils.sleepQuietly(100000);
+        ThreadUtil.sleepQuietly(100000);
     }
 
     @Test
@@ -119,7 +119,7 @@ public class RedissonLockUtilsTest {
                     finally {
                         log.info("<< {} unlock\n", threadName);
                         LockUtils.unlock(managerName, lockName);
-                        ThreadUtils.sleepQuietly(100);
+                        ThreadUtil.sleepQuietly(100);
                     }
                 }
                 log.info("{}: {}ms", threadName, System.currentTimeMillis() - millis);
@@ -128,7 +128,7 @@ public class RedissonLockUtilsTest {
         for (int i = 0; i < threadNum; i++) {
             threadPool.submit(runnable);
         }
-        ThreadUtils.sleepQuietly(100000);
+        ThreadUtil.sleepQuietly(100000);
     }
 
 }

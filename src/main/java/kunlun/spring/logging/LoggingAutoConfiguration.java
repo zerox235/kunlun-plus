@@ -5,8 +5,8 @@
 
 package kunlun.spring.logging;
 
-import kunlun.util.ClassLoaderUtils;
-import kunlun.util.ClassUtils;
+import kunlun.util.ClassLoaderUtil;
+import kunlun.util.ClassUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
@@ -24,8 +24,8 @@ public class LoggingAutoConfiguration implements InitializingBean, DisposableBea
     private static final String SLF4J_BRIDGE_HANDLER_CLASS = "org.slf4j.bridge.SLF4JBridgeHandler";
 
     private void initJulToSlf4j() {
-        ClassLoader classLoader = ClassLoaderUtils.getDefaultClassLoader();
-        if (!ClassUtils.isPresent(SLF4J_BRIDGE_HANDLER_CLASS, classLoader)) {
+        ClassLoader classLoader = ClassLoaderUtil.getDefaultClassLoader();
+        if (!ClassUtil.isPresent(SLF4J_BRIDGE_HANDLER_CLASS, classLoader)) {
             return;
         }
         if (SLF4JBridgeHandler.isInstalled()) {

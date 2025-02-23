@@ -9,7 +9,7 @@ import kunlun.common.constant.Words;
 import kunlun.data.json.JsonUtils;
 import kunlun.data.mock.MockUtils;
 import kunlun.entity.Student;
-import kunlun.util.TypeUtils;
+import kunlun.util.TypeUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,7 +47,7 @@ public class FastJsonHandlerTest {
         JsonUtils.registerHandler(Words.DEFAULT, new FastJsonHandler());
         Student student = JsonUtils.parseObject(jsonString, Student.class);
         List<Student> list = JsonUtils.parseObject(jsonString1
-                , TypeUtils.parameterizedOf(List.class, Student.class));
+                , TypeUtil.parameterizedOf(List.class, Student.class));
         System.out.println(JsonUtils.toJsonString(student, PRETTY_FORMAT));
         System.out.println("----");
         for (Student student1 : list) {

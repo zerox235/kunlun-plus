@@ -10,7 +10,7 @@ import kunlun.aop.ProxyUtils;
 import kunlun.aop.support.CglibProxyHandler;
 import kunlun.aop.support.SpringCglibProxyHandler;
 import kunlun.common.constant.Words;
-import kunlun.util.ClassUtils;
+import kunlun.util.ClassUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -27,12 +27,12 @@ public class CglibAopAutoConfiguration implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         ProxyHandler proxyHandler;
-        if (ClassUtils.isPresent("net.sf.cglib.proxy.MethodInterceptor")) {
+        if (ClassUtil.isPresent("net.sf.cglib.proxy.MethodInterceptor")) {
             ProxyUtils.registerHandler("cglib", proxyHandler = new CglibProxyHandler());
             ProxyUtils.registerHandler(Words.DEFAULT, proxyHandler);
             log.info("The cglib proxy handler was initialized success. ");
         }
-        if (ClassUtils.isPresent("org.springframework.cglib.proxy.MethodInterceptor")) {
+        if (ClassUtil.isPresent("org.springframework.cglib.proxy.MethodInterceptor")) {
             ProxyUtils.registerHandler("spring-cglib", proxyHandler = new SpringCglibProxyHandler());
             ProxyUtils.registerHandler(Words.DEFAULT, proxyHandler);
             log.info("The spring cglib proxy factory was initialized success. ");

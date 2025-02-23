@@ -6,7 +6,7 @@
 package kunlun.util.concurrent.ttl;
 
 import com.alibaba.ttl.threadpool.TtlExecutors;
-import kunlun.util.ClassUtils;
+import kunlun.util.ClassUtil;
 import kunlun.util.concurrent.ThreadPoolWrapper;
 
 import java.util.concurrent.Executor;
@@ -22,7 +22,7 @@ public class TtlThreadPoolWrapper implements ThreadPoolWrapper {
 
     static {
 
-        HAVE_TTL = ClassUtils.isPresent("com.alibaba.ttl.threadpool.TtlExecutors");
+        HAVE_TTL = ClassUtil.isPresent("com.alibaba.ttl.threadpool.TtlExecutors");
     }
 
     @Override
