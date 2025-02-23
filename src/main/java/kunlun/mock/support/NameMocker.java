@@ -5,7 +5,7 @@
 
 package kunlun.mock.support;
 
-import kunlun.util.RandomUtils;
+import kunlun.util.RandomUtil;
 import kunlun.util.StrUtil;
 
 import static kunlun.common.constant.Numbers.SIX;
@@ -19,8 +19,8 @@ public class NameMocker implements Mocker<String> {
     private static final String ENGLISH_2 = "eng";
 
     private String randomName(String language) {
-        int length = RandomUtils.nextInt(SIX) + THREE;
-        String randomName = RandomUtils.nextString(NAME_CHAR_ARRAY, length);
+        int length = RandomUtil.nextInt(SIX) + THREE;
+        String randomName = RandomUtil.nextString(NAME_CHAR_ARRAY, length);
         return StrUtil.capitalize(randomName);
     }
 
@@ -38,7 +38,7 @@ public class NameMocker implements Mocker<String> {
     }
 
     protected String middleName(String language) {
-        boolean nextBool = RandomUtils.nextBoolean();
+        boolean nextBool = RandomUtil.nextBoolean();
         return nextBool ? randomName(language) : EMPTY_STRING;
     }
 

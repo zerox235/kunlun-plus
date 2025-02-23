@@ -18,7 +18,7 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 import kunlun.data.xml.XmlClassAlias;
 import kunlun.data.xml.XmlFieldAlias;
-import kunlun.util.ClassLoaderUtils;
+import kunlun.util.ClassLoaderUtil;
 import kunlun.util.ObjUtil;
 
 import java.io.Writer;
@@ -42,7 +42,7 @@ public class XStreamXmlHandler extends AbstractXmlHandler {
         XStream.setupDefaultSecurity(xStream);
         String[] patterns = new String[]{"kunlun.**"};
         xStream.allowTypesByWildcard(patterns);
-        ClassLoader classLoader = ClassLoaderUtils.getDefaultClassLoader();
+        ClassLoader classLoader = ClassLoaderUtil.getDefaultClassLoader();
         xStream.setClassLoader(classLoader);
         // Register converter.
         xStream.registerConverter(new MapEntryConverter());

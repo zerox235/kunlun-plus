@@ -7,7 +7,7 @@ package kunlun.cache.support;
 
 import kunlun.cache.Cache;
 import kunlun.data.ReferenceType;
-import kunlun.util.ThreadUtils;
+import kunlun.util.ThreadUtil;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,18 +30,18 @@ public class CaffeineCacheTest {
     public void test1() {
         cache1.put("test1", "test1-value");
         log.info("{}", cache1.get("test1"));
-        ThreadUtils.sleepQuietly(ONE_THOUSAND);
+        ThreadUtil.sleepQuietly(ONE_THOUSAND);
         log.info("{}", cache1.get("test1"));
     }
 
     @Test
     public void test2() {
         cache2.put("test2", "test2-value");
-        ThreadUtils.sleepQuietly(EIGHT_HUNDRED);
+        ThreadUtil.sleepQuietly(EIGHT_HUNDRED);
         log.info("{}", cache2.get("test2"));
-        ThreadUtils.sleepQuietly(EIGHT_HUNDRED);
+        ThreadUtil.sleepQuietly(EIGHT_HUNDRED);
         log.info("{}", cache2.get("test2"));
-        ThreadUtils.sleepQuietly(ONE_THOUSAND);
+        ThreadUtil.sleepQuietly(ONE_THOUSAND);
         log.info("{}", cache2.get("test2"));
     }
 
@@ -53,7 +53,7 @@ public class CaffeineCacheTest {
         log.info("{}", cache3.get("test3-2"));
         cache3.put("test3-3", "test3-3-value");
         log.info("----");
-        ThreadUtils.sleepQuietly(ONE_THOUSAND);
+        ThreadUtil.sleepQuietly(ONE_THOUSAND);
         log.info("{}", cache3.get("test3-3"));
         log.info("{}", cache3.get("test3-2"));
         log.info("{}", cache3.get("test3-1"));

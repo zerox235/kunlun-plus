@@ -9,8 +9,8 @@ import kunlun.data.json.JsonUtils;
 import kunlun.data.json.support.FastJsonHandler;
 import kunlun.data.json.support.GsonHandler;
 import kunlun.data.json.support.JacksonHandler;
-import kunlun.util.ClassLoaderUtils;
-import kunlun.util.ClassUtils;
+import kunlun.util.ClassLoaderUtil;
+import kunlun.util.ClassUtil;
 import kunlun.util.StrUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,19 +31,19 @@ public class JsonAutoConfiguration implements InitializingBean, DisposableBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        ClassLoader classLoader = ClassLoaderUtils.getDefaultClassLoader();
+        ClassLoader classLoader = ClassLoaderUtil.getDefaultClassLoader();
         String defaultHandler = null;
-        if (ClassUtils.isPresent(JACKSON_CLASS, classLoader)) {
+        if (ClassUtil.isPresent(JACKSON_CLASS, classLoader)) {
             JsonUtils.registerHandler("jackson", new JacksonHandler());
             defaultHandler = "jackson";
         }
-        if (ClassUtils.isPresent(GSON_CLASS, classLoader)) {
+        if (ClassUtil.isPresent(GSON_CLASS, classLoader)) {
             JsonUtils.registerHandler("gson", new GsonHandler());
             if (StrUtil.isBlank(defaultHandler)) {
                 defaultHandler = "gson";
             }
         }
-        if (ClassUtils.isPresent(FASTJSON_CLASS, classLoader)) {
+        if (ClassUtil.isPresent(FASTJSON_CLASS, classLoader)) {
             JsonUtils.registerHandler("fastjson", new FastJsonHandler());
             if (StrUtil.isBlank(defaultHandler)) {
                 defaultHandler = "fastjson";

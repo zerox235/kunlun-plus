@@ -11,7 +11,7 @@ import kunlun.logging.LoggerFactory;
 import kunlun.mock.support.*;
 import kunlun.test.pojo.entity.other.Book;
 import kunlun.test.pojo.entity.system.User;
-import kunlun.util.TypeUtils;
+import kunlun.util.TypeUtil;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -36,7 +36,7 @@ public class MockUtilsTest {
 
     @Test
     public void testMock2() {
-        List<Book> bookList = MockUtils.mock(TypeUtils.parameterizedOf(List.class, Book.class));
+        List<Book> bookList = MockUtils.mock(TypeUtil.parameterizedOf(List.class, Book.class));
         log.info(JSON.toJSONString(bookList, Boolean.TRUE));
     }
 

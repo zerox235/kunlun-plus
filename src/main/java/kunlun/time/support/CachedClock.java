@@ -7,7 +7,7 @@ package kunlun.time.support;
 
 import kunlun.time.SimpleClock;
 import kunlun.util.Assert;
-import kunlun.util.ShutdownHookUtils;
+import kunlun.util.ShutdownHookUtil;
 import kunlun.util.concurrent.SimpleThreadFactory;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -48,7 +48,7 @@ public class CachedClock extends SimpleClock {
         ThreadFactory threadFactory = new SimpleThreadFactory(THREAD_NAME, TRUE);
         ScheduledThreadPoolExecutor threadPool = new ScheduledThreadPoolExecutor(ONE, threadFactory);
         threadPool.scheduleAtFixedRate(new TimeUpdater(), period, period, MILLISECONDS);
-        ShutdownHookUtils.addExecutorService(threadPool);
+        ShutdownHookUtil.addExecutorService(threadPool);
         this.nowTime = System.currentTimeMillis();
     }
 

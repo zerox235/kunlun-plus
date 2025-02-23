@@ -8,8 +8,8 @@ package kunlun.spring.codec;
 import kunlun.codec.CodecUtils;
 import kunlun.codec.support.ApacheBase64;
 import kunlun.codec.support.Java8Base64;
-import kunlun.util.ClassLoaderUtils;
-import kunlun.util.ClassUtils;
+import kunlun.util.ClassLoaderUtil;
+import kunlun.util.ClassUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -31,12 +31,12 @@ public class Base64AutoConfiguration implements InitializingBean, DisposableBean
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        ClassLoader classLoader = ClassLoaderUtils.getDefaultClassLoader();
-        if (ClassUtils.isPresent(APACHE_BASE64, classLoader)) {
+        ClassLoader classLoader = ClassLoaderUtil.getDefaultClassLoader();
+        if (ClassUtil.isPresent(APACHE_BASE64, classLoader)) {
             // If have Apache Commons Codec, to use it.
             CodecUtils.registerCodec(BASE64, new ApacheBase64());
         }
-        else if (ClassUtils.isPresent(JAVA_BASE64, classLoader)) {
+        else if (ClassUtil.isPresent(JAVA_BASE64, classLoader)) {
             // If have "java.util.Base64", to use it.
             CodecUtils.registerCodec(BASE64, new Java8Base64());
         }

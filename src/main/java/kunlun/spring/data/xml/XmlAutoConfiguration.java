@@ -7,8 +7,8 @@ package kunlun.spring.data.xml;
 
 import kunlun.data.xml.XmlUtils;
 import kunlun.data.xml.support.XStreamXmlHandler;
-import kunlun.util.ClassLoaderUtils;
-import kunlun.util.ClassUtils;
+import kunlun.util.ClassLoaderUtil;
+import kunlun.util.ClassUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -28,13 +28,13 @@ public class XmlAutoConfiguration implements InitializingBean, DisposableBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        ClassLoader classLoader = ClassLoaderUtils.getDefaultClassLoader();
-        if (ClassUtils.isPresent(X_STREAM_CLASS, classLoader)) {
+        ClassLoader classLoader = ClassLoaderUtil.getDefaultClassLoader();
+        if (ClassUtil.isPresent(X_STREAM_CLASS, classLoader)) {
             XStreamXmlHandler xmlHandler = new XStreamXmlHandler();
             XmlUtils.registerHandler(getDefaultHandlerName(), xmlHandler);
             XmlUtils.registerHandler("xstream", xmlHandler);
         }
-//        else if (ClassUtils.isPresent("", classLoader)) {
+//        else if (ClassUtil.isPresent("", classLoader)) {
 //            XmlUtils.registerHandler();
 //        }
         else { log.warn("Can not found any implementation, will keep default. "); }

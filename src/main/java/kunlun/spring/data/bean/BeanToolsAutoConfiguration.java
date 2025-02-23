@@ -9,8 +9,8 @@ import kunlun.data.bean.BeanCopier;
 import kunlun.data.bean.BeanMapFactory;
 import kunlun.data.bean.BeanUtils;
 import kunlun.data.bean.support.*;
-import kunlun.util.ClassLoaderUtils;
-import kunlun.util.ClassUtils;
+import kunlun.util.ClassLoaderUtil;
+import kunlun.util.ClassUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -31,25 +31,25 @@ public class BeanToolsAutoConfiguration implements InitializingBean, DisposableB
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        ClassLoader classLoader = ClassLoaderUtils.getDefaultClassLoader();
+        ClassLoader classLoader = ClassLoaderUtil.getDefaultClassLoader();
         BeanMapFactory beanMapFactory = null;
         BeanCopier beanCopier = null;
-        if (ClassUtils.isPresent(SPRING_CGLIB_CLASS, classLoader)) {
+        if (ClassUtil.isPresent(SPRING_CGLIB_CLASS, classLoader)) {
             beanMapFactory = new SpringCglibBeanMapFactory();
             beanCopier = new SpringCglibBeanCopier();
             log.info("The spring cglib bean tools was initialized success. ");
         }
-        else if (ClassUtils.isPresent(CGLIB_CLASS, classLoader)) {
+        else if (ClassUtil.isPresent(CGLIB_CLASS, classLoader)) {
             beanMapFactory = new CglibBeanMapFactory();
             beanCopier = new CglibBeanCopier();
             log.info("The cglib bean tools was initialized success. ");
         }
-        else if (ClassUtils.isPresent(SPRING_BEAN_TOOLS_CLASS, classLoader)) {
+        else if (ClassUtil.isPresent(SPRING_BEAN_TOOLS_CLASS, classLoader)) {
             beanMapFactory = new SimpleBeanMapFactory();
             beanCopier = new SpringBeanCopier();
             log.info("The spring bean tools was initialized success. ");
         }
-        else if (ClassUtils.isPresent(APACHE_BEAN_TOOLS_CLASS, classLoader)) {
+        else if (ClassUtil.isPresent(APACHE_BEAN_TOOLS_CLASS, classLoader)) {
             beanMapFactory = new SimpleBeanMapFactory();
             beanCopier = new ApacheBeanCopier();
             log.info("The apache bean tools was initialized success. ");
