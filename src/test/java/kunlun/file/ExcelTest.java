@@ -6,10 +6,10 @@
 package kunlun.file;
 
 import com.alibaba.fastjson.JSON;
-import kunlun.data.bean.BeanUtils;
-import kunlun.data.mock.MockUtils;
+import kunlun.data.bean.BeanUtil;
+import kunlun.data.mock.MockUtil;
 import kunlun.entity.Student;
-import kunlun.io.util.FileUtils;
+import kunlun.io.util.FileUtil;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -32,9 +32,9 @@ public class ExcelTest {
         titleStuMap.put("Student Id", "studentId");
         titleStuMap.put("School Name", "schoolName");
         for (int i = 0; i < 5; i++) {
-            students.add(MockUtils.mock(Student.class));
+            students.add(MockUtil.mock(Student.class));
         }
-        studentsMap.addAll(BeanUtils.beanToMapInList(students));
+        studentsMap.addAll(BeanUtil.beanToMapInList(students));
     }
 
     @Test
@@ -73,7 +73,7 @@ public class ExcelTest {
     @Test
     public void test4() throws Exception {
         System.out.println(JSON.toJSONString(students, true));
-        byte[] template = FileUtils.read(new File("e:\\template.xlsx"));
+        byte[] template = FileUtil.read(new File("e:\\template.xlsx"));
         Excel excel = new Excel();
         excel.setExtension("XLSX");
         excel.setTemplate(template);

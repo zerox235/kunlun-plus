@@ -5,7 +5,7 @@
 
 package kunlun.util;
 
-import kunlun.net.http.HttpUtils;
+import kunlun.net.http.HttpUtil;
 import kunlun.net.http.support.SimpleRequest;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 import static kunlun.net.http.HttpMethod.GET;
 
 @Ignore
-public class RegexUtilsTest {
+public class RegexUtilTest {
 
     @Test
     public void test0() throws Exception {
@@ -30,12 +30,12 @@ public class RegexUtilsTest {
         String s6 = "bVITZQ-c4Ao2bvTFxtG_lEFTIw";
         String regex = "^[a-zA-Z0-9+/]+={0,2}$";
         String regex1 = "^[a-zA-Z0-9-_]+={0,2}$";
-        System.out.println(RegexUtils.matches(regex, s1));
-        System.out.println(RegexUtils.matches(regex1, s2));
-        System.out.println(RegexUtils.matches(regex, s3));
-        System.out.println(RegexUtils.matches(regex1, s4));
-        System.out.println(RegexUtils.matches(regex, s5));
-        System.out.println(RegexUtils.matches(regex1, s6));
+        System.out.println(RegexUtil.matches(regex, s1));
+        System.out.println(RegexUtil.matches(regex1, s2));
+        System.out.println(RegexUtil.matches(regex, s3));
+        System.out.println(RegexUtil.matches(regex1, s4));
+        System.out.println(RegexUtil.matches(regex, s5));
+        System.out.println(RegexUtil.matches(regex1, s6));
     }
 
     @Test
@@ -52,14 +52,14 @@ public class RegexUtilsTest {
     public void test2() {
         String data = "<html><header>Hello</header><body><h1><A" +
                 " target='_blank' href=\n'http://uux.me'>\naaaa\n</a>\n</h1><br /><a\n href='https://baidu.com'>bbb</a></body></html>";
-        System.out.println(RegexUtils.findAll("(?i)<a(.|\\n)*?</a>", data).toString());
+        System.out.println(RegexUtil.findAll("(?i)<a(.|\\n)*?</a>", data).toString());
     }
 
     @Test
     public void test3() {
         String data = "<html><header>Hello</header><body><h1><A" +
                 " target='_blank' href=\n'http://uux.me'>\naaaa\n</a>\n</h1><br /><a\n href='https://baidu.com'>bbb</a></body></html>";
-        System.out.println(RegexUtils.findAllALabel(data).toString());
+        System.out.println(RegexUtil.findAllALabel(data).toString());
     }
 
     @Test
@@ -70,14 +70,14 @@ public class RegexUtilsTest {
                 "</h1><br /><img\n" +
                 " src='https://baidu.com' ></body></html>a\n" +
                 "<img src='https://baidu.com/aaaa' /></body></html>a";
-        System.out.println(RegexUtils.findAllImgLabel(data).toString());
-        System.out.println(RegexUtils.findFirst("(?i)<img\\s+(.|\\n)*?/?>", data));
+        System.out.println(RegexUtil.findAllImgLabel(data).toString());
+        System.out.println(RegexUtil.findFirst("(?i)<img\\s+(.|\\n)*?/?>", data));
     }
 
     @Test
     public void test5() throws Exception {
-        List<String> list = RegexUtils.findAllALabel(
-                HttpUtils.execute(SimpleRequest.of(GET, "https://bing.com")).getBodyAsString());
+        List<String> list = RegexUtil.findAllALabel(
+                HttpUtil.execute(SimpleRequest.of(GET, "https://bing.com")).getBodyAsString());
         for (String s : list) {
             System.out.println(s);
         }
@@ -85,8 +85,8 @@ public class RegexUtilsTest {
 
     @Test
     public void test6() throws Exception {
-        List<String> list = RegexUtils.findAllImgLabel(
-                HttpUtils.execute(SimpleRequest.of(GET, "https://bing.com")).getBodyAsString());
+        List<String> list = RegexUtil.findAllImgLabel(
+                HttpUtil.execute(SimpleRequest.of(GET, "https://bing.com")).getBodyAsString());
         for (String s : list) {
             System.out.println(s);
         }

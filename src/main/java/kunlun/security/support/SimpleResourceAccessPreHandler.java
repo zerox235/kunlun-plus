@@ -11,9 +11,9 @@ import com.alibaba.fastjson.JSON;
 import kunlun.common.Errors;
 import kunlun.common.Result;
 import kunlun.core.handler.ResourceAccessPreHandler;
-import kunlun.data.json.JsonUtils;
-import kunlun.exception.ExceptionUtils;
-import kunlun.security.SecurityUtils;
+import kunlun.data.json.JsonUtil;
+import kunlun.exception.ExceptionUtil;
+import kunlun.security.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,10 +59,10 @@ public class SimpleResourceAccessPreHandler implements ResourceAccessPreHandler 
         try {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
-            response.getWriter().write(JsonUtils.toJsonString("jackson", result));
+            response.getWriter().write(JsonUtil.toJsonString("jackson", result));
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 
@@ -84,7 +84,7 @@ public class SimpleResourceAccessPreHandler implements ResourceAccessPreHandler 
         //
         if (isIgnoredUrl(requestUrl)) { return true; }
 
-        int verifyToken = SecurityUtils.getTokenManager().verifyToken(token);
+        int verifyToken = SecurityUtil.getTokenManager().verifyToken(token);
         if (verifyToken != ONE) {
             // not token
             if (verifyToken == MINUS_ONE) {

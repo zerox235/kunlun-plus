@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Deprecated
-public class RegexUtils {
+public class RegexUtil {
 
     public static boolean matches(Pattern pattern, CharSequence input) {
         Matcher matcher = pattern.matcher(input);

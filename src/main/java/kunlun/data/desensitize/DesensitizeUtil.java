@@ -16,9 +16,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * Data desensitizing tools.
  * @author Kahle
  */
-public class DesensitizeUtils {
+public class DesensitizeUtil {
     private static final Map<String, Desensitizer> DESENSITIZER_MAP = new ConcurrentHashMap<String, Desensitizer>();
-    private static final Logger log = LoggerFactory.getLogger(DesensitizeUtils.class);
+    private static final Logger log = LoggerFactory.getLogger(DesensitizeUtil.class);
 
     public static Desensitizer unregister(String name) {
         Assert.notBlank(name, "Parameter \"name\" must not blank. ");

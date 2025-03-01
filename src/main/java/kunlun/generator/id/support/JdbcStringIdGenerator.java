@@ -5,7 +5,7 @@
 
 package kunlun.generator.id.support;
 
-import kunlun.exception.ExceptionUtils;
+import kunlun.exception.ExceptionUtil;
 import kunlun.util.Assert;
 import kunlun.util.CollUtil;
 import org.springframework.jdbc.core.*;
@@ -130,7 +130,7 @@ public class JdbcStringIdGenerator extends AbstractIncrementalIdGenerator {
                 }
                 catch (Exception e) {
                     status.setRollbackOnly();
-                    throw ExceptionUtils.wrap(e);
+                    throw ExceptionUtil.wrap(e);
                 }
             }
         });

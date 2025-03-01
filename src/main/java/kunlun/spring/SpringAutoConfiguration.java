@@ -5,6 +5,7 @@
 
 package kunlun.spring;
 
+import kunlun.spring.util.SpringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -31,7 +32,7 @@ public class SpringAutoConfiguration implements ApplicationContextAware, Initial
 
     @Override
     public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
-        ApplicationContextUtils.setContext(applicationContext);
+        SpringUtil.setApplicationContext(applicationContext);
         log.info("The application context tools was initialized success. ");
     }
 

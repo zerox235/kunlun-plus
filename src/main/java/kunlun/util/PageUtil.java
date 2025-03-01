@@ -15,49 +15,50 @@ import java.util.List;
  * The paging tools.
  * @author Kahle
  */
-@Deprecated
-public class PageUtils {
+public class PageUtil {
+    private static Integer defaultPageSize = 15;
+    private static Integer defaultPageNum = 1;
 
     public static Integer getDefaultPageNum() {
 
-        return PageUtil.getDefaultPageNum();
+        return defaultPageNum;
     }
 
     public static void setDefaultPageNum(Integer defaultPageNum) {
-
-        PageUtil.setDefaultPageNum(defaultPageNum);
+        Assert.notNull(defaultPageNum, "Parameter \"defaultPageNum\" must not null. ");
+        PageUtil.defaultPageNum = defaultPageNum;
     }
 
     public static Integer getDefaultPageSize() {
 
-        return PageUtil.getDefaultPageSize();
+        return defaultPageSize;
     }
 
     public static void setDefaultPageSize(Integer defaultPageSize) {
-
-        PageUtil.setDefaultPageSize(defaultPageSize);
+        Assert.notNull(defaultPageSize, "Parameter \"defaultPageSize\" must not null. ");
+        PageUtil.defaultPageSize = defaultPageSize;
     }
 
     // ====
 
     public static void startPage(Integer pageNum, Integer pageSize) {
 
-        PageUtils.startPage(pageNum, pageSize, true, null);
+        PageUtil.startPage(pageNum, pageSize, true, null);
     }
 
     public static void startPage(Integer pageNum, Integer pageSize, boolean doCount) {
 
-        PageUtils.startPage(pageNum, pageSize, doCount, null);
+        PageUtil.startPage(pageNum, pageSize, doCount, null);
     }
 
     public static void startPage(Integer pageNum, Integer pageSize, String orderBy) {
 
-        PageUtils.startPage(pageNum, pageSize, true, orderBy);
+        PageUtil.startPage(pageNum, pageSize, true, orderBy);
     }
 
     public static void startPage(Integer pageNum, Integer pageSize, boolean doCount, String orderBy) {
-        if (pageSize == null) { pageSize = getDefaultPageSize(); }
-        if (pageNum == null) { pageNum = getDefaultPageNum(); }
+        if (pageSize == null) { pageSize = defaultPageSize; }
+        if (pageNum == null) { pageNum = defaultPageNum; }
         PageHelper.startPage(pageNum, pageSize, doCount);
         if (StrUtil.isNotBlank(orderBy)) {
             PageHelper.orderBy(orderBy);

@@ -5,7 +5,7 @@
 
 package kunlun.spring.action;
 
-import kunlun.action.ActionUtils;
+import kunlun.action.ActionUtil;
 import kunlun.action.support.AutoAction;
 import kunlun.util.StrUtil;
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Map;
 
 /**
- * The action handler auto-configuration.
+ * The action handler autoconfiguration.
  * @author Kahle
  */
 @Configuration
@@ -34,7 +34,7 @@ public class ActionHandlerAutoConfiguration {
                         , autoAction.getClass());
                 continue;
             }
-            ActionUtils.registerAction(actionName, autoAction);
+            ActionUtil.registerAction(actionName, autoAction);
         }
     }
 

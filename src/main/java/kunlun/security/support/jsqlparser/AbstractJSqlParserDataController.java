@@ -6,7 +6,7 @@
 package kunlun.security.support.jsqlparser;
 
 import kunlun.core.function.Function;
-import kunlun.security.SecurityUtils;
+import kunlun.security.SecurityUtil;
 import kunlun.security.support.AbstractSecurityContext;
 import kunlun.security.support.AbstractSqlBasedDataController;
 import kunlun.util.Assert;
@@ -236,7 +236,7 @@ public abstract class AbstractJSqlParserDataController extends AbstractSqlBasedD
     @Override
     public Object execute(String strategy, Object input, Object... arguments) {
         if ("processPlainSelect".equals(strategy)) {
-            Context context = ((AbstractSecurityContext) SecurityUtils.getContext())
+            Context context = ((AbstractSecurityContext) SecurityUtil.getContext())
                     .getProperty(CONTEXT_KEY, Context.class);
             processPlainSelect((PlainSelect) input, context);
             return null;

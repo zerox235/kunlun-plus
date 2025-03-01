@@ -8,13 +8,13 @@ package kunlun.action.message.support.redisson;
 import kunlun.action.message.AbstractMessageHandler;
 import kunlun.data.Dict;
 import kunlun.data.tuple.Pair;
-import kunlun.exception.ExceptionUtils;
+import kunlun.exception.ExceptionUtil;
 import kunlun.message.MessageListener;
 import kunlun.message.model.DelayMessage;
 import kunlun.message.model.Message;
 import kunlun.message.model.Result;
 import kunlun.message.model.Subscribe;
-import kunlun.time.DateUtils;
+import kunlun.time.DateUtil;
 import kunlun.util.Assert;
 import kunlun.util.ThreadUtil;
 import org.redisson.api.RBlockingDeque;
@@ -97,7 +97,7 @@ public class RedissonDelayMessageHandler extends AbstractMessageHandler {
             Assert.isInstanceOf(DelayMessage.class, message);
             DelayMessage delayMsg = (DelayMessage) message;
             if (delayMsg.getCreateTime() == null) {
-                delayMsg.setCreateTime(DateUtils.getTimeInMillis());
+                delayMsg.setCreateTime(DateUtil.getTimeInMillis());
             }
             TimeUnit timeUnit = delayMsg.getDelayTimeUnit();
             Long delayTime = delayMsg.getDelayTime();
@@ -194,7 +194,7 @@ public class RedissonDelayMessageHandler extends AbstractMessageHandler {
             catch (Exception e) {
                 // If the exception is thrown, the subscription will stop.
                 log.error("Message consumer accept error! ", e);
-                if (!ignoreException) { throw ExceptionUtils.wrap(e); }
+                if (!ignoreException) { throw ExceptionUtil.wrap(e); }
             }
         }
         // End.

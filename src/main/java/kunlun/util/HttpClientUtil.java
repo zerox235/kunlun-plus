@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 @Deprecated
-public class HttpClientUtils {
+public class HttpClientUtil {
     private static final String DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36";
     private static String defaultCharsetName;
     private static RequestConfig defaultRequestConfig;

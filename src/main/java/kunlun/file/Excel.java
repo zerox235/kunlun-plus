@@ -5,10 +5,9 @@
 
 package kunlun.file;
 
-import kunlun.exception.ExceptionUtils;
-import kunlun.io.util.FilenameUtils;
+import kunlun.exception.ExceptionUtil;
+import kunlun.io.util.FilenameUtil;
 import kunlun.io.util.IoUtil;
-import kunlun.time.DateUtils;
 import kunlun.util.*;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -125,7 +124,7 @@ public class Excel extends BinaryFile implements Table {
             cell.setCellValue((Boolean) value);
         }
         else if (value instanceof Date) {
-            cell.setCellValue(DateUtils.format((Date) value));
+            cell.setCellValue(kunlun.time.DateUtil.format((Date) value));
         }
         else {
             cell.setCellValue(value.toString());
@@ -140,7 +139,7 @@ public class Excel extends BinaryFile implements Table {
             createWorkbook(null);
         }
         catch (IOException e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
         return workbook;
     }
@@ -229,14 +228,14 @@ public class Excel extends BinaryFile implements Table {
     public long readFromFile(File file) throws IOException {
         Assert.notNull(file, "Parameter \"file\" must not null. ");
         String fileString = file.toString();
-        String extension = FilenameUtils.getExtension(fileString);
+        String extension = FilenameUtil.getExtension(fileString);
         setExtension(extension);
         return super.readFromFile(file);
     }
 
     @Override
     public long readFromClasspath(String subPath) throws IOException {
-        String extension = FilenameUtils.getExtension(subPath);
+        String extension = FilenameUtil.getExtension(subPath);
         setExtension(extension);
         return super.readFromClasspath(subPath);
     }
@@ -423,7 +422,7 @@ public class Excel extends BinaryFile implements Table {
             }
         }
         catch (IOException e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
         List<String> headerList = new ArrayList<String>();
         if (rowStartNumber != ZERO) {

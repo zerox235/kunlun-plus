@@ -9,7 +9,7 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import kunlun.cache.AbstractCache;
 import kunlun.data.ReferenceType;
-import kunlun.exception.ExceptionUtils;
+import kunlun.exception.ExceptionUtil;
 import kunlun.util.Assert;
 
 import java.util.Collection;
@@ -119,7 +119,7 @@ public class CaffeineCache extends AbstractCache {
                 value = callable.call();
             }
             catch (Exception e) {
-                throw ExceptionUtils.wrap(e);
+                throw ExceptionUtil.wrap(e);
             }
             // Cache the result.
             if (value != null) {

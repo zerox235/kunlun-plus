@@ -5,7 +5,7 @@
 
 package kunlun.generator.id.support;
 
-import kunlun.time.DateUtils;
+import kunlun.time.DateUtil;
 import kunlun.util.Assert;
 import kunlun.util.StrUtil;
 
@@ -70,7 +70,7 @@ public abstract class AbstractIncrementalIdGenerator
         // Handle date string.
         String datePattern = config.getDatePattern();
         if (StrUtil.isNotBlank(datePattern)) {
-            String format = DateUtils.format(datePattern);
+            String format = DateUtil.format(datePattern);
             identifier.insert(ZERO, format);
         }
         // Handle prefix.

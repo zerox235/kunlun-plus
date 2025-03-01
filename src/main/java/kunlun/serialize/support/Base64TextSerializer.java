@@ -5,13 +5,13 @@
 
 package kunlun.serialize.support;
 
-import kunlun.codec.CodecUtils;
+import kunlun.codec.CodecUtil;
 import kunlun.core.Serializer;
 import kunlun.data.serialize.support.SimpleSerializer;
 import kunlun.util.Assert;
 import kunlun.util.StrUtil;
 
-import static kunlun.codec.CodecUtils.BASE64;
+import static kunlun.codec.CodecUtil.BASE64;
 
 @Deprecated
 public class Base64TextSerializer implements Serializer {
@@ -31,7 +31,7 @@ public class Base64TextSerializer implements Serializer {
     public Object serialize(Object object) {
         if (object == null) { return null; }
         byte[] serialize = (byte[]) serializer.serialize(object);
-        return CodecUtils.encodeToString(BASE64, serialize);
+        return CodecUtil.encodeToString(BASE64, serialize);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Base64TextSerializer implements Serializer {
         if (data == null) { return null; }
         String text = (String) data;
         if (StrUtil.isBlank(text)) { return null; }
-        byte[] bytes = CodecUtils.decodeFromString(BASE64, (String) data);
+        byte[] bytes = CodecUtil.decodeFromString(BASE64, (String) data);
         return serializer.deserialize(bytes);
     }
 

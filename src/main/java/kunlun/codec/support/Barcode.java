@@ -10,8 +10,8 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import kunlun.exception.ExceptionUtils;
-import kunlun.io.util.FilenameUtils;
+import kunlun.exception.ExceptionUtil;
+import kunlun.io.util.FilenameUtil;
 import kunlun.util.Assert;
 import kunlun.util.StrUtil;
 
@@ -112,7 +112,7 @@ public class Barcode {
             graphics.dispose();
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 
@@ -291,10 +291,10 @@ public class Barcode {
 
     public boolean encodeToFile(String content, File file) throws WriterException, IOException {
         BufferedImage image = encode(content);
-        String extension = FilenameUtils.getExtension(file.toString());
+        String extension = FilenameUtil.getExtension(file.toString());
         if (StrUtil.isBlank(extension)) {
             file = new File(file.toString(), DEFAULT_FILE_EXTENSION);
-            extension = FilenameUtils.getExtension(file.toString());
+            extension = FilenameUtil.getExtension(file.toString());
         }
         return ImageIO.write(image, extension, file);
     }

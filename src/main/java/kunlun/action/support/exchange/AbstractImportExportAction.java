@@ -7,7 +7,7 @@ package kunlun.action.support.exchange;
 
 import kunlun.action.support.AbstractAsyncAction;
 import kunlun.data.Dict;
-import kunlun.data.bean.BeanUtils;
+import kunlun.data.bean.BeanUtil;
 import kunlun.util.Assert;
 
 import java.util.Map;
@@ -49,7 +49,7 @@ public abstract class AbstractImportExportAction<P, D>
         Class<?> clazz = cast(arguments[ONE]);
         Object input = arguments[ZERO];
         // Build context.
-        T context = cast(BeanUtils.beanToBean(input, contextClass));
+        T context = cast(BeanUtil.beanToBean(input, contextClass));
         // Set some values.
         context.setArguments(arguments);
         context.setResultClass(clazz);
@@ -115,7 +115,7 @@ public abstract class AbstractImportExportAction<P, D>
         // Others.
         else {
             // Convert bean to bean.
-            return BeanUtils.beanToBean(context, resultClass);
+            return BeanUtil.beanToBean(context, resultClass);
         }
     }
 

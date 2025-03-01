@@ -12,7 +12,7 @@ import com.alibaba.excel.write.metadata.WriteSheet;
 import kunlun.action.support.exchange.AbstractImportExportAction;
 import kunlun.action.support.exchange.ExportHandler;
 import kunlun.data.collect.PageArrayList;
-import kunlun.exception.ExceptionUtils;
+import kunlun.exception.ExceptionUtil;
 import kunlun.util.Assert;
 import kunlun.util.CollUtil;
 import kunlun.util.StrUtil;
@@ -68,7 +68,7 @@ public abstract class AbstractEasyExcelByteArrayBasedExportAction<P, D>
             nowContext.setWriteSheet(EasyExcel.writerSheet().build());
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 
@@ -159,7 +159,7 @@ public abstract class AbstractEasyExcelByteArrayBasedExportAction<P, D>
             nowContext.setStatus(FIVE);
             nowContext.setError(e);
             pushTask(nowContext);
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 

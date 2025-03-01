@@ -1,9 +1,9 @@
 package kunlun.spring.cache;
 
 import cn.hutool.core.collection.CollUtil;
-import kunlun.cache.CacheUtils;
+import kunlun.cache.CacheUtil;
 import kunlun.cache.support.*;
-import kunlun.data.bean.BeanUtils;
+import kunlun.data.bean.BeanUtil;
 import kunlun.spring.cache.CacheProperties.JdbcConfig;
 import kunlun.spring.cache.CacheProperties.RedisConfig;
 import kunlun.spring.cache.CacheProperties.SimpleConfig;
@@ -25,7 +25,7 @@ import java.util.List;
 import static kunlun.util.ObjUtil.cast;
 
 /**
- * The cache tools auto-configuration.
+ * The cache tools autoconfiguration.
  * @author Kahle
  */
 @Configuration
@@ -51,7 +51,7 @@ public class CacheAutoConfiguration implements InitializingBean {
         if (CollUtil.isNotEmpty(simple)) {
             for (SimpleConfig config : simple) {
                 String cacheName = config.getName();
-                CacheUtils.registerCache(cacheName, new SpringSimpleCache(config));
+                CacheUtil.registerCache(cacheName, new SpringSimpleCache(config));
             }
         }
         // redis
@@ -60,9 +60,9 @@ public class CacheAutoConfiguration implements InitializingBean {
             RedisTemplate<String, Object> redisTemplate =
                     cast(applicationContext.getBean("redisTemplate", RedisTemplate.class));
             for (RedisConfig config : redis) {
-                RedisCacheConfig cacheConfig = BeanUtils.beanToBean(config, RedisCacheConfig.class);
+                RedisCacheConfig cacheConfig = BeanUtil.beanToBean(config, RedisCacheConfig.class);
                 RedisTemplateCache redisCache = new RedisTemplateCache(cacheConfig, redisTemplate);
-                CacheUtils.registerCache(config.getName(), redisCache);
+                CacheUtil.registerCache(config.getName(), redisCache);
             }
         }
         // jdbc
@@ -70,9 +70,9 @@ public class CacheAutoConfiguration implements InitializingBean {
         if (CollUtil.isNotEmpty(jdbc)) {
             JdbcTemplate jdbcTemplate = applicationContext.getBean("jdbcTemplate", JdbcTemplate.class);
             for (JdbcConfig config : jdbc) {
-                JdbcCacheConfig cacheConfig = BeanUtils.beanToBean(config, JdbcCacheConfig.class);
+                JdbcCacheConfig cacheConfig = BeanUtil.beanToBean(config, JdbcCacheConfig.class);
                 JdbcTemplateCache jdbcCache = new JdbcTemplateCache(cacheConfig, jdbcTemplate);
-                CacheUtils.registerCache(config.getName(), jdbcCache);
+                CacheUtil.registerCache(config.getName(), jdbcCache);
             }
         }
     }

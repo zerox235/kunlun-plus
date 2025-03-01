@@ -6,7 +6,7 @@
 package kunlun.cache.support;
 
 import kunlun.cache.AbstractCache;
-import kunlun.data.bean.BeanUtils;
+import kunlun.data.bean.BeanUtil;
 import kunlun.util.Assert;
 import kunlun.util.CollUtil;
 import kunlun.util.MapUtil;
@@ -36,7 +36,7 @@ public class RedisTemplateCache extends AbstractCache {
         // Validate the cache config.
         Assert.notNull(cacheConfig, "Parameter \"cacheConfig\" must not null. ");
         Assert.notBlank(cacheConfig.getName(), "Parameter \"cacheConfig.name\" must not blank. ");
-        this.cacheConfig = (cacheConfig = BeanUtils.beanToBean(cacheConfig, RedisCacheConfig.class));
+        this.cacheConfig = (cacheConfig = BeanUtil.beanToBean(cacheConfig, RedisCacheConfig.class));
         // Process redis executor.
         if (redisExecutor != null) { cacheConfig.setRedisExecutor(redisExecutor); }
         Assert.notNull(cacheConfig.getRedisExecutor(), "Parameter \"redisExecutor\" must not null. ");

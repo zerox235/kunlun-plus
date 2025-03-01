@@ -13,7 +13,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 
 @Ignore
-public class RuntimeUtilsTest {
+public class RuntimeUtilTest {
 
     @Test
     public void test() throws Exception {
@@ -62,36 +62,36 @@ public class RuntimeUtilsTest {
 //        String cmd = "ping www.baidu.com";
         String cmd = "netstat -ano";
         String charset = "GB2312";
-        Process process = RuntimeUtils.exec(cmd);
-        System.out.println(RuntimeUtils.run(process, charset));
+        Process process = RuntimeUtil.exec(cmd);
+        System.out.println(RuntimeUtil.run(process, charset));
     }
 
     @Test
     public void test2_1() throws IOException {
-        Process process = RuntimeUtils.exec(new String[]{"ping","www.baidu.com"});
-        System.out.println(RuntimeUtils.run(process, "GB2312"));
+        Process process = RuntimeUtil.exec(new String[]{"ping","www.baidu.com"});
+        System.out.println(RuntimeUtil.run(process, "GB2312"));
     }
 
     @Test
     public void test3() throws IOException {
         String cmd = "ping -t www.baidu.com";
         String charset = "GB2312";
-        Process process = RuntimeUtils.exec(cmd);
-        System.out.println(RuntimeUtils.run(process, 1000L, charset));
+        Process process = RuntimeUtil.exec(cmd);
+        System.out.println(RuntimeUtil.run(process, 1000L, charset));
     }
 
     @Test
     public void test4() throws IOException {
         String cmd = "netstat -ano";
         String charset = "GB2312";
-        System.out.println(RuntimeUtils.run(cmd, charset));
+        System.out.println(RuntimeUtil.run(cmd, charset));
     }
 
     @Test
     public void test5() throws IOException {
         String cmd = "ping -t www.baidu.com";
         String charset = "GB2312";
-        System.out.println(RuntimeUtils.run(cmd, 1000L, charset));
+        System.out.println(RuntimeUtil.run(cmd, 1000L, charset));
     }
 
 }

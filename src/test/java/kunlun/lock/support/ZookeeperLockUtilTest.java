@@ -5,7 +5,7 @@
 
 package kunlun.lock.support;
 
-import kunlun.lock.LockUtils;
+import kunlun.lock.LockUtil;
 import kunlun.util.ThreadUtil;
 import org.junit.After;
 import org.junit.Before;
@@ -19,8 +19,8 @@ import java.util.concurrent.*;
 import static kunlun.common.constant.Numbers.ZERO;
 
 @Ignore
-public class ZookeeperLockUtilsTest {
-    private static final Logger log = LoggerFactory.getLogger(ZookeeperLockUtilsTest.class);
+public class ZookeeperLockUtilTest {
+    private static final Logger log = LoggerFactory.getLogger(ZookeeperLockUtilTest.class);
     private volatile Integer num = 100;
     private final Integer threadNum = 50;
     private ExecutorService threadPool;
@@ -32,7 +32,7 @@ public class ZookeeperLockUtilsTest {
         threadPool = new ThreadPoolExecutor(threadNum, threadNum, ZERO, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<Runnable>(), threadFactory);
         managerName = "zk";
-        LockUtils.registerManager(managerName, new ZookeeperLockManager("127.0.0.1:2181,127.0.0.2:2181,127.0.0.3:2181"));
+        LockUtil.registerManager(managerName, new ZookeeperLockManager("127.0.0.1:2181,127.0.0.2:2181,127.0.0.3:2181"));
     }
 
     @After
@@ -64,7 +64,7 @@ public class ZookeeperLockUtilsTest {
                 long millis = System.currentTimeMillis();
                 for (int j = 0; j < 1000000; j++) {
                     if (num <= 0) { continue; }
-                    LockUtils.lock(managerName, lockName);
+                    LockUtil.lock(managerName, lockName);
                     try {
                         log.info(">> {} lock", threadName);
                         if (num > 0) {
@@ -74,7 +74,7 @@ public class ZookeeperLockUtilsTest {
                     }
                     finally {
                         log.info("<< {} unlock\n", threadName);
-                        LockUtils.unlock(managerName, lockName);
+                        LockUtil.unlock(managerName, lockName);
                         ThreadUtil.sleepQuietly(100);
                     }
                 }
@@ -97,7 +97,7 @@ public class ZookeeperLockUtilsTest {
                 long millis = System.currentTimeMillis();
                 for (int j = 0; j < 1000000; j++) {
                     if (num <= 0) { continue; }
-                    boolean tryLock = LockUtils.tryLock(managerName, lockName, 500, TimeUnit.MILLISECONDS);
+                    boolean tryLock = LockUtil.tryLock(managerName, lockName, 500, TimeUnit.MILLISECONDS);
                     if (!tryLock) { continue; }
                     try {
                         log.info(">> {} tryLock {}", threadName, tryLock);
@@ -108,7 +108,7 @@ public class ZookeeperLockUtilsTest {
                     }
                     finally {
                         log.info("<< {} unlock\n", threadName);
-                        LockUtils.unlock(managerName, lockName);
+                        LockUtil.unlock(managerName, lockName);
                         ThreadUtil.sleepQuietly(100);
                     }
                 }

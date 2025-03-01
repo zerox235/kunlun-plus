@@ -1,7 +1,7 @@
 package kunlun.generator.render.support.java;
 
 import kunlun.data.Dict;
-import kunlun.data.bean.BeanUtils;
+import kunlun.data.bean.BeanUtil;
 import kunlun.db.jdbc.meta.Column;
 import kunlun.db.jdbc.meta.Table;
 import kunlun.generator.render.support.AbstractRenderFileGenerator;
@@ -112,13 +112,13 @@ public class JavaCodeGenerator extends AbstractRenderFileGenerator {
         Set<String> javaTypeImports = new HashSet<String>();
         List<Dict>  columns = new ArrayList<Dict>();
         // Create table info object.
-        Dict tableInfo = Dict.of(BeanUtils.beanToMap(table));
+        Dict tableInfo = Dict.of(BeanUtil.beanToMap(table));
         tableInfo.set(JAVA_TYPE_IMPORTS_KEY, javaTypeImports);
         tableInfo.set(COLUMNS_KEY, columns);
         // Loop table columns.
         for (Column column : table.getColumns()) {
             // Create column info object.
-            Dict columnInfo = Dict.of(BeanUtils.beanToMap(column));
+            Dict columnInfo = Dict.of(BeanUtil.beanToMap(column));
             columns.add(columnInfo);
             // Set column field, getter and setter.
             String columnName = column.getName();

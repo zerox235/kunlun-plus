@@ -18,37 +18,37 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MockUtilsTest {
-    private static final Logger log = LoggerFactory.getLogger(MockUtilsTest.class);
+public class MockUtilTest {
+    private static final Logger log = LoggerFactory.getLogger(MockUtilTest.class);
 
     static {
 
-        MockUtils.registerHandler(MockUtils.getDefaultHandlerName(), new JMockDataHandler());
+        MockUtil.registerHandler(MockUtil.getDefaultHandlerName(), new JMockDataHandler());
     }
 
     @Test
     public void testMock1() {
-        Book book = MockUtils.mock(Book.class);
+        Book book = MockUtil.mock(Book.class);
         log.info(JSON.toJSONString(book));
-        User user = MockUtils.mock(User.class);
+        User user = MockUtil.mock(User.class);
         log.info(JSON.toJSONString(user));
     }
 
     @Test
     public void testMock2() {
-        List<Book> bookList = MockUtils.mock(TypeUtil.parameterizedOf(List.class, Book.class));
+        List<Book> bookList = MockUtil.mock(TypeUtil.parameterizedOf(List.class, Book.class));
         log.info(JSON.toJSONString(bookList, Boolean.TRUE));
     }
 
     @Test
     public void testMock3() {
-//        Menu menu = MockUtils.mock(Menu.class);
+//        Menu menu = MockUtil.mock(Menu.class);
 //        System.out.println(JSON.toJSONString(menu));
     }
 
     @Test
     public void testMock11() {
-        MockUtils.registerHandler(MockUtils.getDefaultHandlerName(), new SimpleMockHandler1());
+        MockUtil.registerHandler(MockUtil.getDefaultHandlerName(), new SimpleMockHandler1());
         ClassMockerConfig classMockerConfig = new ClassMockerConfig();
         classMockerConfig.setType(User.class);
         Map<String, Mocker> map = new HashMap<String, Mocker>();
@@ -56,7 +56,7 @@ public class MockUtilsTest {
         map.put("author", new NameMocker());
         classMockerConfig.setMockerMap(map);
 
-        User[] bookArray = MockUtils.mock(User[].class, classMockerConfig);
+        User[] bookArray = MockUtil.mock(User[].class, classMockerConfig);
         System.out.println(JSON.toJSONString(bookArray, Boolean.TRUE));
     }
 

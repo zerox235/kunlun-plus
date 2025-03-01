@@ -6,7 +6,7 @@
 package kunlun.action.nlp.support.hanlp;
 
 import com.hankcs.hanlp.HanLP;
-import kunlun.action.ActionUtils;
+import kunlun.action.ActionUtil;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,7 +16,7 @@ public class HankcsHanLpAutoConfiguration {
 
     public HankcsHanLpAutoConfiguration() {
         HankcsSegmentAction handler = new HankcsSegmentAction();
-        ActionUtils.registerAction("text-segment", handler);
+        ActionUtil.registerAction("text-segment", handler);
     }
 
 }

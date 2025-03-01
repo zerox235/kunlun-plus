@@ -5,7 +5,7 @@
 
 package kunlun.util;
 
-import kunlun.codec.CodecUtils;
+import kunlun.codec.CodecUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static kunlun.codec.CodecUtils.HEX;
+import static kunlun.codec.CodecUtil.HEX;
 
 /**
  * Only judge file type blurry.
@@ -332,7 +332,7 @@ public enum FileType {
     }
 
     public static List<FileType> check(byte[] data) {
-        String hexString = CodecUtils.encodeToString(HEX, data);
+        String hexString = CodecUtil.encodeToString(HEX, data);
         hexString = hexString.length() > DEFAULT_HEADER_LENGTH
                 ? hexString.substring(0, DEFAULT_HEADER_LENGTH) : hexString;
         return check(hexString);
@@ -356,7 +356,7 @@ public enum FileType {
         byte[] buf = new byte[DEFAULT_HEADER_LENGTH];
         int read = in.read(buf);
         in.close();
-        String result = CodecUtils.encodeToString(HEX, Arrays.copyOfRange(buf, 0, read));
+        String result = CodecUtil.encodeToString(HEX, Arrays.copyOfRange(buf, 0, read));
         result = result.length() > DEFAULT_HEADER_LENGTH
                 ? result.substring(0, DEFAULT_HEADER_LENGTH) : result;
         return result;

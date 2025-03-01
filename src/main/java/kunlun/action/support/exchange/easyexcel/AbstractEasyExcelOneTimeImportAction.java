@@ -13,7 +13,7 @@ import com.alibaba.excel.read.listener.ReadListener;
 import com.alibaba.excel.read.metadata.ReadSheet;
 import kunlun.action.support.exchange.AbstractImportExportAction;
 import kunlun.action.support.exchange.ImportHandler;
-import kunlun.exception.ExceptionUtils;
+import kunlun.exception.ExceptionUtil;
 import kunlun.util.Assert;
 import kunlun.util.CollUtil;
 import kunlun.util.StrUtil;
@@ -70,7 +70,7 @@ public abstract class AbstractEasyExcelOneTimeImportAction<P, D>
             }
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 
@@ -174,7 +174,7 @@ public abstract class AbstractEasyExcelOneTimeImportAction<P, D>
             nowContext.setStatus(FIVE);
             nowContext.setError(e);
             pushTask(nowContext);
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 

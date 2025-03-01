@@ -10,7 +10,7 @@ import kunlun.action.invoke.jdbc.JdbcInvokeConfig;
 import kunlun.common.Page;
 import kunlun.data.Array;
 import kunlun.data.Dict;
-import kunlun.data.bean.BeanUtils;
+import kunlun.data.bean.BeanUtil;
 import kunlun.util.CollUtil;
 import kunlun.util.StrUtil;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -83,7 +83,7 @@ public abstract class AbstractScriptBasedJdbcTemplateInvokeAction extends Abstra
             // 0 unknown, 1 nothing
             // 2 update (insert or update)
             case TWO:  {
-                Map<String, Object> inputMap = BeanUtils.beanToMap(context.getConvertedInput());
+                Map<String, Object> inputMap = BeanUtil.beanToMap(context.getConvertedInput());
                 String renderSql = renderSql(renderer, sql, inputMap);
                 context.setRawOutput(getJdbcTemplate().update(renderSql, inputMap));
             } break;
@@ -94,11 +94,11 @@ public abstract class AbstractScriptBasedJdbcTemplateInvokeAction extends Abstra
                 List<Map<String, Object>> inputMapList;
                 if (convertedInput instanceof Collection) {
                     //noinspection rawtypes
-                    inputMapList = BeanUtils.beanToMapInList(Array.of((Collection) convertedInput));
+                    inputMapList = BeanUtil.beanToMapInList(Array.of((Collection) convertedInput));
                 }
                 else if (convertedInput != null &&
                         convertedInput.getClass().isArray()) {
-                    inputMapList = BeanUtils.beanToMapInList(Array.of((Object[]) convertedInput));
+                    inputMapList = BeanUtil.beanToMapInList(Array.of((Object[]) convertedInput));
                 }
                 else { throw new UnsupportedOperationException("Unsupported input type! "); }
                 // Query data.
@@ -109,31 +109,31 @@ public abstract class AbstractScriptBasedJdbcTemplateInvokeAction extends Abstra
             } break;
             // 4 single value query
             case FOUR: {
-                Map<String, Object> inputMap = BeanUtils.beanToMap(context.getConvertedInput());
+                Map<String, Object> inputMap = BeanUtil.beanToMap(context.getConvertedInput());
                 String renderSql = renderSql(renderer, sql, inputMap);
                 context.setRawOutput(getJdbcTemplate().queryForObject(renderSql, inputMap, Object.class));
             } break;
             // 5 single object query
             case FIVE: {
-                Map<String, Object> inputMap = BeanUtils.beanToMap(context.getConvertedInput());
+                Map<String, Object> inputMap = BeanUtil.beanToMap(context.getConvertedInput());
                 String renderSql = renderSql(renderer, sql, inputMap);
                 context.setRawOutput(getJdbcTemplate().queryForMap(renderSql, inputMap));
             } break;
             // 6 object array query
             case SIX:  {
-                Map<String, Object> inputMap = BeanUtils.beanToMap(context.getConvertedInput());
+                Map<String, Object> inputMap = BeanUtil.beanToMap(context.getConvertedInput());
                 String renderSql = renderSql(renderer, sql, inputMap);
                 context.setRawOutput(getJdbcTemplate().queryForList(renderSql, inputMap));
             } break;
             // 7 object array paging query (page number)
             case SEVEN: {
-                Map<String, Object> inputMap = BeanUtils.beanToMap(context.getConvertedInput());
+                Map<String, Object> inputMap = BeanUtil.beanToMap(context.getConvertedInput());
                 String renderSql = renderSql(renderer, sql, inputMap);
                 context.setRawOutput(byPageNumber(renderSql, inputMap));
             } break;
             // 8 object array paging query (scroll id)
             case EIGHT: {
-                Map<String, Object> inputMap = BeanUtils.beanToMap(context.getConvertedInput());
+                Map<String, Object> inputMap = BeanUtil.beanToMap(context.getConvertedInput());
                 String renderSql = renderSql(renderer, sql, inputMap);
                 context.setRawOutput(byScrollId(renderSql, inputMap));
             } break;

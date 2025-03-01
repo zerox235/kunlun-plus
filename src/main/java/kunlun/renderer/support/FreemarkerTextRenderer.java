@@ -11,7 +11,7 @@ import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import kunlun.exception.ExceptionUtils;
+import kunlun.exception.ExceptionUtil;
 import kunlun.io.util.IoUtil;
 import kunlun.util.Assert;
 import kunlun.util.ObjUtil;
@@ -48,7 +48,7 @@ public class FreemarkerTextRenderer extends AbstractTextRenderer {
             MultiTemplateLoader loader = new MultiTemplateLoader(loaders);
             this.cfg = new Configuration();
             this.cfg.setTemplateLoader(loader);
-        } catch (IOException e) { throw ExceptionUtils.wrap(e); }
+        } catch (IOException e) { throw ExceptionUtil.wrap(e); }
     }
 
     @Override
@@ -78,7 +78,7 @@ public class FreemarkerTextRenderer extends AbstractTextRenderer {
                 tp.process(data, writer);
             } else { throw new IllegalArgumentException("Unsupported template type! "); }
         } catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         } finally {
             IoUtil.closeQuietly(reader, writer);
         }

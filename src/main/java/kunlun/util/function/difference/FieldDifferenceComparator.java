@@ -7,8 +7,8 @@ package kunlun.util.function.difference;
 
 import kunlun.core.annotation.FieldMeta;
 import kunlun.core.function.BiFunction;
-import kunlun.exception.ExceptionUtils;
-import kunlun.reflect.ReflectUtils;
+import kunlun.exception.ExceptionUtil;
+import kunlun.reflect.ReflectUtil;
 import kunlun.util.ArrayUtil;
 import kunlun.util.Assert;
 import kunlun.util.ObjUtil;
@@ -46,11 +46,11 @@ public class FieldDifferenceComparator implements BiFunction<Object, Object, Lis
 
     protected List<FieldEntity> getFieldEntities(Object object) {
         try {
-            Field[] fields = ReflectUtils.getDeclaredFields(object.getClass());
+            Field[] fields = ReflectUtil.getDeclaredFields(object.getClass());
             if (ArrayUtil.isEmpty(fields)) { return emptyList(); }
             List<FieldEntity> result = new ArrayList<FieldEntity>();
             for (Field field : fields) {
-                ReflectUtils.makeAccessible(field);
+                ReflectUtil.makeAccessible(field);
                 FieldEntity entity = new FieldEntity();
                 entity.setName(field.getName());
                 entity.setValue(field.get(object));
@@ -58,7 +58,7 @@ public class FieldDifferenceComparator implements BiFunction<Object, Object, Lis
                 result.add(entity);
             }
             return result;
-        } catch (Exception e) { throw ExceptionUtils.wrap(e); }
+        } catch (Exception e) { throw ExceptionUtil.wrap(e); }
     }
 
     protected boolean equals(Object oldValue, Object newValue) {

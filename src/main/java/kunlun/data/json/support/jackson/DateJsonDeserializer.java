@@ -8,7 +8,7 @@ package kunlun.data.json.support.jackson;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import kunlun.time.DateUtils;
+import kunlun.time.DateUtil;
 import kunlun.util.StrUtil;
 import org.springframework.boot.jackson.JsonComponent;
 
@@ -26,10 +26,10 @@ public class DateJsonDeserializer extends JsonDeserializer<Date> {
     public Date deserialize(JsonParser p, DeserializationContext context) throws IOException {
         String text = p.getText();
         if (StrUtil.isNumeric(text)) {
-            return DateUtils.parse(Long.parseLong(text));
+            return DateUtil.parse(Long.parseLong(text));
         }
         else {
-            return DateUtils.parse(text);
+            return DateUtil.parse(text);
         }
     }
 

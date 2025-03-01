@@ -8,7 +8,7 @@ package kunlun.polyglot.support;
 import kunlun.data.Dict;
 import kunlun.logging.Logger;
 import kunlun.logging.LoggerFactory;
-import kunlun.polyglot.PolyglotUtils;
+import kunlun.polyglot.PolyglotUtil;
 import kunlun.util.ObjUtil;
 import org.junit.Test;
 
@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 public class GraalJavaScriptTest {
     private static final Logger log = LoggerFactory.getLogger(GraalJavaScriptTest.class);
     private final String name = "js";
-    static { PolyglotUtils.setPolyglotService(new GraalPolyglotService()); }
+    static { PolyglotUtil.setPolyglotService(new GraalPolyglotService()); }
 
     @Test
     public void test1() {
@@ -31,7 +31,7 @@ public class GraalJavaScriptTest {
                 "var c = a + b;\n" +
                 "c;";
         Dict data = Dict.of("a", 1).set("b", 2);
-        Object result = PolyglotUtils.eval(name, script, data);
+        Object result = PolyglotUtil.eval(name, script, data);
         log.info("result: {}", result);
         // Assert.
         assertTrue("a = 2; b = 3; a + b should be 5", ObjUtil.equals(result, 5));
@@ -43,7 +43,7 @@ public class GraalJavaScriptTest {
     public void test2() {
         String script = "a.get(\"b\");";
         Dict data = Dict.of("a", Dict.of("b", 4));
-        Object result = PolyglotUtils.eval(name, script, data);
+        Object result = PolyglotUtil.eval(name, script, data);
         log.info("result: {}", result);
         assertTrue(ObjUtil.equals(result, 4));
     }
@@ -55,7 +55,7 @@ public class GraalJavaScriptTest {
                 "var time = System.currentTimeMillis();\n" +
                 "time;";
         Dict data = Dict.of();
-        Object result = PolyglotUtils.eval(name, script, data);
+        Object result = PolyglotUtil.eval(name, script, data);
         log.info("result: {}", result);
         assertNotNull(result);
     }
@@ -67,12 +67,12 @@ public class GraalJavaScriptTest {
         String script; Object result;
 
         script = "var a = 1; var b = 2; a + b + e;";
-        result = PolyglotUtils.eval(name, script, dict);
+        result = PolyglotUtil.eval(name, script, dict);
         log.info("result: {}", result);
         assertTrue(ObjUtil.equals(result, 8));
 
         script = "var c = 3; var d = 4; c + d + e;";
-        result = PolyglotUtils.eval(name, script, dict);
+        result = PolyglotUtil.eval(name, script, dict);
         log.info("result: {}", result);
         assertTrue(ObjUtil.equals(result, 12));
     }
@@ -82,7 +82,7 @@ public class GraalJavaScriptTest {
         String script = "function test(arg1, arg2, arg3) {\n" +
                 "return arg1 + arg2 + arg3;\n" +
                 "}\n";
-        Object result = PolyglotUtils.invoke(name, script, "test", 1, 2, 3);
+        Object result = PolyglotUtil.invoke(name, script, "test", 1, 2, 3);
         log.info("result: {}", result);
         assertTrue(ObjUtil.equals(result, 6));
     }
@@ -98,7 +98,7 @@ public class GraalJavaScriptTest {
         script += "var a = 1, b = 2, c = 3;\n" +
                 "test(a, b, c) + test1(b, c);";
         Dict data = Dict.of();
-        Object result = PolyglotUtils.eval(name, script, data);
+        Object result = PolyglotUtil.eval(name, script, data);
         log.info("result: {}", result);
         assertTrue(ObjUtil.equals(result, 12));
     }
@@ -111,7 +111,7 @@ public class GraalJavaScriptTest {
                 "c:3});\n" +
                 "data;";
         Dict data = Dict.of();
-        Object result = PolyglotUtils.eval(name, script, data);
+        Object result = PolyglotUtil.eval(name, script, data);
         log.info("result: {}", result);
     }
 

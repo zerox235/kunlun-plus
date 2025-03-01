@@ -7,7 +7,7 @@ package kunlun.spring.data.bean;
 
 import kunlun.data.bean.BeanCopier;
 import kunlun.data.bean.BeanMapFactory;
-import kunlun.data.bean.BeanUtils;
+import kunlun.data.bean.BeanUtil;
 import kunlun.data.bean.support.*;
 import kunlun.util.ClassLoaderUtil;
 import kunlun.util.ClassUtil;
@@ -18,7 +18,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * The bean tools auto-configuration.
+ * The bean tools autoconfiguration.
  * @author Kahle
  */
 @Configuration
@@ -57,8 +57,8 @@ public class BeanToolsAutoConfiguration implements InitializingBean, DisposableB
         else {
             // Do nothing.
         }
-        if (beanMapFactory != null) { BeanUtils.setBeanMapFactory(beanMapFactory); }
-        if (beanCopier != null) { BeanUtils.setBeanCopier(beanCopier); }
+        if (beanMapFactory != null) { BeanUtil.setBeanMapFactory(beanMapFactory); }
+        if (beanCopier != null) { BeanUtil.setBeanCopier(beanCopier); }
     }
 
     @Override

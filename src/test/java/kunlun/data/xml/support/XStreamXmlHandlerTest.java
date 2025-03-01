@@ -6,7 +6,7 @@
 package kunlun.data.xml.support;
 
 import com.alibaba.fastjson.JSON;
-import kunlun.data.mock.MockUtils;
+import kunlun.data.mock.MockUtil;
 import kunlun.data.xml.XmlClassAlias;
 import kunlun.data.xml.XmlFieldAlias;
 import kunlun.data.xml.XmlHandler;
@@ -25,8 +25,8 @@ public class XStreamXmlHandlerTest {
     @Test
     public void test1() {
         List<Student> list = new ArrayList<Student>();
-        list.add(MockUtils.mock(Student.class));
-        list.add(MockUtils.mock(Student.class));
+        list.add(MockUtil.mock(Student.class));
+        list.add(MockUtil.mock(Student.class));
 
         Object[] arguments = new Object[] {
                 new XmlFieldAlias("id", Student.class, "studentId"),

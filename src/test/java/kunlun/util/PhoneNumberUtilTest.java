@@ -7,11 +7,11 @@ package kunlun.util;
 
 import org.junit.Test;
 
-public class PhoneNumberUtilsTest {
+public class PhoneNumberUtilTest {
 
     @Test
     public void test1() {
-        String phoneCarrierZh = PhoneNumberUtils.phoneCarrierZh("18658258192");
+        String phoneCarrierZh = PhoneNumberUtil.phoneCarrierZh("18658258192");
         System.out.println(phoneCarrierZh);
     }
 

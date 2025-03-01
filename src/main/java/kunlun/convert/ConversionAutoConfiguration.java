@@ -5,7 +5,7 @@
 
 package kunlun.convert;
 
-import kunlun.cache.CacheUtils;
+import kunlun.cache.CacheUtil;
 import kunlun.cache.support.SimpleCacheConfig;
 import kunlun.cache.support.SpringSimpleCache;
 import kunlun.data.ReferenceType;
@@ -31,11 +31,11 @@ public class ConversionAutoConfiguration {
         log.info("Start handling the conversion service provider's cache...");
         String cacheName="cache-conversion-provider-cache";
         //
-        CacheUtils.registerCache(cacheName, new SpringSimpleCache(
+        CacheUtil.registerCache(cacheName, new SpringSimpleCache(
                 new SimpleCacheConfig(ReferenceType.SOFT, 4L, TimeUnit.HOURS)));
         //
-        ConversionService conversionService = ConversionUtils.getConversionService();
-        ConversionUtils.setConversionService(new CacheConversionService(conversionService, cacheName));
+        ConversionService conversionService = ConversionUtil.getConversionService();
+        ConversionUtil.setConversionService(new CacheConversionService(conversionService, cacheName));
         log.info(">> The conversion service provider increased cache successfully. ");
         //
         registerSpringConverter(applicationContext);
@@ -47,7 +47,7 @@ public class ConversionAutoConfiguration {
         for (Map.Entry<String, GenericConverter> entry : beansOfType.entrySet()) {
             GenericConverter converter = entry.getValue();
             if (converter == null) { continue; }
-            ConversionUtils.registerConverter(converter);
+            ConversionUtil.registerConverter(converter);
         }
     }
 

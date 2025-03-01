@@ -6,7 +6,7 @@
 package kunlun.polyglot.support;
 
 import kunlun.data.Dict;
-import kunlun.data.bean.BeanUtils;
+import kunlun.data.bean.BeanUtil;
 import kunlun.polyglot.PolyglotService;
 import kunlun.util.Assert;
 import kunlun.util.MapUtil;
@@ -36,7 +36,7 @@ public class GraalPolyglotService implements PolyglotService {
      */
     protected Context buildContext(String name, Object config) {
         Assert.notBlank(name, "Parameter \"name\" must not blank. ");
-        Dict configDict = Dict.of(BeanUtils.beanToMap(config));
+        Dict configDict = Dict.of(BeanUtil.beanToMap(config));
         // Context builder.
         Context.Builder builder = Context.newBuilder();
         // Allow host access.
@@ -70,7 +70,7 @@ public class GraalPolyglotService implements PolyglotService {
             else {
                 context = buildContext(name, config);
                 Value bindings = context.getBindings(name);
-                Dict dict = Dict.of(BeanUtils.beanToMap(data));
+                Dict dict = Dict.of(BeanUtil.beanToMap(data));
                 for (Map.Entry<String, Object> entry : dict.entrySet()) {
                     bindings.putMember(entry.getKey(), entry.getValue());
                 }

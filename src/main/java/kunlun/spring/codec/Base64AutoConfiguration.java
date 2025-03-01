@@ -5,7 +5,7 @@
 
 package kunlun.spring.codec;
 
-import kunlun.codec.CodecUtils;
+import kunlun.codec.CodecUtil;
 import kunlun.codec.support.ApacheBase64;
 import kunlun.codec.support.Java8Base64;
 import kunlun.util.ClassLoaderUtil;
@@ -16,7 +16,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
 
-import static kunlun.codec.CodecUtils.BASE64;
+import static kunlun.codec.CodecUtil.BASE64;
 
 /**
  * The base64 auto-configuration.
@@ -34,11 +34,11 @@ public class Base64AutoConfiguration implements InitializingBean, DisposableBean
         ClassLoader classLoader = ClassLoaderUtil.getDefaultClassLoader();
         if (ClassUtil.isPresent(APACHE_BASE64, classLoader)) {
             // If have Apache Commons Codec, to use it.
-            CodecUtils.registerCodec(BASE64, new ApacheBase64());
+            CodecUtil.registerCodec(BASE64, new ApacheBase64());
         }
         else if (ClassUtil.isPresent(JAVA_BASE64, classLoader)) {
             // If have "java.util.Base64", to use it.
-            CodecUtils.registerCodec(BASE64, new Java8Base64());
+            CodecUtil.registerCodec(BASE64, new Java8Base64());
         }
         log.info("The base64 tools was initialized success. ");
     }

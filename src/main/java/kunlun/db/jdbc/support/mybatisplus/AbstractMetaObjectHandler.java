@@ -6,7 +6,7 @@
 package kunlun.db.jdbc.support.mybatisplus;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import kunlun.exception.ExceptionUtils;
+import kunlun.exception.ExceptionUtil;
 import kunlun.util.Assert;
 import kunlun.util.ObjUtil;
 import org.apache.ibatis.reflection.MetaObject;
@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static kunlun.convert.ConversionUtils.convert;
+import static kunlun.convert.ConversionUtil.convert;
 
 /**
  * The abstract meta object field fill handler.
@@ -68,7 +68,7 @@ public abstract class AbstractMetaObjectHandler implements MetaObjectHandler {
             return callable.call();
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 

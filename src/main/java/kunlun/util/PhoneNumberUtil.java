@@ -6,15 +6,14 @@
 package kunlun.util;
 
 import com.google.i18n.phonenumbers.PhoneNumberToCarrierMapper;
-import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import com.google.i18n.phonenumbers.geocoding.PhoneNumberOfflineGeocoder;
 
 import java.util.Locale;
 
 @Deprecated
-public class PhoneNumberUtils {
-    private static PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
+public class PhoneNumberUtil {
+    private static com.google.i18n.phonenumbers.PhoneNumberUtil phoneNumberUtil = com.google.i18n.phonenumbers.PhoneNumberUtil.getInstance();
     private static PhoneNumberOfflineGeocoder geoCoder = PhoneNumberOfflineGeocoder.getInstance();
     private static PhoneNumberToCarrierMapper carrierMapper = PhoneNumberToCarrierMapper.getInstance();
 

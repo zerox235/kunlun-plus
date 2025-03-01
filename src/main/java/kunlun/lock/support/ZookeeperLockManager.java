@@ -6,7 +6,7 @@
 package kunlun.lock.support;
 
 import kunlun.common.constant.Numbers;
-import kunlun.exception.ExceptionUtils;
+import kunlun.exception.ExceptionUtil;
 import kunlun.lock.LockManager;
 import kunlun.util.Assert;
 import org.apache.curator.framework.CuratorFramework;
@@ -98,7 +98,7 @@ public class ZookeeperLockManager implements LockManager {
             getLock(lockName).acquire();
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 
@@ -108,7 +108,7 @@ public class ZookeeperLockManager implements LockManager {
             getLock(lockName).release();
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 
@@ -130,7 +130,7 @@ public class ZookeeperLockManager implements LockManager {
             return getLock(lockName).acquire(time, unit);
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 

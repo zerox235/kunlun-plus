@@ -7,7 +7,7 @@ package kunlun.aop.support.aspectj;
 
 import kunlun.core.Handler;
 import kunlun.data.Dict;
-import kunlun.lock.LockUtils;
+import kunlun.lock.LockUtil;
 import kunlun.util.Assert;
 import kunlun.util.StrUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -145,14 +145,14 @@ public abstract class AbstractNotRepeatAspect extends AbstractAspect {
             // Build lock name by arguments.
             String lockName = buildLockName(parseConfig, arguments);
             // Try lock or throw.
-            boolean tryLock = LockUtils.tryLock(manager, lockName);
+            boolean tryLock = LockUtil.tryLock(manager, lockName);
             tryLockFailure(tryLock, message);
             // Do business.
             try {
                 return joinPoint.proceed();
             }
             finally {
-                LockUtils.unlock(manager, lockName);
+                LockUtil.unlock(manager, lockName);
             }
         }
 

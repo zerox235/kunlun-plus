@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import kunlun.data.json.JsonFormat;
-import kunlun.exception.ExceptionUtils;
+import kunlun.exception.ExceptionUtil;
 import kunlun.util.ArrayUtil;
 import kunlun.util.Assert;
 
@@ -55,7 +55,7 @@ public class JacksonHandler extends AbstractJsonHandler {
             return objectWriter.writeValueAsString(object);
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 
@@ -67,7 +67,7 @@ public class JacksonHandler extends AbstractJsonHandler {
             return objectMapper.readValue(jsonString, javaType);
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 

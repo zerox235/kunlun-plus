@@ -3,9 +3,8 @@
  * Kunlun is licensed under the "LICENSE" file in the project's root directory.
  */
 
-package kunlun.spring;
+package kunlun.spring.util;
 
-import kunlun.spring.util.SpringUtil;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -15,44 +14,44 @@ import org.springframework.context.ConfigurableApplicationContext;
 /**
  * The spring project "ApplicationContext" tools.
  * @author Kahle
- * @see ApplicationContext
+ * @see org.springframework.context.ApplicationContext
  */
-@Deprecated
-public class ApplicationContextUtils {
+public class SpringUtil {
+    private static ApplicationContext context = null;
 
-    public static ApplicationContext getContext() {
+    public static ApplicationContext getApplicationContext() {
 
-        return SpringUtil.getApplicationContext();
+        return context;
     }
 
-    public static void setContext(ApplicationContext context) {
+    public static void setApplicationContext(ApplicationContext context) {
 
-        SpringUtil.setApplicationContext(context);
+        SpringUtil.context = context;
     }
 
     public static Object getBean(String name) {
 
-        return getContext().getBean(name);
+        return getApplicationContext().getBean(name);
     }
 
     public static Object getBean(String name, Object... args) {
 
-        return getContext().getBean(name, args);
+        return getApplicationContext().getBean(name, args);
     }
 
     public static <T> T getBean(String name, Class<T> requiredType) {
 
-        return getContext().getBean(name, requiredType);
+        return getApplicationContext().getBean(name, requiredType);
     }
 
     public static <T> T getBean(Class<T> requiredType) {
 
-        return getContext().getBean(requiredType);
+        return getApplicationContext().getBean(requiredType);
     }
 
     public static <T> T getBean(Class<T> requiredType, Object... args) {
 
-        return getContext().getBean(requiredType, args);
+        return getApplicationContext().getBean(requiredType, args);
     }
 
     public static void registerBean(String name, BeanDefinitionBuilder beanDefinitionBuilder) {
@@ -62,7 +61,7 @@ public class ApplicationContextUtils {
         // "BeanDefinitionBuilder.childBeanDefinition(clazz);"     child    bean
         // "BeanDefinitionBuilder.genericBeanDefinition(clazz);"   generic  bean
         BeanDefinition beanDefinition = beanDefinitionBuilder.getBeanDefinition();
-        ConfigurableApplicationContext applicationContext = (ConfigurableApplicationContext) getContext();
+        ConfigurableApplicationContext applicationContext = (ConfigurableApplicationContext) getApplicationContext();
         BeanDefinitionRegistry beanDefinitionRegistry = (BeanDefinitionRegistry) applicationContext.getBeanFactory();
         beanDefinitionRegistry.registerBeanDefinition(name, beanDefinition);
     }
