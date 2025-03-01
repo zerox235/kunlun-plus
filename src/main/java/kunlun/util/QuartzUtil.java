@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.Date;
 
 @Deprecated
-public class QuartzUtils {
+public class QuartzUtil {
     private static SchedulerFactory defaultSchedulerFactory = new StdSchedulerFactory();
 
     public static void setDefaultSchedulerFactory(SchedulerFactory schedulerFactory) {

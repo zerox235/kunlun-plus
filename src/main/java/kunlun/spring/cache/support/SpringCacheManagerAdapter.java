@@ -5,7 +5,7 @@
 
 package kunlun.spring.cache.support;
 
-import kunlun.cache.CacheUtils;
+import kunlun.cache.CacheUtil;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.lang.NonNull;
@@ -42,7 +42,7 @@ public class SpringCacheManagerAdapter implements CacheManager {
                     return cache;
                 }
                 //
-                kunlun.cache.Cache cache1 = CacheUtils.getCache(name);
+                kunlun.cache.Cache cache1 = CacheUtil.getCache(name);
                 cache = new SpringCacheAdapter(name, cache1);
                 cacheMap.put(name, cache);
                 return cache;
@@ -54,7 +54,7 @@ public class SpringCacheManagerAdapter implements CacheManager {
     @Override
     public Collection<String> getCacheNames() {
 
-        return CacheUtils.getCacheNames();
+        return CacheUtil.getCacheNames();
     }
 
 }

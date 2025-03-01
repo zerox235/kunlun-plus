@@ -24,9 +24,9 @@ Kunlun Plus 是一个基于常用业务场景进行封装的 Java 技术框架�
 // 假如公司的框架包有两种订单分润算法“order-share1”、“order-share2”
 OrderDTO order = ...;
 // 订单分润信息计算和填充
-ActionUtils.execute("order-share1", order, Object.class);
+ActionUtil.execute("order-share1", order, Object.class);
 // 如果想要使用另一种分润算法，只需要修改成如下
-ActionUtils.execute("order-share2", order, Object.class);
+ActionUtil.execute("order-share2", order, Object.class);
 ```
 <br /><br /><br />
 
@@ -58,7 +58,7 @@ log.info("result: {}", JSON.toJSONString(execute, Boolean.TRUE));
 
 ```java
 HelloServiceImpl realHelloService = new HelloServiceImpl();
-HelloService helloService = ProxyUtils.proxy(new AbstractInterceptor<HelloServiceImpl>(realHelloService) {
+HelloService helloService = ProxyUtil.proxy(new AbstractInterceptor<HelloServiceImpl>(realHelloService) {
     @Override
     public Object intercept(Object proxyObject, Method method, Object[] args) throws Throwable {
         log.info("Proxy object's class is {}", proxyObject.getClass().getName());
@@ -89,10 +89,10 @@ log.info(helloService.sayHello(name));
 
 ```java
 String cacheName = "TEST";
-CacheUtils.put(cacheName, "key1", "val1");
-CacheUtils.put(cacheName, "key2", "val2");
-log.info("{}", CacheUtils.get(cacheName, "key1"));
-log.info("{}", CacheUtils.get(cacheName, "key2"));
+CacheUtil.put(cacheName, "key1", "val1");
+CacheUtil.put(cacheName, "key2", "val2");
+log.info("{}", CacheUtil.get(cacheName, "key1"));
+log.info("{}", CacheUtil.get(cacheName, "key2"));
 ```
 <br /><br /><br />
 
@@ -119,14 +119,14 @@ log.info("{}", CacheUtils.get(cacheName, "key2"));
 
 ```java
 // Base64 的编码和解码
-String encode = CodecUtils.encodeToString(BASE64, dataBytes);
+String encode = CodecUtil.encodeToString(BASE64, dataBytes);
 log.info("Encode string: {}{}", NEWLINE, encode);
-byte[] decode = CodecUtils.decodeFromString(BASE64, encode);
+byte[] decode = CodecUtil.decodeFromString(BASE64, encode);
 log.info("Decode string: {}{}", NEWLINE, new String(decode, "UTF-8"));
 // Unicode 的编码和解码
-String encode = CodecUtils.encode(UNICODE, "Hello，Java! ");
+String encode = CodecUtil.encode(UNICODE, "Hello，Java! ");
 log.info(encode);
-log.info(CodecUtils.decode(UNICODE, encode));
+log.info(CodecUtil.decode(UNICODE, encode));
 ```
 <br /><br /><br />
 
@@ -150,11 +150,11 @@ log.info(CodecUtils.decode(UNICODE, encode));
 
 ```java
 // 字符串转换成 Double
-Object obj = ConversionUtils.convert("102", double.class);
+Object obj = ConversionUtil.convert("102", double.class);
 log.info("{} {}", obj.getClass(), obj);
 // 时间字符串转换为 Date 对象
-Object obj = ConversionUtils.convert("2019-03-25 10:10:10 300", java.sql.Date.class);
-log.info("{} {}", obj.getClass(), DateUtils.format((Date) obj));
+Object obj = ConversionUtil.convert("2019-03-25 10:10:10 300", java.sql.Date.class);
+log.info("{} {}", obj.getClass(), DateUtil.format((Date) obj));
 ```
 
 <br /><br /><br />
@@ -229,8 +229,8 @@ Bean 转换工具是用于不同类型 Java 对象（包含 Map）之间的属�
 ```java
 Map<String, Object> personMap = ... ;
 User person = ... ;
-User user = BeanUtils.mapToBean(personMap, User.class);
-User user = BeanUtils.beanToBean(person, User.class);
+User user = BeanUtil.mapToBean(personMap, User.class);
+User user = BeanUtil.beanToBean(person, User.class);
 ```
 
 <br /><br />
@@ -241,9 +241,9 @@ Json 转换工具是用于 Java 对象与 Json 数据之间相互转换的工具
 **简单的使用示例（部分示例代码需要进行预先配置或实现）：**
 
 ```java
-String jsonString = JsonUtils.toJsonString("fastjson", data, PRETTY_FORMAT);
-String jsonString = JsonUtils.toJsonString("jackson", data, PRETTY_FORMAT);
-String jsonString = JsonUtils.toJsonString("gson", data, PRETTY_FORMAT);
+String jsonString = JsonUtil.toJsonString("fastjson", data, PRETTY_FORMAT);
+String jsonString = JsonUtil.toJsonString("jackson", data, PRETTY_FORMAT);
+String jsonString = JsonUtil.toJsonString("gson", data, PRETTY_FORMAT);
 ```
 
 <br /><br />
@@ -377,9 +377,9 @@ Mock 工具是一种自动化工具，用于创建大量的、格式正确的测
 **简单的使用示例（部分示例代码需要进行预先配置或实现）：**
 
 ```java
-Book book = MockUtils.mock(Book.class);
+Book book = MockUtil.mock(Book.class);
 log.info(JSON.toJSONString(book, Boolean.TRUE));
-List<Book> bookList = MockUtils.mock(TypeUtils.parameterizedOf(List.class, Book.class));
+List<Book> bookList = MockUtil.mock(TypeUtils.parameterizedOf(List.class, Book.class));
 log.info(JSON.toJSONString(bookList, Boolean.TRUE));
 ```
 
@@ -450,7 +450,7 @@ String template = "\nHello, ${param}! \n" +
 Dict data = Dict.of("param", "World")
         //.set("param1", "Earth")
         .set("param2", new Object());
-log.info(RenderUtils.renderToString(rendererName, template, data));
+log.info(RenderUtil.renderToString(rendererName, template, data));
 ```
 
 <br /><br /><br />

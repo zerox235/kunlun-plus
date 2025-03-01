@@ -6,10 +6,10 @@
 package kunlun.spring.data.validation;
 
 import kunlun.data.validation.AutoValidator;
-import kunlun.data.validation.ValidatorUtils;
+import kunlun.data.validation.ValidatorUtil;
 import kunlun.data.validation.support.*;
 import kunlun.property.PropertySource;
-import kunlun.property.PropertyUtils;
+import kunlun.property.PropertyUtil;
 import kunlun.util.MapUtil;
 import kunlun.util.StrUtil;
 import org.slf4j.Logger;
@@ -46,21 +46,21 @@ public class ValidateAutoConfiguration {
         String bankCardNumberRegex = "^([1-9]{1})(\\d{14}|\\d{18})$";
         String phoneNumberRegex = "^1\\d{10}$";
         String numericRegex = "^(-|\\+)?\\d+\\.?\\d*$";
-        ValidatorUtils.registerValidator("not_blank", new NotBlankValidator());
-        ValidatorUtils.registerValidator("not_empty", new NotEmptyValidator());
-        ValidatorUtils.registerValidator("not_null", new NotNullValidator());
-        ValidatorUtils.registerValidator("is_blank", new IsBlankValidator());
-        ValidatorUtils.registerValidator("is_empty", new IsEmptyValidator());
-        ValidatorUtils.registerValidator("is_null", new IsNullValidator());
-        ValidatorUtils.registerValidator("is_false", new IsFalseValidator());
-        ValidatorUtils.registerValidator("is_true", new IsTrueValidator());
-        ValidatorUtils.registerValidator("regex:bank_card_number", new RegexValidator(bankCardNumberRegex));
-        ValidatorUtils.registerValidator("regex:phone_number", new RegexValidator(phoneNumberRegex));
-        ValidatorUtils.registerValidator("regex:id_number", new RegexValidator(idNumberRegex));
-        ValidatorUtils.registerValidator("regex:numeric", new RegexValidator(numericRegex));
-        ValidatorUtils.registerValidator("regex:email", new RegexValidator(emailRegex));
-        ValidatorUtils.registerValidator("regex:url", new RegexValidator(urlRegex));
-        ValidatorUtils.registerValidator("bean:bank_card_number:luhn", new BankCardNumberLuhnValidator());
+        ValidatorUtil.registerValidator("not_blank", new NotBlankValidator());
+        ValidatorUtil.registerValidator("not_empty", new NotEmptyValidator());
+        ValidatorUtil.registerValidator("not_null", new NotNullValidator());
+        ValidatorUtil.registerValidator("is_blank", new IsBlankValidator());
+        ValidatorUtil.registerValidator("is_empty", new IsEmptyValidator());
+        ValidatorUtil.registerValidator("is_null", new IsNullValidator());
+        ValidatorUtil.registerValidator("is_false", new IsFalseValidator());
+        ValidatorUtil.registerValidator("is_true", new IsTrueValidator());
+        ValidatorUtil.registerValidator("regex:bank_card_number", new RegexValidator(bankCardNumberRegex));
+        ValidatorUtil.registerValidator("regex:phone_number", new RegexValidator(phoneNumberRegex));
+        ValidatorUtil.registerValidator("regex:id_number", new RegexValidator(idNumberRegex));
+        ValidatorUtil.registerValidator("regex:numeric", new RegexValidator(numericRegex));
+        ValidatorUtil.registerValidator("regex:email", new RegexValidator(emailRegex));
+        ValidatorUtil.registerValidator("regex:url", new RegexValidator(urlRegex));
+        ValidatorUtil.registerValidator("bean:bank_card_number:luhn", new BankCardNumberLuhnValidator());
     }
 
     private void registerSpringValidator(ApplicationContext applicationContext) {
@@ -69,7 +69,7 @@ public class ValidateAutoConfiguration {
         for (Map.Entry<String, AutoValidator> entry : beansOfType.entrySet()) {
             AutoValidator validator = entry.getValue();
             if (validator == null) { continue; }
-            ValidatorUtils.registerValidator(validator.getName(), validator);
+            ValidatorUtil.registerValidator(validator.getName(), validator);
         }
     }
 
@@ -83,22 +83,22 @@ public class ValidateAutoConfiguration {
             if (StrUtil.isBlank(regex)) { continue; }
             String name = entry.getKey();
             if (StrUtil.isBlank(name)) { continue; }
-            ValidatorUtils.registerValidator(name, new RegexValidator(regex));
+            ValidatorUtil.registerValidator(name, new RegexValidator(regex));
         }
     }
 
     private void registerPropertySourceRegexValidator() {
         String sourceName = "_validator";
-        PropertySource source = PropertyUtils.getPropertySource(sourceName);
+        PropertySource source = PropertyUtil.getPropertySource(sourceName);
         if (source == null) { return; }
-        Map<String, Object> properties = PropertyUtils.getProperties(sourceName);
+        Map<String, Object> properties = PropertyUtil.getProperties(sourceName);
         if (MapUtil.isEmpty(properties)) { return; }
         for (Map.Entry<String, Object> entry : properties.entrySet()) {
             String regex = entry.getValue() != null ? String.valueOf(entry.getValue()) : null;
             if (StrUtil.isBlank(regex)) { continue; }
             String name = entry.getKey();
             if (StrUtil.isBlank(name)) { continue; }
-            ValidatorUtils.registerValidator(name, new RegexValidator(regex));
+            ValidatorUtil.registerValidator(name, new RegexValidator(regex));
         }
     }
 

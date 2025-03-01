@@ -5,10 +5,10 @@
 
 package kunlun.renderer.support;
 
-import kunlun.data.bean.BeanUtils;
-import kunlun.exception.ExceptionUtils;
+import kunlun.data.bean.BeanUtil;
+import kunlun.exception.ExceptionUtil;
 import kunlun.io.util.IoUtil;
-import kunlun.time.DateUtils;
+import kunlun.time.DateUtil;
 import kunlun.util.Assert;
 import kunlun.util.ObjUtil;
 import org.beetl.core.*;
@@ -51,7 +51,7 @@ public class BeetlTextRenderer extends AbstractTextRenderer {
                     int line = error.errorTokenLine;
 
                     StringBuilder builder = new StringBuilder("\n>> ")
-                            .append(DateUtils.format())
+                            .append(DateUtil.format())
                             .append(": ").append(error.type)
                             .append(": ").append(error.errorTokenText)
                             .append("\n位于").append(line != 0 ? line + "行" : "").append(" 资源:")
@@ -101,7 +101,7 @@ public class BeetlTextRenderer extends AbstractTextRenderer {
             });
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 
@@ -138,11 +138,11 @@ public class BeetlTextRenderer extends AbstractTextRenderer {
         try {
             if (template instanceof String) {
                 Template tp = groupTemplate.getTemplate(template);
-                tp.binding(BeanUtils.beanToMap(data)); tp.renderTo(writer);
+                tp.binding(BeanUtil.beanToMap(data)); tp.renderTo(writer);
             }
             else if (template instanceof Reader) {
                 Template tp = groupTemplate.getTemplate(IoUtil.read(reader = (Reader) template));
-                tp.binding(BeanUtils.beanToMap(data)); tp.renderTo(writer);
+                tp.binding(BeanUtil.beanToMap(data)); tp.renderTo(writer);
             }
             else if (template instanceof Tpl) {
                 Tpl tpl = (Tpl) template;
@@ -157,16 +157,16 @@ public class BeetlTextRenderer extends AbstractTextRenderer {
                 if (tplName != null && tplName.startsWith(classpathName)) {
                     tplName = tplName.substring(classpathName.length());
                     Template tp = groupTemplate.getTemplate(tplName, getClasspathLoader());
-                    tp.binding(BeanUtils.beanToMap(data));
+                    tp.binding(BeanUtil.beanToMap(data));
                     tp.renderTo(writer);
                 } else {
                     Template tp = groupTemplate.getTemplate(tplName, getFileLoader());
-                    tp.binding(BeanUtils.beanToMap(data));
+                    tp.binding(BeanUtil.beanToMap(data));
                     tp.renderTo(writer);
                 }
             } else { throw new IllegalArgumentException("Unsupported template type! "); }
         } catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         } finally {
             IoUtil.closeQuietly(reader, writer);
         }

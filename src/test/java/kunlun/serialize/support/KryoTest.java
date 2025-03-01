@@ -8,13 +8,13 @@ package kunlun.serialize.support;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.pool.KryoFactory;
 import com.esotericsoftware.kryo.pool.KryoPool;
-import kunlun.codec.CodecUtils;
+import kunlun.codec.CodecUtil;
 import kunlun.core.Serializer;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static kunlun.codec.CodecUtils.HEX;
+import static kunlun.codec.CodecUtil.HEX;
 
 public class KryoTest {
     private static final Logger log = LoggerFactory.getLogger(KryoTest.class);
@@ -36,7 +36,7 @@ public class KryoTest {
         KryoTest kryoTest = new KryoTest();
         log.info("Object: {}", kryoTest);
         byte[] bytes = (byte[]) serializer.serialize(kryoTest);
-        log.info("Hex: {}", CodecUtils.encodeToString(HEX, bytes));
+        log.info("Hex: {}", CodecUtil.encodeToString(HEX, bytes));
         Object obj = serializer.deserialize(bytes);
         log.info("Object: {}", obj);
     }

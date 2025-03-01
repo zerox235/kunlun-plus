@@ -31,7 +31,7 @@ public class OperationLogAspect extends AbstractOperationLogAspect {
         stopWatch.start();
         // Execute the proxy's method.
         Object result = joinPoint.proceed();
-        // Stop stop watch.
+        // Stop the stop watch.
         stopWatch.stop();
         long timeMillis = stopWatch.getLastTaskTimeMillis();
         // The main processing logic.

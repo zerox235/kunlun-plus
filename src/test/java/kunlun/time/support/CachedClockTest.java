@@ -7,7 +7,7 @@ package kunlun.time.support;
 
 import kunlun.logging.Logger;
 import kunlun.logging.LoggerFactory;
-import kunlun.time.DateUtils;
+import kunlun.time.DateUtil;
 import kunlun.time.SimpleClock;
 import org.junit.Test;
 
@@ -17,11 +17,11 @@ public class CachedClockTest {
     @Test
     public void test1() {
         SimpleClock clock = CachedClock.getInstance();
-        log.info("{}", DateUtils.format(clock.getTime()));
-        log.info("{}", DateUtils.format(clock.getTime()));
-        log.info("{}", DateUtils.format(clock.getTime()));
-        log.info("{}", DateUtils.format(clock.getTime()));
-        log.info("{}", DateUtils.format(clock.getTime()));
+        log.info("{}", DateUtil.format(clock.getTime()));
+        log.info("{}", DateUtil.format(clock.getTime()));
+        log.info("{}", DateUtil.format(clock.getTime()));
+        log.info("{}", DateUtil.format(clock.getTime()));
+        log.info("{}", DateUtil.format(clock.getTime()));
     }
 
 }

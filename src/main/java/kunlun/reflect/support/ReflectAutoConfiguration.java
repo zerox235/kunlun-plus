@@ -6,10 +6,10 @@
 package kunlun.reflect.support;
 
 import kunlun.aop.AbstractInterceptor;
-import kunlun.aop.ProxyUtils;
-import kunlun.spring.data.bean.BeanToolsAutoConfiguration;
+import kunlun.aop.ProxyUtil;
 import kunlun.reflect.ReflectService;
-import kunlun.reflect.ReflectUtils;
+import kunlun.reflect.ReflectUtil;
+import kunlun.spring.data.bean.BeanToolsAutoConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -49,10 +49,10 @@ public class ReflectAutoConfiguration implements InitializingBean, DisposableBea
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        ReflectService reflectService = ReflectUtils.getReflectService();
+        ReflectService reflectService = ReflectUtil.getReflectService();
         if (reflectService != null) {
-            ReflectService instance = ProxyUtils.proxy(new ReflectProviderInterceptor(reflectService));
-            ReflectUtils.setReflectService(instance);
+            ReflectService instance = ProxyUtil.proxy(new ReflectProviderInterceptor(reflectService));
+            ReflectUtil.setReflectService(instance);
             log.info("Add cache to reflect provider success. ");
         }
     }

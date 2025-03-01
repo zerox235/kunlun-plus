@@ -7,7 +7,7 @@ package kunlun.spring.feign.support;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
-import kunlun.spring.RequestContextUtils;
+import kunlun.spring.util.RequestContextUtil;
 import kunlun.util.CollUtil;
 import kunlun.util.StrUtil;
 
@@ -36,7 +36,7 @@ public class FeignRequestTransferInterceptor implements RequestInterceptor {
     protected void transferHeaders(RequestTemplate feignRequest, List<String> headerNames) {
         // Transfer request headers.
         if (CollUtil.isEmpty(headerNames)) { return; }
-        HttpServletRequest request = RequestContextUtils.getRequest();
+        HttpServletRequest request = RequestContextUtil.getRequest();
         if (request == null) { return; }
         Map<String, Collection<String>> headers = new LinkedHashMap<String, Collection<String>>();
         for (String headerName : headerNames) {

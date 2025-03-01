@@ -9,7 +9,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import kunlun.common.PageResult;
 import kunlun.common.Paging;
-import kunlun.data.bean.BeanUtils;
+import kunlun.data.bean.BeanUtil;
 
 import java.util.List;
 
@@ -18,26 +18,26 @@ import java.util.List;
  * @author Kahle
  */
 @Deprecated // TODO: Can delete
-public class PagingUtils {
+public class PagingUtil {
 
     public static void startPage(int pageNum, int pageSize) {
 
-        PagingUtils.startPage(new Paging(pageNum, pageSize));
+        PagingUtil.startPage(new Paging(pageNum, pageSize));
     }
 
     public static void startPage(Paging paging) {
 
-        PagingUtils.startPage(paging, true, null);
+        PagingUtil.startPage(paging, true, null);
     }
 
     public static void startPage(Paging paging, boolean doCount) {
 
-        PagingUtils.startPage(paging, doCount, null);
+        PagingUtil.startPage(paging, doCount, null);
     }
 
     public static void startPage(Paging paging, String orderBy) {
 
-        PagingUtils.startPage(paging, true, orderBy);
+        PagingUtil.startPage(paging, true, orderBy);
     }
 
     public static void startPage(Paging paging, boolean doCount, String orderBy) {
@@ -73,7 +73,7 @@ public class PagingUtils {
         if (data == null) {
             return new PageResult<List<T>>();
         }
-        List<T> list = BeanUtils.beanToBeanInList(data, clazz);
+        List<T> list = BeanUtil.beanToBeanInList(data, clazz);
         if (!(data instanceof Page)) {
             return new PageResult<List<T>>(/*list*/);
         }
@@ -97,7 +97,7 @@ public class PagingUtils {
         result.setPageCount(data.getPageCount());
         result.setTotal(data.getTotal());
         List<F> fList = data.getData();
-        List<T> tList = BeanUtils.beanToBeanInList(fList, clazz);
+        List<T> tList = BeanUtil.beanToBeanInList(fList, clazz);
         result.setData(tList);
         return result;
     }

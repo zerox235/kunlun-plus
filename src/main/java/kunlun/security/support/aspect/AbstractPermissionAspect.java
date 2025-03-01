@@ -7,9 +7,9 @@ package kunlun.security.support.aspect;
 
 import kunlun.aop.support.aspectj.AbstractAspect;
 import kunlun.core.annotation.Permission;
-import kunlun.data.json.JsonUtils;
+import kunlun.data.json.JsonUtil;
 import kunlun.exception.BusinessException;
-import kunlun.security.SecurityUtils;
+import kunlun.security.SecurityUtil;
 import kunlun.security.support.AbstractDataController;
 import kunlun.security.support.AbstractSecurityContext;
 import kunlun.security.support.util.DataScope;
@@ -47,11 +47,11 @@ public abstract class AbstractPermissionAspect extends AbstractAspect {
             data   = StrUtil.isBlank(data) ? value : data;
         }
         // Get the current login user information.
-        Object userType = SecurityUtils.getUserType();
-        Object userId = SecurityUtils.getUserId();
+        Object userType = SecurityUtil.getUserType();
+        Object userId = SecurityUtil.getUserId();
         // Check access permission.
         if (StrUtil.isNotBlank(access)) {
-            if (!SecurityUtils.hasPermission(userId, userType, access)) {
+            if (!SecurityUtil.hasPermission(userId, userType, access)) {
                 throw new BusinessException("Permission Denied! ");
             }
         }
@@ -61,15 +61,15 @@ public abstract class AbstractPermissionAspect extends AbstractAspect {
             context.setPermission(data);
             context.setUserId(userId);
             context.setUserType(userType);
-            context.setUserGroups(SecurityUtils.getUserGroups("nested"));
+            context.setUserGroups(SecurityUtil.getUserGroups("nested"));
             // Build data permission rule.
             SimpleRule rule = null;
             if (StrUtil.isNotBlank(config)) {
-                rule = JsonUtils.parseObject(config, SimpleRule.class);
+                rule = JsonUtil.parseObject(config, SimpleRule.class);
             }
             if (rule == null) { rule = new SimpleRule(); }
             // Get the rule for the current login user.
-            SimpleRule userRule = SecurityUtils.getDataController().getRule(data, userId, userType);
+            SimpleRule userRule = SecurityUtil.getDataController().getRule(data, userId, userType);
             // The user rule can override annotation rule.
             if (userRule != null) {
                 if (userRule.getDataScope() != null && DataScope.ALL.equals(userRule.getDataScope())) {
@@ -80,7 +80,7 @@ public abstract class AbstractPermissionAspect extends AbstractAspect {
                 }
             }
             context.setRule(rule);
-            ((AbstractSecurityContext) SecurityUtils.getContext()).setProperty(CONTEXT_KEY, context);
+            ((AbstractSecurityContext) SecurityUtil.getContext()).setProperty(CONTEXT_KEY, context);
         }
     }
 

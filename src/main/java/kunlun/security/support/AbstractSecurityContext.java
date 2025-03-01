@@ -9,7 +9,7 @@ import cn.hutool.core.util.ObjUtil;
 import kunlun.context.support.AbstractServletContext;
 import kunlun.core.AccessController;
 import kunlun.core.DataController;
-import kunlun.generator.id.IdUtils;
+import kunlun.generator.id.IdUtil;
 import kunlun.security.SecurityContext;
 import kunlun.security.TokenManager;
 import kunlun.security.UserManager;
@@ -305,7 +305,7 @@ public abstract class AbstractSecurityContext extends AbstractServletContext imp
         requestInfo.setTenantId(request.getHeader(TENANT_ID_NAME));
         requestInfo.setAccessTime(System.currentTimeMillis());
         if (StrUtil.isBlank(requestInfo.getTraceId())) {
-            requestInfo.setTraceId(IdUtils.nextString("uuid"));
+            requestInfo.setTraceId(IdUtil.nextString("uuid"));
         }
 
         requestInfo.setToken(request.getHeader("authorization"));

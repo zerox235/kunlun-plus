@@ -5,15 +5,15 @@
 
 package kunlun.util;
 
-import kunlun.codec.CodecUtils;
-import kunlun.io.util.FileUtils;
+import kunlun.codec.CodecUtil;
+import kunlun.io.util.FileUtil;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
 import java.util.Arrays;
 
-import static kunlun.codec.CodecUtils.HEX;
+import static kunlun.codec.CodecUtil.HEX;
 
 @Ignore
 public class FileTypeTest {
@@ -42,9 +42,9 @@ public class FileTypeTest {
 
     @Test
     public void testClass() throws Exception {
-        byte[] bytes = FileUtils.read(new File("e:\\1.class"));
+        byte[] bytes = FileUtil.read(new File("e:\\1.class"));
         // class file top four is magic number, magic number value always is "CAFEBABE".
-        String magic = CodecUtils.encodeToString(HEX, Arrays.copyOfRange(bytes, 0, 4));
+        String magic = CodecUtil.encodeToString(HEX, Arrays.copyOfRange(bytes, 0, 4));
         System.out.println("magic number: " + magic.toUpperCase());
 
         int minorVersion = (((int)bytes[4]) << 8) + bytes[5];

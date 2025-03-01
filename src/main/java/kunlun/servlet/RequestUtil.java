@@ -21,7 +21,7 @@ import static kunlun.common.constant.Words.UNKNOWN;
  * Request tools.
  * @author Kahle
  */
-public class RequestUtils {
+public class RequestUtil {
 
     public static String getReferer(HttpServletRequest request) {
         if (request == null) { return null; }
@@ -36,7 +36,7 @@ public class RequestUtils {
     }
 
     public static String getRealAddress(HttpServletRequest request) {
-        String remoteAddr = RequestUtils.getRemoteAddress(request);
+        String remoteAddr = RequestUtil.getRemoteAddress(request);
         if (StrUtil.isBlank(remoteAddr)) { return remoteAddr; }
         if (!remoteAddr.contains(COMMA)) { return remoteAddr; }
         String[] split = remoteAddr.trim().split(COMMA);

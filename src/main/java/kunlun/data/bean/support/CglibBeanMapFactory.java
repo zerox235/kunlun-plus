@@ -6,7 +6,7 @@
 package kunlun.data.bean.support;
 
 import kunlun.convert.ConversionService;
-import kunlun.convert.ConversionUtils;
+import kunlun.convert.ConversionUtil;
 import kunlun.data.bean.BeanMap;
 import kunlun.data.bean.BeanMapFactory;
 import kunlun.util.Assert;
@@ -20,7 +20,7 @@ public class CglibBeanMapFactory implements BeanMapFactory {
 
     public CglibBeanMapFactory() {
 
-        this(ConversionUtils.getConversionService());
+        this(ConversionUtil.getConversionService());
     }
 
     public CglibBeanMapFactory(ConversionService conversionService) {

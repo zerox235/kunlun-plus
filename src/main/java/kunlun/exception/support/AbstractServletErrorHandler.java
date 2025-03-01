@@ -6,7 +6,7 @@
 package kunlun.exception.support;
 
 import kunlun.common.Result;
-import kunlun.exception.ExceptionUtils;
+import kunlun.exception.ExceptionUtil;
 import kunlun.exception.ServletErrorHandler;
 import kunlun.util.StrUtil;
 
@@ -44,7 +44,7 @@ public abstract class AbstractServletErrorHandler implements ServletErrorHandler
         // response write html.
         response.setContentType(TEXT_HTML + "; charset=" + STR_UTF_8);
         try { response.getWriter().write(htmlString); }
-        catch (IOException e) { throw ExceptionUtils.wrap(e); }
+        catch (IOException e) { throw ExceptionUtil.wrap(e); }
         // no return.
         return null;
     }

@@ -1,7 +1,7 @@
 package kunlun.jdbc;
 
-import kunlun.data.bean.BeanUtils;
-import kunlun.exception.ExceptionUtils;
+import kunlun.data.bean.BeanUtil;
+import kunlun.exception.ExceptionUtil;
 import kunlun.io.util.IoUtil;
 import kunlun.logging.Logger;
 import kunlun.logging.LoggerFactory;
@@ -107,7 +107,7 @@ public class DatabaseClient {
         }
         catch (Exception e) {
             rollbackTransaction(connection);
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
         finally {
             closeTransaction(connection, autoCommit);
@@ -116,7 +116,7 @@ public class DatabaseClient {
 
     public <T> List<T> executeQuery(Class<T> clazz, String sql, Object... params) throws SQLException {
         List<Map<String, Object>> list = executeQuery(sql, params);
-        return BeanUtils.mapToBeanInList(list, clazz);
+        return BeanUtil.mapToBeanInList(list, clazz);
     }
 
     public List<Map<String, Object>> executeQuery(String sql, Object... params) throws SQLException {

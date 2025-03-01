@@ -6,8 +6,8 @@
 package kunlun.action.event.support;
 
 import kunlun.action.event.Event;
-import kunlun.servlet.RequestUtils;
-import kunlun.spring.RequestContextUtils;
+import kunlun.servlet.RequestUtil;
+import kunlun.spring.util.RequestContextUtil;
 import kunlun.util.StrUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,9 +55,9 @@ public abstract class AbstractWebEventCollector extends SimpleEventCollector {
             event.putData("clientDeviceId", clientDeviceId);
         }
         // The client net address.
-        event.putData("clientNetAddress", RequestUtils.getRemoteAddress(request));
+        event.putData("clientNetAddress", RequestUtil.getRemoteAddress(request));
         // The client user agent.
-        event.putData("clientUserAgent", RequestUtils.getUserAgent(request));
+        event.putData("clientUserAgent", RequestUtil.getUserAgent(request));
     }
 
     /**
@@ -96,7 +96,7 @@ public abstract class AbstractWebEventCollector extends SimpleEventCollector {
         //track.putData("requestApiName", EMPTY_STRING)
         event.putData("requestMethod", request.getMethod());
         event.putData("requestUrl", String.valueOf(request.getRequestURL()));
-        event.putData("requestReferer", RequestUtils.getReferer(request));
+        event.putData("requestReferer", RequestUtil.getReferer(request));
     }
 
     /**
@@ -112,8 +112,8 @@ public abstract class AbstractWebEventCollector extends SimpleEventCollector {
     public void process(Event event) {
         // Filling common properties has already been done.
         // Get the HTTP request and response objects.
-        HttpServletResponse response = RequestContextUtils.getResponse();
-        HttpServletRequest request = RequestContextUtils.getRequest();
+        HttpServletResponse response = RequestContextUtil.getResponse();
+        HttpServletRequest request = RequestContextUtil.getRequest();
         // Process server information (such as "serverName", "serverAppName").
         // The server information is fixed in "commonProperties".
         // Process client information.

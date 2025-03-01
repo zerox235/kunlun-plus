@@ -5,7 +5,7 @@
 
 package kunlun.spring.db;
 
-import kunlun.db.DbUtils;
+import kunlun.db.DbUtil;
 import kunlun.db.support.AutoDbHandler;
 import kunlun.util.StrUtil;
 import org.slf4j.Logger;
@@ -34,7 +34,7 @@ public class DbHandlerAutoConfiguration {
                         , dbHandler.getClass());
                 continue;
             }
-            DbUtils.registerHandler(handlerName, dbHandler);
+            DbUtil.registerHandler(handlerName, dbHandler);
         }
     }
 

@@ -5,7 +5,7 @@
 
 package kunlun.spring.data.json;
 
-import kunlun.data.json.JsonUtils;
+import kunlun.data.json.JsonUtil;
 import kunlun.data.json.support.FastJsonHandler;
 import kunlun.data.json.support.GsonHandler;
 import kunlun.data.json.support.JacksonHandler;
@@ -34,23 +34,23 @@ public class JsonAutoConfiguration implements InitializingBean, DisposableBean {
         ClassLoader classLoader = ClassLoaderUtil.getDefaultClassLoader();
         String defaultHandler = null;
         if (ClassUtil.isPresent(JACKSON_CLASS, classLoader)) {
-            JsonUtils.registerHandler("jackson", new JacksonHandler());
+            JsonUtil.registerHandler("jackson", new JacksonHandler());
             defaultHandler = "jackson";
         }
         if (ClassUtil.isPresent(GSON_CLASS, classLoader)) {
-            JsonUtils.registerHandler("gson", new GsonHandler());
+            JsonUtil.registerHandler("gson", new GsonHandler());
             if (StrUtil.isBlank(defaultHandler)) {
                 defaultHandler = "gson";
             }
         }
         if (ClassUtil.isPresent(FASTJSON_CLASS, classLoader)) {
-            JsonUtils.registerHandler("fastjson", new FastJsonHandler());
+            JsonUtil.registerHandler("fastjson", new FastJsonHandler());
             if (StrUtil.isBlank(defaultHandler)) {
                 defaultHandler = "fastjson";
             }
         }
         if (StrUtil.isNotBlank(defaultHandler)) {
-            JsonUtils.setDefaultHandlerName(defaultHandler);
+            JsonUtil.setDefaultHandlerName(defaultHandler);
         }
         else {
             log.warn("Can not found \"jackson\" or \"gson\" or \"fastjson\", will keep default. ");

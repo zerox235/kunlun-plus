@@ -7,7 +7,7 @@ package kunlun.cache.support;
 
 import kunlun.cache.AbstractCache;
 import kunlun.data.Dict;
-import kunlun.data.bean.BeanUtils;
+import kunlun.data.bean.BeanUtil;
 import kunlun.data.serialize.support.Base64TextSerializer;
 import kunlun.util.Assert;
 import kunlun.util.StrUtil;
@@ -28,7 +28,7 @@ public abstract class AbstractJdbcCache extends AbstractCache {
         // Validate the cache config.
         Assert.notNull(cacheConfig, "Parameter \"cacheConfig\" must not null. ");
         Assert.notBlank(cacheConfig.getName(), "Parameter \"cacheConfig.name\" must not blank. ");
-        this.cacheConfig = (cacheConfig = BeanUtils.beanToBean(cacheConfig, JdbcCacheConfig.class));
+        this.cacheConfig = (cacheConfig = BeanUtil.beanToBean(cacheConfig, JdbcCacheConfig.class));
         // Process jdbc executor and serializer.
         if (jdbcExecutor != null) { cacheConfig.setJdbcExecutor(jdbcExecutor); }
         Assert.notNull(cacheConfig.getJdbcExecutor(), "Parameter \"jdbcExecutor\" must not null. ");

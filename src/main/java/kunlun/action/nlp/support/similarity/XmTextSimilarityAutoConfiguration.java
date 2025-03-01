@@ -5,7 +5,7 @@
 
 package kunlun.action.nlp.support.similarity;
 
-import kunlun.action.ActionUtils;
+import kunlun.action.ActionUtil;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Configuration;
 import org.xm.Similarity;
@@ -16,7 +16,7 @@ public class XmTextSimilarityAutoConfiguration {
 
     public XmTextSimilarityAutoConfiguration() {
         XmTextSimilarityAction handler = new XmTextSimilarityAction();
-        ActionUtils.registerAction("text-similarity", handler);
+        ActionUtil.registerAction("text-similarity", handler);
     }
 
 }

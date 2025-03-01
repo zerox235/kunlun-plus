@@ -7,7 +7,7 @@ package kunlun.data.bean.support;
 
 import kunlun.convert.ConversionService;
 import kunlun.data.bean.BeanCopier;
-import kunlun.exception.ExceptionUtils;
+import kunlun.exception.ExceptionUtil;
 import org.apache.commons.beanutils.BeanUtils;
 
 /**
@@ -22,7 +22,7 @@ public class ApacheBeanCopier implements BeanCopier {
             BeanUtils.copyProperties(to, from);
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 

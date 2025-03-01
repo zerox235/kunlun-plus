@@ -18,8 +18,8 @@ import java.lang.reflect.Method;
  * The proxy tools Test.
  * @author Kahle
  */
-public class ProxyUtilsTest {
-    private static final Logger log = LoggerFactory.getLogger(ProxyUtilsTest.class);
+public class ProxyUtilTest {
+    private static final Logger log = LoggerFactory.getLogger(ProxyUtilTest.class);
     private final String name = "zhangsan";
 
     public static class TestInterceptor extends AbstractInterceptor<RealSubject> {
@@ -37,18 +37,18 @@ public class ProxyUtilsTest {
 
     @Test
     public void testCglibProxy() {
-        ProxyUtils.registerHandler(Words.DEFAULT, new CglibProxyHandler());
+        ProxyUtil.registerHandler(Words.DEFAULT, new CglibProxyHandler());
         RealSubject subject = new RealSubject();
-        Subject subjectProxy = ProxyUtils.proxy(new TestInterceptor(subject));
+        Subject subjectProxy = ProxyUtil.proxy(new TestInterceptor(subject));
         log.info(subjectProxy.sayHello(name));
         log.info(subjectProxy.sayGoodbye(name));
     }
 
     @Test
     public void testSpringCglibProxy() {
-        ProxyUtils.registerHandler(Words.DEFAULT, new SpringCglibProxyHandler());
+        ProxyUtil.registerHandler(Words.DEFAULT, new SpringCglibProxyHandler());
         RealSubject subject = new RealSubject();
-        Subject subjectProxy = ProxyUtils.proxy(new TestInterceptor(subject));
+        Subject subjectProxy = ProxyUtil.proxy(new TestInterceptor(subject));
         log.info(subjectProxy.sayHello(name));
         log.info(subjectProxy.sayGoodbye(name));
     }

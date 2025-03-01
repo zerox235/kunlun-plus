@@ -20,8 +20,7 @@ import java.util.Map;
  * The verify tools.
  * @author Kahle
  */
-@Deprecated
-public class VerifyUtils {
+public class VerifyUtil {
 
     public static void isFalse(boolean expression, CodeDefinition errorCode, Object... arguments) {
         if (expression) {

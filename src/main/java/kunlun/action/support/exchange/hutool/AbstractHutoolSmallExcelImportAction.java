@@ -9,8 +9,8 @@ import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import kunlun.action.support.exchange.AbstractImportExportAction;
 import kunlun.action.support.exchange.ImportHandler;
-import kunlun.data.bean.BeanUtils;
-import kunlun.exception.ExceptionUtils;
+import kunlun.data.bean.BeanUtil;
+import kunlun.exception.ExceptionUtil;
 import kunlun.util.Assert;
 import kunlun.util.CollUtil;
 import kunlun.util.MapUtil;
@@ -68,7 +68,7 @@ public abstract class AbstractHutoolSmallExcelImportAction<P, D>
             }
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 
@@ -84,7 +84,7 @@ public abstract class AbstractHutoolSmallExcelImportAction<P, D>
         ExcelImportContext<P, D> nowContext = cast(context);
         // The data conversion.
         Class<D> exchangeClass = nowContext.getExchangeClass();
-        return BeanUtils.beanToBeanInList((List<?>) rawData, exchangeClass);
+        return BeanUtil.beanToBeanInList((List<?>) rawData, exchangeClass);
     }
 
     @Override
@@ -164,7 +164,7 @@ public abstract class AbstractHutoolSmallExcelImportAction<P, D>
             nowContext.setStatus(FIVE);
             nowContext.setError(e);
             pushTask(nowContext);
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 

@@ -6,7 +6,7 @@
 package kunlun.serialize.support;
 
 import kunlun.core.Serializer;
-import kunlun.exception.ExceptionUtils;
+import kunlun.exception.ExceptionUtil;
 import kunlun.util.Assert;
 import org.nustaq.serialization.FSTObjectInput;
 import org.nustaq.serialization.FSTObjectOutput;
@@ -36,7 +36,7 @@ public class FstSerializer implements Serializer {
             return outputStream.toByteArray();
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 
@@ -51,7 +51,7 @@ public class FstSerializer implements Serializer {
             return input.readObject();
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 

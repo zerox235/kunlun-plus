@@ -9,13 +9,13 @@ import kunlun.logging.Logger;
 import kunlun.logging.LoggerFactory;
 import org.junit.Test;
 
-public class PinyinUtilsTest {
-    private static Logger log = LoggerFactory.getLogger(PinyinUtilsTest.class);
+public class PinyinUtilTest {
+    private static Logger log = LoggerFactory.getLogger(PinyinUtilTest.class);
 
     @Test
     public void test1() {
-        log.info("{}", PinyinUtils.convertChineseToPinyin("世界，你好！", false));
-        log.info("{}", PinyinUtils.convertChineseToPinyin("世界，你好！", true));
+        log.info("{}", PinyinUtil.convertChineseToPinyin("世界，你好！", false));
+        log.info("{}", PinyinUtil.convertChineseToPinyin("世界，你好！", true));
     }
 
 }

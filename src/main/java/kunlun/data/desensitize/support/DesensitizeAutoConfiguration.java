@@ -5,7 +5,7 @@
 
 package kunlun.data.desensitize.support;
 
-import kunlun.data.desensitize.DesensitizeUtils;
+import kunlun.data.desensitize.DesensitizeUtil;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
@@ -19,9 +19,9 @@ public class DesensitizeAutoConfiguration implements InitializingBean, Disposabl
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        DesensitizeUtils.register("PhoneNumber", new PhoneNumberDesensitizer());
-        DesensitizeUtils.register("WithPhoneNumber", new WithPhoneNumberDesensitizer());
-        DesensitizeUtils.register("BankCardNumber", new BankCardNumberDesensitizer());
+        DesensitizeUtil.register("PhoneNumber", new PhoneNumberDesensitizer());
+        DesensitizeUtil.register("WithPhoneNumber", new WithPhoneNumberDesensitizer());
+        DesensitizeUtil.register("BankCardNumber", new BankCardNumberDesensitizer());
     }
 
     @Override

@@ -6,8 +6,8 @@
 package kunlun.data.json.support;
 
 import kunlun.common.constant.Words;
-import kunlun.data.json.JsonUtils;
-import kunlun.data.mock.MockUtils;
+import kunlun.data.json.JsonUtil;
+import kunlun.data.mock.MockUtil;
 import kunlun.entity.Student;
 import kunlun.util.TypeUtil;
 import org.junit.Before;
@@ -26,32 +26,32 @@ public class JacksonHandlerTest {
 
     @Before
     public void init() {
-        JsonUtils.registerHandler(Words.DEFAULT, new JacksonHandler());
-        data = MockUtils.mock(Student.class);
+        JsonUtil.registerHandler(Words.DEFAULT, new JacksonHandler());
+        data = MockUtil.mock(Student.class);
         for (int i = 0; i < 5; i++) {
-            data1.add(MockUtils.mock(Student.class));
+            data1.add(MockUtil.mock(Student.class));
         }
-        jsonString = JsonUtils.toJsonString(data, PRETTY_FORMAT);
-        jsonString1 = JsonUtils.toJsonString(data1, PRETTY_FORMAT);
+        jsonString = JsonUtil.toJsonString(data, PRETTY_FORMAT);
+        jsonString1 = JsonUtil.toJsonString(data1, PRETTY_FORMAT);
     }
 
     @Test
     public void test1() {
-        System.out.println(JsonUtils.toJsonString(data, PRETTY_FORMAT));
-        System.out.println(JsonUtils.toJsonString(data1, PRETTY_FORMAT));
-        System.out.println(JsonUtils.toJsonString(data, PRETTY_FORMAT));
+        System.out.println(JsonUtil.toJsonString(data, PRETTY_FORMAT));
+        System.out.println(JsonUtil.toJsonString(data1, PRETTY_FORMAT));
+        System.out.println(JsonUtil.toJsonString(data, PRETTY_FORMAT));
     }
 
     @Test
     public void test2() {
-        JsonUtils.registerHandler(Words.DEFAULT, new JacksonHandler());
-        Student student = JsonUtils.parseObject(jsonString, Student.class);
-        List<Student> list = JsonUtils.parseObject(jsonString1
+        JsonUtil.registerHandler(Words.DEFAULT, new JacksonHandler());
+        Student student = JsonUtil.parseObject(jsonString, Student.class);
+        List<Student> list = JsonUtil.parseObject(jsonString1
                 , TypeUtil.parameterizedOf(List.class, Student.class));
-        System.out.println(JsonUtils.toJsonString(student, PRETTY_FORMAT));
+        System.out.println(JsonUtil.toJsonString(student, PRETTY_FORMAT));
         System.out.println("----");
         for (Student student1 : list) {
-            System.out.println(JsonUtils.toJsonString(student1));
+            System.out.println(JsonUtil.toJsonString(student1));
         }
     }
 

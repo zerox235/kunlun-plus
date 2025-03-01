@@ -50,7 +50,7 @@ public class BusinessExceptionTest {
             throw new BusinessException(PASSWORD_IS_REQUIRED);
         }
         catch (BusinessException e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 
@@ -59,7 +59,7 @@ public class BusinessExceptionTest {
             throw new BusinessException("[BusinessException]: Just Test...");
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 

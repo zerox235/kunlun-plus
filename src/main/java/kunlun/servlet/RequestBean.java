@@ -5,7 +5,7 @@
 
 package kunlun.servlet;
 
-import kunlun.time.DateUtils;
+import kunlun.time.DateUtil;
 import kunlun.util.MapUtil;
 import kunlun.util.StrUtil;
 
@@ -182,7 +182,7 @@ public class RequestBean {
                 }
             }
         }
-        builder.append("---- ").append(DateUtils.format(receiveTime));
+        builder.append("---- ").append(DateUtil.format(receiveTime));
         builder.append(" ----").append(NEWLINE);
         return builder.toString();
     }

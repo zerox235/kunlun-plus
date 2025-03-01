@@ -6,8 +6,8 @@
 package kunlun.data.bean.support;
 
 import com.alibaba.fastjson.JSON;
-import kunlun.data.bean.BeanUtils;
-import kunlun.data.mock.MockUtils;
+import kunlun.data.bean.BeanUtil;
+import kunlun.data.mock.MockUtil;
 import kunlun.entity.Person;
 import kunlun.entity.Student;
 import org.junit.Test;
@@ -16,15 +16,15 @@ import org.junit.Test;
  * The bean tools Test.
  * @author Kahle
  */
-public class BeanUtilsTest {
+public class BeanUtilTest {
 
     @Test
     public void testIgnoreCglibCopy() {
-        Person person = MockUtils.mock(Person.class);
-        // BeanUtils.setBeanCopier(new CglibBeanCopier());
-        BeanUtils.setBeanCopier(new SpringCglibBeanCopier());
+        Person person = MockUtil.mock(Person.class);
+        // BeanUtil.setBeanCopier(new CglibBeanCopier());
+        BeanUtil.setBeanCopier(new SpringCglibBeanCopier());
         Student student = new Student();
-        BeanUtils.copy(person, student);
+        BeanUtil.copy(person, student);
         System.out.println(JSON.toJSONString(student));
     }
 

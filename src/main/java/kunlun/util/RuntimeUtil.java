@@ -14,7 +14,7 @@ import static kunlun.common.constant.Charsets.STR_DEFAULT_CHARSET;
 import static kunlun.common.constant.Symbols.NEWLINE;
 
 @Deprecated
-public class RuntimeUtils {
+public class RuntimeUtil {
     private static final Runtime runtime = Runtime.getRuntime();
 
     public static Process exec(String command) throws IOException {

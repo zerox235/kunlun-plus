@@ -7,8 +7,8 @@ package kunlun.action.message.support.rocketmq;
 
 import kunlun.action.message.AbstractMessageHandler;
 import kunlun.data.Dict;
-import kunlun.data.bean.BeanUtils;
-import kunlun.exception.ExceptionUtils;
+import kunlun.data.bean.BeanUtil;
+import kunlun.exception.ExceptionUtil;
 import kunlun.message.model.Result;
 import kunlun.message.model.Subscribe;
 import kunlun.util.Assert;
@@ -81,8 +81,8 @@ public class RocketMqMessageHandler extends AbstractMessageHandler {
                 }
                 sendResult = mqProducer.send(messageList);
             }
-            return new Result(BeanUtils.beanToMap(sendResult));
-        } catch (Exception e) { throw ExceptionUtils.wrap(e); }
+            return new Result(BeanUtil.beanToMap(sendResult));
+        } catch (Exception e) { throw ExceptionUtil.wrap(e); }
     }
 
     @Override
@@ -108,7 +108,7 @@ public class RocketMqMessageHandler extends AbstractMessageHandler {
             mqConsumers.put(ltr, mqConsumer);
             log.info("RocketMQ subscribe {} {} by {} success. ", topic, subExpr, ltr.getClass().getName());
             return new Result();
-        } catch (Exception e) { throw ExceptionUtils.wrap(e); }
+        } catch (Exception e) { throw ExceptionUtil.wrap(e); }
     }
 
 }

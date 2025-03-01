@@ -8,7 +8,7 @@ package kunlun.io.oss.support;
 import kunlun.common.constant.Charsets;
 import kunlun.common.constant.Symbols;
 import kunlun.data.tuple.KeyValue;
-import kunlun.exception.ExceptionUtils;
+import kunlun.exception.ExceptionUtil;
 import kunlun.io.oss.OssBase;
 import kunlun.io.oss.OssInfo;
 import kunlun.io.oss.OssObject;
@@ -85,7 +85,7 @@ public abstract class AbstractOssStorage extends AbstractDataStorage implements 
                 ((OssObjectImpl) ossObject).setObjectContent(inputStream);
             }
             catch (IOException e) {
-                throw ExceptionUtils.wrap(e);
+                throw ExceptionUtil.wrap(e);
             }
         }
         else {

@@ -9,8 +9,8 @@ import com.alibaba.fastjson.JSON;
 import kunlun.convert.ConversionService;
 import kunlun.convert.GenericConverter;
 import kunlun.data.bean.BeanCopier;
-import kunlun.data.bean.BeanUtils;
-import kunlun.data.mock.MockUtils;
+import kunlun.data.bean.BeanUtil;
+import kunlun.data.mock.MockUtil;
 import kunlun.logging.Logger;
 import kunlun.logging.LoggerFactory;
 import kunlun.test.dto.OrdinaryPersonDTO;
@@ -28,7 +28,7 @@ import java.util.Map;
 
 import static kunlun.common.constant.Numbers.ONE;
 import static kunlun.common.constant.Numbers.ZERO;
-import static kunlun.convert.ConversionUtils.getConversionService;
+import static kunlun.convert.ConversionUtil.getConversionService;
 
 /**
  * The abstract bean copier Test.
@@ -38,8 +38,8 @@ abstract class AbstractBeanCopierTest {
     private static final Logger log = LoggerFactory.getLogger(AbstractBeanCopierTest.class);
 
     void doCopyMapToObject(BeanCopier beanCopier) {
-        Dog newDog = MockUtils.mock(Dog.class);
-        Map<String, Object> fromMap = BeanUtils.beanToMap(newDog);
+        Dog newDog = MockUtil.mock(Dog.class);
+        Map<String, Object> fromMap = BeanUtil.beanToMap(newDog);
         Dog toDog = new Dog();
         log.info("From object: {}", JSON.toJSONString(fromMap));
         log.info("To object: {}", JSON.toJSONString(toDog));
@@ -49,7 +49,7 @@ abstract class AbstractBeanCopierTest {
     }
 
     void doCopyObjectToMap(BeanCopier beanCopier) {
-        Dog fromDog = MockUtils.mock(Dog.class);
+        Dog fromDog = MockUtil.mock(Dog.class);
         Map<String, Object> toMap = new HashMap<String, Object>();
         log.info("From object: {}", JSON.toJSONString(fromDog));
         log.info("To object: {}", JSON.toJSONString(toMap));
@@ -59,7 +59,7 @@ abstract class AbstractBeanCopierTest {
     }
 
     void doCopyNullToValue(BeanCopier beanCopier) {
-        Dog fromDog = MockUtils.mock(Dog.class);
+        Dog fromDog = MockUtil.mock(Dog.class);
         Dog toDog = new Dog();
         fromDog.setName(null);
         toDog.setName("ToDog's name");
@@ -72,7 +72,7 @@ abstract class AbstractBeanCopierTest {
     }
 
     void doCopyObjToObjToTestTypeConvert(BeanCopier beanCopier) {
-        SimplePersonDTO fromPerson = MockUtils.mock(SimplePersonDTO.class);
+        SimplePersonDTO fromPerson = MockUtil.mock(SimplePersonDTO.class);
         fromPerson.setGender("1");
         OrdinaryPersonDTO toPerson = new OrdinaryPersonDTO();
         log.info("From object: {}", JSON.toJSONString(fromPerson));
@@ -88,10 +88,10 @@ abstract class AbstractBeanCopierTest {
     }
 
     void doCopyObjToOtherObjToTestPropertyList(BeanCopier beanCopier) {
-        OrdinaryPerson fromPerson = MockUtils.mock(OrdinaryPerson.class);
+        OrdinaryPerson fromPerson = MockUtil.mock(OrdinaryPerson.class);
         List<Skill> skillList = new ArrayList<Skill>();
         for (int i = ZERO; i < ONE; i++) {
-            skillList.add(MockUtils.mock(Skill.class));
+            skillList.add(MockUtil.mock(Skill.class));
         }
         fromPerson.setSkillList(skillList);
         OrdinaryPersonDTO toPerson = new OrdinaryPersonDTO();

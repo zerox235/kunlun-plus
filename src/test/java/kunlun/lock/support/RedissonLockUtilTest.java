@@ -5,7 +5,7 @@
 
 package kunlun.lock.support;
 
-import kunlun.lock.LockUtils;
+import kunlun.lock.LockUtil;
 import kunlun.util.ThreadUtil;
 import org.junit.After;
 import org.junit.Before;
@@ -22,8 +22,8 @@ import java.util.concurrent.*;
 import static kunlun.common.constant.Numbers.ZERO;
 
 @Ignore
-public class RedissonLockUtilsTest {
-    private static final Logger log = LoggerFactory.getLogger(RedissonLockUtilsTest.class);
+public class RedissonLockUtilTest {
+    private static final Logger log = LoggerFactory.getLogger(RedissonLockUtilTest.class);
     private volatile Integer num = 100;
     private final Integer threadNum = 50;
     private ExecutorService threadPool;
@@ -42,7 +42,7 @@ public class RedissonLockUtilsTest {
                 .setDatabase(10)
                 .setPassword(null);
         RedissonClient redissonClient = Redisson.create(config);
-        LockUtils.registerManager(managerName, new RedissonLockManager(redissonClient));
+        LockUtil.registerManager(managerName, new RedissonLockManager(redissonClient));
     }
 
     @After
@@ -74,7 +74,7 @@ public class RedissonLockUtilsTest {
                 long millis = System.currentTimeMillis();
                 for (int j = 0; j < 1000000; j++) {
                     if (num <= 0) { continue; }
-                    LockUtils.lock(managerName, lockName);
+                    LockUtil.lock(managerName, lockName);
                     try {
                         log.info(">> {} lock", threadName);
                         if (num > 0) {
@@ -84,7 +84,7 @@ public class RedissonLockUtilsTest {
                     }
                     finally {
                         log.info("<< {} unlock\n", threadName);
-                        LockUtils.unlock(managerName, lockName);
+                        LockUtil.unlock(managerName, lockName);
                         ThreadUtil.sleepQuietly(100);
                     }
                 }
@@ -107,7 +107,7 @@ public class RedissonLockUtilsTest {
                 long millis = System.currentTimeMillis();
                 for (int j = 0; j < 1000000; j++) {
                     if (num <= 0) { continue; }
-                    boolean tryLock = LockUtils.tryLock(managerName, lockName, 500, TimeUnit.MILLISECONDS);
+                    boolean tryLock = LockUtil.tryLock(managerName, lockName, 500, TimeUnit.MILLISECONDS);
                     if (!tryLock) { continue; }
                     try {
                         log.info(">> {} tryLock {}", threadName, tryLock);
@@ -118,7 +118,7 @@ public class RedissonLockUtilsTest {
                     }
                     finally {
                         log.info("<< {} unlock\n", threadName);
-                        LockUtils.unlock(managerName, lockName);
+                        LockUtil.unlock(managerName, lockName);
                         ThreadUtil.sleepQuietly(100);
                     }
                 }

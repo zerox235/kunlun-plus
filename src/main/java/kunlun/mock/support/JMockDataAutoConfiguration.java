@@ -6,7 +6,7 @@
 package kunlun.mock.support;
 
 import com.github.jsonzou.jmockdata.JMockData;
-import kunlun.data.mock.MockUtils;
+import kunlun.data.mock.MockUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -18,7 +18,7 @@ public class JMockDataAutoConfiguration {
     private static final Logger log = LoggerFactory.getLogger(JMockDataAutoConfiguration.class);
 
     public JMockDataAutoConfiguration() {
-        MockUtils.registerHandler("jmock", new JMockDataHandler());
+        MockUtil.registerHandler("jmock", new JMockDataHandler());
         log.info("The \"JMockData\" was initialized success. ");
     }
 

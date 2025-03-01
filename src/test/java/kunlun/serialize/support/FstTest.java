@@ -5,7 +5,7 @@
 
 package kunlun.serialize.support;
 
-import kunlun.codec.CodecUtils;
+import kunlun.codec.CodecUtil;
 import kunlun.core.Serializer;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 
-import static kunlun.codec.CodecUtils.HEX;
+import static kunlun.codec.CodecUtil.HEX;
 
 public class FstTest implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(FstTest.class);
@@ -24,7 +24,7 @@ public class FstTest implements Serializable {
         FstTest fstTest = new FstTest();
         log.info("Object: {}", fstTest);
         byte[] bytes = (byte[]) serializer.serialize(fstTest);
-        log.info("Hex: {}", CodecUtils.encodeToString(HEX, bytes));
+        log.info("Hex: {}", CodecUtil.encodeToString(HEX, bytes));
         Object obj = serializer.deserialize(bytes);
         log.info("Object: {}", obj);
     }

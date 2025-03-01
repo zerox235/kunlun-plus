@@ -8,7 +8,7 @@ package kunlun.renderer.support;
 import kunlun.data.Dict;
 import kunlun.logging.Logger;
 import kunlun.logging.LoggerFactory;
-import kunlun.renderer.RenderUtils;
+import kunlun.renderer.RenderUtil;
 import org.junit.Test;
 
 import static kunlun.core.Renderer.Tpl;
@@ -21,16 +21,16 @@ public class BeetlTextRendererTest {
     private String source1 = "You name is \"${data.name}\", \nAnd you age is \"${data.age}\". ";
 
     static {
-        RenderUtils.registerRenderer(rendererName, new BeetlTextRenderer());
+        RenderUtil.registerRenderer(rendererName, new BeetlTextRenderer());
         data.set("testStr", "hello, world! ").set("nullVal", null);
         data.set("data", Dict.of("name", "zhangsan").set("age", "19"));
     }
 
     @Test
     public void test1() {
-        log.info(RenderUtils.renderToString(rendererName, source, data));
-        log.info(RenderUtils.renderToString(rendererName, source1, data));
-        log.info(RenderUtils.renderToString(rendererName, Tpl.of("classpath://testBeetl.btl"), data));
+        log.info(RenderUtil.renderToString(rendererName, source, data));
+        log.info(RenderUtil.renderToString(rendererName, source1, data));
+        log.info(RenderUtil.renderToString(rendererName, Tpl.of("classpath://testBeetl.btl"), data));
     }
 
 }

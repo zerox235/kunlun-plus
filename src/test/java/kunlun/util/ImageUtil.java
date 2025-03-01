@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ImageUtils {
+public class ImageUtil {
 
     @Test
     public void test1() throws IOException {

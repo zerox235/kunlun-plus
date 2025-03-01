@@ -6,7 +6,7 @@
 package kunlun.util;
 
 import kunlun.data.validation.support.RegexValidator;
-import kunlun.exception.ExceptionUtils;
+import kunlun.exception.ExceptionUtil;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
@@ -19,7 +19,7 @@ import static kunlun.common.constant.Numbers.ZERO;
  * Pinyin tools.
  * @author Kahle
  */
-public class PinyinUtils {
+public class PinyinUtil {
     private static final RegexValidator CHINESE_VALIDATOR = new RegexValidator("[\\u4E00-\\u9FA5]+");
     private static final HanyuPinyinOutputFormat DEFAULT_OUTPUT_FORMAT;
 
@@ -43,7 +43,7 @@ public class PinyinUtils {
             );
         }
         catch (Exception e) {
-            throw ExceptionUtils.wrap(e);
+            throw ExceptionUtil.wrap(e);
         }
     }
 
