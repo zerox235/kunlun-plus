@@ -72,7 +72,7 @@ public abstract class AbstractPermissionAspect extends AbstractAspect {
             SimpleRule userRule = SecurityUtil.getDataController().getRule(data, userId, userType);
             // The user rule can override annotation rule.
             if (userRule != null) {
-                if (userRule.getDataScope() != null && DataScope.ALL.equals(userRule.getDataScope())) {
+                if (userRule.getDataScope() != null && !DataScope.ALL.equals(userRule.getDataScope())) {
                     rule.setDataScope(userRule.getDataScope());
                 }
                 if (CollUtil.isNotEmpty(userRule.getDataConfigs())) {

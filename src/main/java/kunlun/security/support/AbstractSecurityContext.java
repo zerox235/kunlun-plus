@@ -85,7 +85,7 @@ public abstract class AbstractSecurityContext extends AbstractServletContext imp
     public void init(HttpServletRequest request, HttpServletResponse response) {
         setRequest(request); setResponse(response);
         setRequestInfo(createRequestInfo(request));
-        response.addHeader("rid", getRequestInfo().getTraceId());
+        response.addHeader(TRACE_ID_NAME, getRequestInfo().getTraceId());
         afterInit();
         if (accessLog) {
             log.info("#Trace Start request: {} ,remoteAddr: {}"

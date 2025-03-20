@@ -20,6 +20,7 @@ import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.InExpression;
 import net.sf.jsqlparser.expression.operators.relational.LikeExpression;
+import net.sf.jsqlparser.parser.JSqlParser;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.select.FromItem;
@@ -40,7 +41,7 @@ import static kunlun.common.constant.Numbers.ZERO;
 
 /**
  * The abstract JSqlParser-based data controller.
- * @see net.sf.jsqlparser.parser.JSqlParser
+ * @see JSqlParser
  * @author Kahle
  */
 public abstract class AbstractJSqlParserDataController extends AbstractSqlBasedDataController {
@@ -176,7 +177,7 @@ public abstract class AbstractJSqlParserDataController extends AbstractSqlBasedD
             case ALL: { return; }
             case SELF: {
                 Collection<DataConfig> dataConfigs = rule.getDataConfigs();
-                if (dataConfigs == null) { dataConfigs = emptyList(); }
+                if (dataConfigs == null) { dataConfigs = singletonList(new DataConfig()); }
                 for (DataConfig dataCfg : dataConfigs) {
                     String fromTable = dataCfg.getFromTable();
                     if (StrUtil.isNotBlank(fromTable) &&
@@ -209,7 +210,7 @@ public abstract class AbstractJSqlParserDataController extends AbstractSqlBasedD
             } break;
             case GROUP: {
                 Collection<DataConfig> dataConfigs = rule.getDataConfigs();
-                if (dataConfigs == null) { dataConfigs = emptyList(); }
+                if (dataConfigs == null) { dataConfigs = singletonList(new DataConfig()); }
                 for (DataConfig dataCfg : dataConfigs) {
                     String tableName = dataCfg.getFromTable();
                     if (StrUtil.isNotBlank(tableName) &&
