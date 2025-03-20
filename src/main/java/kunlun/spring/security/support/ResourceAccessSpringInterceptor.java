@@ -7,11 +7,15 @@ package kunlun.spring.security.support;
 
 import kunlun.core.handler.ResourceAccessPreHandler;
 import kunlun.util.Assert;
+import kunlun.util.StrUtil;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
+
+import static kunlun.common.constant.Numbers.ZERO;
 
 /**
  * Support for resource access pre handler based on spring interceptor.
@@ -39,7 +43,19 @@ public class ResourceAccessSpringInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request,
                              @NonNull HttpServletResponse response,
                              @NonNull Object handler) throws Exception {
+        // Get the token from the request header.
         String token = request.getHeader(tokenName);
+        // Try to obtain the token from the request parameters.
+        // Support both uppercase and lowercase letters.
+        if (StrUtil.isBlank(token)) {
+            Map<String, String[]> parameterMap = request.getParameterMap();
+            for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
+                if (tokenName.equalsIgnoreCase(entry.getKey())) {
+                    token = entry.getValue()[ZERO];
+                }
+            }
+        }
+        // Obtain the request path.
         String path = request.getServletPath();
         return (Boolean) accessPreHandler.handle(ACCESS_TYPE, path, token, request, response);
     }
