@@ -26,9 +26,7 @@ public class RedisIncrementalIdGenerator extends AbstractIncrementalIdGenerator 
     public RedisIncrementalIdGenerator(RedisIncrementalIdConfig config
             , StringRedisTemplate stringRedisTemplate) {
         super(config);
-        Assert.notNull(stringRedisTemplate
-                , "Parameter \"stringRedisTemplate\" must not null. ");
-        this.stringRedisTemplate = stringRedisTemplate;
+        this.stringRedisTemplate = Assert.notNull(stringRedisTemplate);
         String redisKeyPrefix = config.getRedisKeyPrefix();
         if (StrUtil.isBlank(redisKeyPrefix)) {
             config.setRedisKeyPrefix("_identifier:");
@@ -42,11 +40,9 @@ public class RedisIncrementalIdGenerator extends AbstractIncrementalIdGenerator 
     }
 
     @Override
-    protected Long incrementAndGet() {
+    protected Long incrementAndGet(Object... arguments) {
         // Build the redis key.
-        String redisKeyPrefix = getConfig().getRedisKeyPrefix();
-        Assert.notBlank(redisKeyPrefix
-                , "Parameter \"redisKeyPrefix\" must not blank. ");
+        String redisKeyPrefix = Assert.notBlank(getConfig().getRedisKeyPrefix());
         String redisKey = redisKeyPrefix.endsWith(":") ? redisKeyPrefix : redisKeyPrefix + ":";
         redisKey = redisKey + getConfig().getName() + ":" + DateUtil.format("yyyyMMdd");
         // Do increment.
