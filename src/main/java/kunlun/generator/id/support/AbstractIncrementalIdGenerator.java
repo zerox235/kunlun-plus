@@ -11,6 +11,7 @@ import kunlun.util.StrUtil;
 
 import static kunlun.common.constant.Numbers.STR_ZERO;
 import static kunlun.common.constant.Numbers.ZERO;
+import static kunlun.common.constant.Symbols.EMPTY_STRING;
 
 /**
  * The abstract incremental identifier generator.
@@ -28,7 +29,7 @@ public abstract class AbstractIncrementalIdGenerator
         if (config.getSequenceLength() == null) { config.setSequenceLength(8); }
         if (config.getStepLength() == null) { config.setStepLength(1); }
         if (config.getOffset() == null) { config.setOffset(0L); }
-        if (StrUtil.isBlank(config.getDatePattern())) {
+        if (config.getDatePattern() == null) {
             config.setDatePattern("yyyyMMdd");
         }
     }
@@ -40,16 +41,45 @@ public abstract class AbstractIncrementalIdGenerator
 
     /**
      * Increment and get the stored value.
+     * @param arguments The arguments at generation time
      * @return The value that is incremented and taken out
      */
-    protected abstract Long incrementAndGet();
+    protected abstract Long incrementAndGet(Object... arguments);
+
+    /**
+     * Obtain the date string.
+     * @param arguments The arguments at generation time
+     * @return The date string
+     */
+    protected String obtainDateString(Object... arguments) {
+        String datePattern = config.getDatePattern();
+        if (StrUtil.isNotBlank(datePattern)) {
+            return DateUtil.format(datePattern);
+        }
+        return null;
+    }
+
+    /**
+     * Obtain the prefix.
+     * @param arguments The arguments at generation time
+     * @return The prefix
+     */
+    protected String obtainPrefix(Object... arguments) {
+
+        return config.getPrefix();
+    }
+
+    protected String obtainSuffix(Object... arguments) {
+
+        return EMPTY_STRING;
+    }
 
     @Override
     public String next(Object... arguments) {
         Assert.notBlank(config.getName()
                 , "Parameter \"config.name\" must not blank. ");
         // Increment value.
-        Long increment = incrementAndGet();
+        Long increment = incrementAndGet(arguments);
         Assert.notNull(increment
                 , "Failed to invoke \"incrementAndGet\". ");
         // Add offset.
@@ -68,15 +98,19 @@ public abstract class AbstractIncrementalIdGenerator
             }
         }
         // Handle date string.
-        String datePattern = config.getDatePattern();
-        if (StrUtil.isNotBlank(datePattern)) {
-            String format = DateUtil.format(datePattern);
-            identifier.insert(ZERO, format);
+        String dateString = obtainDateString(arguments);
+        if (StrUtil.isNotBlank(dateString)) {
+            identifier.insert(ZERO, dateString);
         }
         // Handle prefix.
-        String prefix = config.getPrefix();
+        String prefix = obtainPrefix(arguments);
         if (StrUtil.isNotBlank(prefix)) {
             identifier.insert(ZERO, prefix);
+        }
+        // Handle suffix.
+        String suffix = obtainSuffix(arguments);
+        if (StrUtil.isNotBlank(suffix)) {
+            identifier.append(suffix);
         }
         // Return result.
         return identifier.toString();
