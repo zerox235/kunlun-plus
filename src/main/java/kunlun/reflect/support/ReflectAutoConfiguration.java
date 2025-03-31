@@ -53,7 +53,7 @@ public class ReflectAutoConfiguration implements InitializingBean, DisposableBea
         if (reflectService != null) {
             ReflectService instance = ProxyUtil.proxy(new ReflectProviderInterceptor(reflectService));
             ReflectUtil.setReflectService(instance);
-            log.info("Add cache to reflect provider success. ");
+            log.debug("Add cache to reflect provider success. ");
         }
     }
 

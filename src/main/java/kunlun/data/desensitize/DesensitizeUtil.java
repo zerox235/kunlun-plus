@@ -25,7 +25,7 @@ public class DesensitizeUtil {
         Desensitizer remove = DESENSITIZER_MAP.remove(name);
         if (remove != null) {
             String removeClassName = remove.getClass().getName();
-            log.info("Unregister \"{}\" to \"{}\". ", removeClassName, name);
+//            log.info("Unregister \"{}\" to \"{}\". ", removeClassName, name);
         }
         return remove;
     }
@@ -34,7 +34,7 @@ public class DesensitizeUtil {
         Assert.notNull(desensitizer, "Parameter \"desensitizer\" must not null. ");
         Assert.notBlank(name, "Parameter \"name\" must not blank. ");
         String dataMaskerClassName = desensitizer.getClass().getName();
-        log.info("Register \"{}\" to \"{}\". ", dataMaskerClassName, name);
+//        log.info("Register \"{}\" to \"{}\". ", dataMaskerClassName, name);
         DESENSITIZER_MAP.put(name, desensitizer);
     }
 
