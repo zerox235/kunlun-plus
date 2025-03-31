@@ -30,12 +30,12 @@ public class CglibAopAutoConfiguration implements InitializingBean {
         if (ClassUtil.isPresent("net.sf.cglib.proxy.MethodInterceptor")) {
             ProxyUtil.registerHandler("cglib", proxyHandler = new CglibProxyHandler());
             ProxyUtil.registerHandler(Words.DEFAULT, proxyHandler);
-            log.info("The cglib proxy handler was initialized success. ");
+            log.debug("The cglib proxy handler was initialized success. ");
         }
         if (ClassUtil.isPresent("org.springframework.cglib.proxy.MethodInterceptor")) {
             ProxyUtil.registerHandler("spring-cglib", proxyHandler = new SpringCglibProxyHandler());
             ProxyUtil.registerHandler(Words.DEFAULT, proxyHandler);
-            log.info("The spring cglib proxy factory was initialized success. ");
+            log.debug("The spring cglib proxy factory was initialized success. ");
         }
     }
 

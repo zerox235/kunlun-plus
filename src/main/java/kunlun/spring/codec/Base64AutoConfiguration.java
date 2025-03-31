@@ -40,7 +40,7 @@ public class Base64AutoConfiguration implements InitializingBean, DisposableBean
             // If have "java.util.Base64", to use it.
             CodecUtil.registerCodec(BASE64, new Java8Base64());
         }
-        log.info("The base64 tools was initialized success. ");
+        log.debug("The base64 tools was initialized success. ");
     }
 
     @Override

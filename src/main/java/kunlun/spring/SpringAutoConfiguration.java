@@ -33,13 +33,13 @@ public class SpringAutoConfiguration implements ApplicationContextAware, Initial
     @Override
     public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
         SpringUtil.setApplicationContext(applicationContext);
-        log.info("The application context tools was initialized success. ");
+        log.debug("The application context tools was initialized success. ");
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
 
-        log.info("The default charset for the current run environment is {}. ", STR_DEFAULT_CHARSET);
+        log.debug("The default charset for the current run environment is {}. ", STR_DEFAULT_CHARSET);
     }
 
     @Override
