@@ -10,12 +10,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConditionalOnProperty(name = "kunlun.cache.spring-adapter", havingValue = "true")
+@EnableConfigurationProperties({CacheProperties.class})
+@ConditionalOnProperty(name = "kunlun.cache.spring-cache-adapter", havingValue = "true")
 @ConditionalOnMissingBean(org.springframework.cache.CacheManager.class)
 public class SpringCacheAdapterAutoConfiguration {
     private static final Logger log = LoggerFactory.getLogger(SpringCacheAdapterAutoConfiguration.class);

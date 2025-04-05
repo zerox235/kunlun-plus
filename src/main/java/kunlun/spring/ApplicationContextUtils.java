@@ -55,6 +55,11 @@ public class ApplicationContextUtils {
         return getContext().getBean(requiredType, args);
     }
 
+    public static boolean containsBean(String name) {
+
+        return getContext().containsBean(name);
+    }
+
     public static void registerBean(String name, BeanDefinitionBuilder beanDefinitionBuilder) {
         // Beans registered by this method can only be obtained by "ApplicationContext.getBean"
         //      and cannot be obtained by "Autowired".

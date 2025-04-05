@@ -14,12 +14,14 @@ import kunlun.util.Assert;
 import kunlun.util.ObjUtil;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import static java.util.Collections.emptyList;
+import static kunlun.common.constant.Numbers.ZERO;
 import static kunlun.common.constant.Symbols.EMPTY_STRING;
 
 /**
@@ -62,7 +64,12 @@ public class FieldDifferenceComparator implements BiFunction<Object, Object, Lis
     }
 
     protected boolean equals(Object oldValue, Object newValue) {
-
+        if (ObjUtil.isEmpty(oldValue) && ObjUtil.isEmpty(newValue)) {
+            return true;
+        }
+        if (oldValue instanceof BigDecimal && newValue instanceof BigDecimal) {
+            return ((BigDecimal) oldValue).compareTo((BigDecimal) newValue) == ZERO;
+        }
         return ObjUtil.equals(oldValue, newValue);
     }
 
