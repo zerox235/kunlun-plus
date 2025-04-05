@@ -28,7 +28,7 @@ import java.util.concurrent.Executor;
  * @author Kahle
  * @see org.springframework.scheduling.annotation.AsyncConfigurer
  */
-@EnableAsync
+@EnableAsync(proxyTargetClass = true)
 @Configuration
 @ConditionalOnProperty(name = "spring.extension.async.enabled", havingValue = "true")
 @EnableConfigurationProperties({SpringAsyncProperties.class})

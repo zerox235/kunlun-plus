@@ -240,7 +240,7 @@
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.9.4</version>
+            <version>1.11.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -371,21 +371,21 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>5.2.1</version>
+            <version>5.4.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>5.2.1</version>
+            <version>5.4.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-scratchpad</artifactId>
-            <version>5.2.1</version>
+            <version>5.4.0</version>
             <scope>provided</scope>
         </dependency>
         <!-- ///// end poi //// -->
@@ -546,15 +546,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- https://github.com/shibing624/similarity -->
-        <!-- https://jitpack.io -->
-        <dependency>
-            <groupId>com.github.shibing624</groupId>
-            <artifactId>similarity</artifactId>
-            <version>1.1.6</version>
-            <scope>provided</scope>
-        </dependency>
-
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
@@ -638,16 +629,8 @@
             <scope>provided</scope>
         </dependency>
 
+
     </dependencies>
-
-    <repositories>
-
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-
-    </repositories>
 
     <build>
 

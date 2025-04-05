@@ -17,6 +17,10 @@ public class CacheProperties {
      */
     private Boolean enabled;
     /**
+     * springCacheAdapter
+     */
+    private Boolean springCacheAdapter;
+    /**
      * The simple cache configurations.
      */
     private List<SimpleConfig> simple;
@@ -37,6 +41,16 @@ public class CacheProperties {
     public void setEnabled(Boolean enabled) {
 
         this.enabled = enabled;
+    }
+
+    public Boolean getSpringCacheAdapter() {
+
+        return springCacheAdapter;
+    }
+
+    public void setSpringCacheAdapter(Boolean springCacheAdapter) {
+
+        this.springCacheAdapter = springCacheAdapter;
     }
 
     public List<SimpleConfig> getSimple() {

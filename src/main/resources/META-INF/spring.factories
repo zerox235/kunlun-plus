@@ -15,7 +15,6 @@ kunlun.reflect.support.ReflectAutoConfiguration,\
 kunlun.data.desensitize.support.DesensitizeAutoConfiguration,\
 kunlun.spring.data.validation.ValidateAutoConfiguration,\
 kunlun.action.nlp.support.hanlp.HankcsHanLpAutoConfiguration,\
-kunlun.action.nlp.support.similarity.XmTextSimilarityAutoConfiguration,\
 kunlun.spring.async.SpringAsyncConfigurerSupport,\
 kunlun.spring.cache.CacheAutoConfiguration,\
 kunlun.spring.cache.SpringCacheAdapterAutoConfiguration,\
