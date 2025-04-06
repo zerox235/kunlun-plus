@@ -27,7 +27,7 @@ public class ApplicationContextUtils {
 
     public static void setContext(ApplicationContext context) {
 
-        SpringUtil.setApplicationContext(context);
+        SpringUtil.setApplicationContext((ConfigurableApplicationContext) context);
     }
 
     public static Object getBean(String name) {
