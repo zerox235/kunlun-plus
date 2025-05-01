@@ -13,6 +13,7 @@ import kunlun.util.Assert;
  * The abstract auto single field fill action.
  * @author Kahle
  */
+@Deprecated
 public abstract class AbstractAutoSingleFieldFillAction
         extends AbstractSingleFieldFillAction implements AutoAction {
     private final String name;

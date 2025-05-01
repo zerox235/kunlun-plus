@@ -5,13 +5,15 @@
 
 package kunlun.io.oss;
 
+import kunlun.core.Storage;
+
 import java.io.InputStream;
 
 /**
  * The object data in the object storage service.
  * @author Kahle
  */
-public interface OssObject extends OssBase {
+public interface OssObject extends OssBase, Storage.Data {
 
     /**
      * Get the metadata.

@@ -9,6 +9,7 @@ import java.util.List;
 
 import static kunlun.action.data.fill.DataFillAction.FieldConfigImpl;
 
+@Deprecated
 public class SingleFieldFillConfig implements DataFillAction.Config {
 
     public static SingleFieldFillConfig of(Object data) {
