@@ -24,6 +24,7 @@ import static kunlun.convert.ConversionUtil.convert;
  * The abstract meta object field fill handler.
  * @author Kahle
  */
+@Deprecated
 public abstract class AbstractMetaObjectHandler implements MetaObjectHandler {
     private static final Logger log = LoggerFactory.getLogger(AbstractMetaObjectHandler.class);
     private final Map<String, Callable<Object>> commands = new ConcurrentHashMap<String, Callable<Object>>();

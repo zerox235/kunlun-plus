@@ -21,6 +21,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.util.Collections;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -30,22 +33,12 @@ import java.util.Map;
 public abstract class AbstractOssStorage extends AbstractDataStorage implements OssStorage {
     private static final Logger log = LoggerFactory.getLogger(AbstractOssStorage.class);
     private final Map<String, String> objectUrlPrefixes;
-    private final String defaultBucket;
+    private final String defaultBucketName;
 
-    public AbstractOssStorage(Map<String, String> objectUrlPrefixes, String defaultBucket) {
+    public AbstractOssStorage(Map<String, String> objectUrlPrefixes, String defaultBucketName) {
         Assert.notNull(objectUrlPrefixes, "Parameter \"objectUrlPrefixes\" must not null. ");
         this.objectUrlPrefixes = objectUrlPrefixes;
-        this.defaultBucket = defaultBucket;
-    }
-
-    public String getDefaultBucket() {
-        Assert.notBlank(defaultBucket, "Parameter \"defaultBucket\" is not set. ");
-        return defaultBucket;
-    }
-
-    protected Map<String, String> getObjectUrlPrefixes() {
-
-        return objectUrlPrefixes;
+        this.defaultBucketName = defaultBucketName;
     }
 
     protected OssBase getOssBase(Object key) {
@@ -58,7 +51,7 @@ public abstract class AbstractOssStorage extends AbstractDataStorage implements 
         }
         else if (key instanceof String) {
             OssBaseImpl ossBase = new OssBaseImpl();
-            ossBase.setBucketName(getDefaultBucket());
+            ossBase.setBucketName(getDefaultBucketName());
             ossBase.setObjectKey(String.valueOf(key));
             return ossBase;
         }
@@ -117,6 +110,54 @@ public abstract class AbstractOssStorage extends AbstractDataStorage implements 
         String buildObjectUrl = buildObjectUrl(bucketName, objectKey);
         ossInfo.setObjectUrl(StrUtil.isNotBlank(buildObjectUrl) ? buildObjectUrl : objectUrl);
         return ossInfo;
+    }
+
+    @Override
+    public String getDefaultBucketName() {
+
+        return Assert.notBlank(defaultBucketName, "Parameter \"defaultBucketName\" is not set. ");
+    }
+
+    @Override
+    public Map<String, String> getObjectUrlPrefixes() {
+
+        return Collections.unmodifiableMap(objectUrlPrefixes);
+    }
+
+    @Override
+    public Map<String, Object> createUploadSign(String bucketName, Map<String, Object> params) {
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String createSignedUrl(String bucketName, String objectKey, Date expireTime, Map<String, Object> others) {
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String createSignedUrl(String unsignedUrl, Date expireTime, Map<String, Object> others) {
+
+        return unsignedUrl;
+    }
+
+    @Override
+    public String removeUrlSign(String objectUrl) {
+        if (StrUtil.isBlank(objectUrl)) { return objectUrl; }
+        try {
+            URL url = new URL(objectUrl);
+            String urlPrefix = url.getProtocol() + "://" + url.getAuthority();
+            String objectKey = url.getPath();
+            //String urlQuery = url.getQuery()
+            return urlPrefix + objectKey;
+        } catch (Exception e) { throw ExceptionUtil.wrap(e); }
+    }
+
+    @Override
+    public String refreshUrlSign(String objectUrl, Date expireTime, Map<String, Object> others) {
+
+        return createSignedUrl(removeUrlSign(objectUrl), expireTime, others);
     }
 
 }

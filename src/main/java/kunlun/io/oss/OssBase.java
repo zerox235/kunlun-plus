@@ -5,13 +5,11 @@
 
 package kunlun.io.oss;
 
-import kunlun.core.Resource;
-
 /**
  * The base information about the object storage service.
  * @author Kahle
  */
-public interface OssBase extends Resource {
+public interface OssBase {
 
     /**
      * Get the bucket name.
