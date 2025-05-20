@@ -5,11 +5,11 @@
 
 package kunlun.spring.data.validation;
 
+import kunlun.data.property.PropertySource;
+import kunlun.data.property.PropertyUtil;
 import kunlun.data.validation.AutoValidator;
 import kunlun.data.validation.ValidatorUtil;
 import kunlun.data.validation.support.*;
-import kunlun.property.PropertySource;
-import kunlun.property.PropertyUtil;
 import kunlun.util.MapUtil;
 import kunlun.util.StrUtil;
 import org.slf4j.Logger;

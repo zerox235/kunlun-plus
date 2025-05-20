@@ -3,27 +3,28 @@
  * Kunlun is licensed under the "LICENSE" file in the project's root directory.
  */
 
-package kunlun.property.support;
+package kunlun.spring.data.property;
 
-import kunlun.property.PropertyUtil;
-import kunlun.util.ClassUtil;
+import kunlun.data.property.PropertyUtil;
+import kunlun.data.property.support.SpringEnvPropertySource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+/**
+ * PropertySourceAutoConfiguration
+ * @author Kahle
+ */
 @Configuration
 public class PropertySourceAutoConfiguration {
     private static final Logger log = LoggerFactory.getLogger(PropertySourceAutoConfiguration.class);
 
     @Autowired
     public PropertySourceAutoConfiguration(Environment env) {
-        if (ClassUtil.isPresent("org.slf4j.MDC", getClass().getClassLoader())) {
-            PropertyUtil.registerSource(new MdcPropertySource("mdc"));
-        }
         if (env != null) {
-            PropertyUtil.registerSource(new SpringEnvPropertySource("spring", env));
+            PropertyUtil.registerSource("springEnv", new SpringEnvPropertySource(env));
         }
     }
 
