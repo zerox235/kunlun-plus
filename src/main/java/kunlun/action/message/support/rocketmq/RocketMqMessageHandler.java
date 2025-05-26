@@ -5,12 +5,13 @@
 
 package kunlun.action.message.support.rocketmq;
 
-import kunlun.action.message.AbstractMessageHandler;
+import kunlun.action.message.AbstractMessageBus;
 import kunlun.data.Dict;
 import kunlun.data.bean.BeanUtil;
 import kunlun.exception.ExceptionUtil;
-import kunlun.message.model.Result;
+import kunlun.message.model.MessageRt;
 import kunlun.message.model.Subscribe;
+import kunlun.message.model.SubscribeRt;
 import kunlun.util.Assert;
 import kunlun.util.CollUtil;
 import kunlun.util.IterUtil;
@@ -32,7 +33,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import static kunlun.common.constant.Numbers.ONE;
 import static kunlun.util.StrUtil.isNotBlank;
 
-public class RocketMqMessageHandler extends AbstractMessageHandler {
+public class RocketMqMessageHandler extends AbstractMessageBus {
     private static final Logger log = LoggerFactory.getLogger(RocketMqMessageHandler.class);
     private final Map<Object, DefaultMQPushConsumer> mqConsumers;
     private final DefaultMQProducer mqProducer;
@@ -67,7 +68,7 @@ public class RocketMqMessageHandler extends AbstractMessageHandler {
     }
 
     @Override
-    public <T extends kunlun.message.model.Message> Result send(Collection<T> messages) {
+    public <T extends kunlun.message.model.Message> MessageRt send(Collection<T> messages) {
         Assert.notEmpty(messages, "Parameter \"messages\" must not empty. ");
         try {
             SendResult sendResult;
@@ -81,12 +82,12 @@ public class RocketMqMessageHandler extends AbstractMessageHandler {
                 }
                 sendResult = mqProducer.send(messageList);
             }
-            return new Result(BeanUtil.beanToMap(sendResult));
+            return new MessageRt(BeanUtil.beanToMap(sendResult));
         } catch (Exception e) { throw ExceptionUtil.wrap(e); }
     }
 
     @Override
-    public Result subscribe(Subscribe sub) {
+    public SubscribeRt subscribe(Subscribe sub) {
         if (!(sub.getMessageListener() instanceof RocketMqListener)) {
             throw new IllegalArgumentException("Unsupported the message listener. ");
         }
@@ -107,7 +108,7 @@ public class RocketMqMessageHandler extends AbstractMessageHandler {
             mqConsumer.start();
             mqConsumers.put(ltr, mqConsumer);
             log.info("RocketMQ subscribe {} {} by {} success. ", topic, subExpr, ltr.getClass().getName());
-            return new Result();
+            return new SubscribeRt();
         } catch (Exception e) { throw ExceptionUtil.wrap(e); }
     }
 

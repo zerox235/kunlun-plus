@@ -5,15 +5,12 @@
 
 package kunlun.action.message.support.redisson;
 
-import kunlun.action.message.AbstractMessageHandler;
+import kunlun.action.message.AbstractMessageBus;
 import kunlun.data.Dict;
 import kunlun.data.tuple.Pair;
 import kunlun.exception.ExceptionUtil;
 import kunlun.message.MessageListener;
-import kunlun.message.model.DelayMessage;
-import kunlun.message.model.Message;
-import kunlun.message.model.Result;
-import kunlun.message.model.Subscribe;
+import kunlun.message.model.*;
 import kunlun.time.DateUtil;
 import kunlun.util.Assert;
 import kunlun.util.ThreadUtil;
@@ -35,7 +32,7 @@ import java.util.function.Consumer;
  * The redisson delay message handler.
  * @author Kahle
  */
-public class RedissonDelayMessageHandler extends AbstractMessageHandler {
+public class RedissonDelayMessageHandler extends AbstractMessageBus {
     protected static Logger log = LoggerFactory.getLogger(RedissonDelayMessageHandler.class);
     protected static final Long DEFAULT_SLEEP_TIME = 500L;
     protected final Map<String, QueuePair> delayedQueues;
@@ -91,7 +88,7 @@ public class RedissonDelayMessageHandler extends AbstractMessageHandler {
     }
 
     @Override
-    public <T extends Message> Result send(Collection<T> messages) {
+    public <T extends Message> MessageRt send(Collection<T> messages) {
         Assert.notEmpty(messages, "Parameter \"message\" must not empty. ");
         for (Message message : messages) {
             Assert.isInstanceOf(DelayMessage.class, message);
@@ -104,7 +101,7 @@ public class RedissonDelayMessageHandler extends AbstractMessageHandler {
             QueuePair pair = getQueuePair(delayMsg.getTopic());
             pair.getLeft().offer(delayMsg, delayTime, timeUnit);
         }
-        return new Result();
+        return new MessageRt();
     }
 
     @Override
@@ -116,7 +113,7 @@ public class RedissonDelayMessageHandler extends AbstractMessageHandler {
     }
 
     @Override
-    public Result subscribe(Subscribe subscribe) {
+    public SubscribeRt subscribe(Subscribe subscribe) {
         Assert.notNull(subscribe, "Parameter \"subscribe\" must not null. ");
         Assert.notNull(subscribe.getTopic()
                 , "Parameter \"subscribe.topic\" must not null. ");
@@ -128,7 +125,7 @@ public class RedissonDelayMessageHandler extends AbstractMessageHandler {
         MessageConsumer consumer = new MessageConsumer(
                 executorService, listener, sleepTimeWhenRejected, ignoreException, pair);
         int listenerId = pair.getRight().subscribeOnFirstElements(consumer);
-        return new Result(Dict.of("listenerId", listenerId));
+        return new SubscribeRt(Dict.of("listenerId", listenerId));
     }
 
     /**
