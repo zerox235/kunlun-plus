@@ -38,7 +38,7 @@ public class ServletErrorHandlerExceptionHandler {
     @ExceptionHandler(Exception.class)
     public Object handleException(HttpServletRequest request, HttpServletResponse response, Exception ex) {
         log.error("Caught an unhandled exception. ", ex);
-        return servletErrorHandler.handle(request, response, ex);
+        return servletErrorHandler.execute(request, response, ex);
     }
 
 }

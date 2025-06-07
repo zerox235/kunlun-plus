@@ -5,7 +5,7 @@
 
 package kunlun.exception.support;
 
-import kunlun.common.Result;
+import kunlun.common.constant.Nil;
 import kunlun.exception.ExceptionUtil;
 import kunlun.exception.ServletErrorHandler;
 import kunlun.util.StrUtil;
@@ -16,68 +16,120 @@ import java.io.IOException;
 
 import static kunlun.common.constant.Charsets.STR_UTF_8;
 
+/**
+ * AbstractServletExceptionHandler.
+ * @author Kahle
+ */
 public abstract class AbstractServletErrorHandler implements ServletErrorHandler {
-    protected static final String TEXT_HTML = "text/html";
+    protected static final String JSON = "application/json";
+    protected static final String HTML = "text/html";
 
-    protected String createHtmlString(String errorCode, String errorMessage) {
-        return "<!DOCTYPE HTML>\n" +
-        "<html>\n" +
-        "<head>\n" +
-        "    <title>An error has occurred. </title>\n" +
-        "</head>\n" +
-        "<body>\n" +
-        "    <h3>\n" +
-        "        An error has occurred. \n" +
-        "    </h3>\n" +
-        (StrUtil.isNotBlank(errorCode) ?
-        "    Error Code: " + errorCode + "<br />\n" : "") +
-        "    Error Message: " + errorMessage + "<br />\n" +
-        "    Please check the log for details if necessary. <br />\n" +
-        "    Powered by kunlun-plus. <br />\n" +
-        "</body>\n" +
-        "</html>\n";
-    }
-
-    protected Object writeHtmlString(HttpServletRequest request,
-                                     HttpServletResponse response,
-                                     String htmlString) {
+    /**
+     * writeHtml
+     * @param resp response
+     * @param errorCode errorCode
+     * @param errorMessage errorMessage
+     * @return result
+     */
+    protected Object writeHtml(HttpServletResponse resp, String errorCode, String errorMessage) {
+        // create html.
+        String html = "<!DOCTYPE HTML>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "    <title>An error has occurred. </title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "    <h3>\n" +
+                "        An error has occurred. \n" +
+                "    </h3>\n" +
+                (StrUtil.isNotBlank(errorCode) ?
+                        "    Error Code: " + errorCode + "<br />\n" : "") +
+                "    Error Message: " + errorMessage + "<br />\n" +
+                "    Please check the log for details if necessary. <br />\n" +
+                "    Powered by kunlun-plus. <br />\n" +
+                "</body>\n" +
+                "</html>\n";
         // response write html.
-        response.setContentType(TEXT_HTML + "; charset=" + STR_UTF_8);
-        try { response.getWriter().write(htmlString); }
-        catch (IOException e) { throw ExceptionUtil.wrap(e); }
+        try {
+            resp.setContentType(HTML + "; charset=" + STR_UTF_8);
+            resp.getWriter().write(html);
+        } catch (IOException e) {
+            throw ExceptionUtil.wrap(e);
+        }
         // no return.
         return null;
     }
 
-    protected Object buildHtmlResult(HttpServletRequest request,
-                                     HttpServletResponse response,
-                                     Throwable throwable) {
-        // create html.
-        String errorMessage = throwable != null ? throwable.getMessage() :
-                "An error has occurred. (Response Status: " + response.getStatus() + ") ";
-        String htmlString = createHtmlString(null, errorMessage);
-        // response write html.
-        return writeHtmlString(request, response, htmlString);
+    /**
+     * transform
+     * @param request request
+     * @param response response
+     * @param th th
+     * @return result
+     */
+    public abstract Object transform(HttpServletRequest request, HttpServletResponse response, Throwable th);
+
+    /**
+     * record error
+     * @param label label
+     * @param request request
+     * @param response response
+     * @param th th
+     */
+    public void record(String label, HttpServletRequest request, HttpServletResponse response, Throwable th) {
+
     }
 
-    protected Object buildOtherResult(HttpServletRequest request,
-                                      HttpServletResponse response,
-                                      Throwable throwable) {
-        String errorMessage = throwable != null ? throwable.getMessage() :
+    /**
+     * forHtml
+     * @param request request
+     * @param response response
+     * @param th th
+     * @return result
+     */
+    public Object forHtml(HttpServletRequest request, HttpServletResponse response, Throwable th) {
+        // create error message.
+        String errorMessage = th != null ? th.getMessage() :
                 "An error has occurred. (Response Status: " + response.getStatus() + ") ";
-        return Result.failure(errorMessage);
+        // response write html.
+        return writeHtml(response, Nil.STR, errorMessage);
+    }
+
+    /**
+     * forJson
+     * @param request request
+     * @param response response
+     * @param th th
+     * @return result
+     */
+    public Object forJson(HttpServletRequest request, HttpServletResponse response, Throwable th) {
+
+        return transform(request, response, th);
+    }
+
+    /**
+     * forDefault
+     * @param request request
+     * @param response response
+     * @param th th
+     * @return result
+     */
+    public Object forDefault(HttpServletRequest request, HttpServletResponse response, Throwable th) {
+
+        return forJson(request, response, th);
     }
 
     @Override
-    public Object handle(HttpServletRequest request, HttpServletResponse response, Throwable throwable) {
+    public Object execute(HttpServletRequest request, HttpServletResponse response, Throwable throwable) {
         // Get accept info.
         String accept = request.getHeader("Accept");
         accept = StrUtil.isNotBlank(accept) ? accept.toLowerCase() : null;
-        // Build result.
-        if (accept != null && accept.contains(TEXT_HTML)) {
-            return buildHtmlResult(request, response, throwable);
-        }
-        else { return buildOtherResult(request, response, throwable); }
+        // Processing error.
+        if (accept != null && accept.contains(HTML)) {
+            return forHtml(request, response, throwable);
+        } else if (accept != null && accept.contains(JSON)) {
+            return forJson(request, response, throwable);
+        } else { return forDefault(request, response, throwable); }
     }
 
 }

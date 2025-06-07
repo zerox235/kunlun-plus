@@ -52,7 +52,7 @@ public class ServletErrorHandlerErrorController implements ErrorController {
     public Object returnPageResult(HttpServletRequest request, HttpServletResponse response) {
         WebRequest webRequest = new ServletWebRequest(request);
         Throwable throwable = errorAttributes.getError(webRequest);
-        return servletErrorHandler.handle(request, response, throwable);
+        return servletErrorHandler.execute(request, response, throwable);
     }
 
     @ResponseBody
@@ -61,7 +61,7 @@ public class ServletErrorHandlerErrorController implements ErrorController {
     public Object returnJsonResult(HttpServletRequest request, HttpServletResponse response) {
         WebRequest webRequest = new ServletWebRequest(request);
         Throwable throwable = errorAttributes.getError(webRequest);
-        return servletErrorHandler.handle(request, response, throwable);
+        return servletErrorHandler.execute(request, response, throwable);
     }
 
 }
