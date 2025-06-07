@@ -22,6 +22,6 @@ public interface ServletErrorHandler {
      * @param throwable The caught exception
      * @return The result of exception handling
      */
-    Object handle(HttpServletRequest request, HttpServletResponse response, Throwable throwable);
+    Object execute(HttpServletRequest request, HttpServletResponse response, Throwable throwable);
 
 }
