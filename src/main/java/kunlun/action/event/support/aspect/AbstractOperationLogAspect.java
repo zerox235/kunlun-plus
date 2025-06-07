@@ -6,9 +6,9 @@
 package kunlun.action.event.support.aspect;
 
 import kunlun.action.ActionUtil;
-import kunlun.action.event.Event;
 import kunlun.aop.support.aspectj.AbstractAspect;
 import kunlun.core.annotation.OperationLog;
+import kunlun.data.Event;
 import kunlun.data.json.JsonUtil;
 import kunlun.exception.ExceptionUtil;
 import org.aspectj.lang.JoinPoint;
@@ -33,6 +33,7 @@ public abstract class AbstractOperationLogAspect extends AbstractAspect {
         Method method = methodSign.getMethod();
 
         OperationLog opLog = method.getAnnotation(OperationLog.class);
+        String  module = opLog.module();
         String  name   = opLog.name();
         boolean input  = opLog.input();
         boolean output = opLog.output();
@@ -40,13 +41,14 @@ public abstract class AbstractOperationLogAspect extends AbstractAspect {
 
         Object[] args = getArguments(joinPoint, IGNORE_TYPES);
         if (print && input) {
-            log.info("The operation named \"{}\"'s input parameters is: {}", name, JsonUtil.toJsonString(args));
+            log.info("The operation named \"{}-{}\"'s input parameters is: {}", module, name, JsonUtil.toJsonString(args));
         }
         if (print && output) {
-            log.info("The operation named \"{}\"'s output values is: {}", name, JsonUtil.toJsonString(result));
+            log.info("The operation named \"{}-{}\"'s output values is: {}", module, name, JsonUtil.toJsonString(result));
         }
 
         Event event = Event.ofOperationLog()
+                .setModule(module)
                 .appendMessage(name)
                 .putData("javaMethod", String.valueOf(method))
                 .putData("timeSpent", timeSpent);

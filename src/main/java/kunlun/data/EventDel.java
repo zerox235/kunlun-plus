@@ -14,7 +14,7 @@ import java.util.Map;
  * @author Kahle
  */
 @Deprecated // TODO: Deletable
-public class Event implements Serializable {
+public class EventDel implements Serializable {
     private Map<String, Object> variables;
     private String id;
     private String tokenId;

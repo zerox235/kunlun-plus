@@ -9,7 +9,7 @@ import kunlun.action.ActionUtil;
 import kunlun.common.Result;
 import kunlun.common.constant.Nil;
 import kunlun.data.CodeDefinition;
-import kunlun.action.event.Event;
+import kunlun.data.Event;
 import kunlun.exception.BusinessException;
 import kunlun.exception.ExceptionUtil;
 import kunlun.util.Assert;
