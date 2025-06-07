@@ -18,6 +18,12 @@ import java.lang.annotation.*;
 public @interface OperationLog {
 
     /**
+     * The information of the operated module.
+     * @return The operated module
+     */
+    String module() default "";
+
+    /**
      * The name of the API.
      * @return The name
      */

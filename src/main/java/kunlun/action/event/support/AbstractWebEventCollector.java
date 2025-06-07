@@ -5,7 +5,7 @@
 
 package kunlun.action.event.support;
 
-import kunlun.action.event.Event;
+import kunlun.data.Event;
 import kunlun.servlet.RequestUtil;
 import kunlun.spring.util.RequestContextUtil;
 import kunlun.util.StrUtil;
