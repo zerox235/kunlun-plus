@@ -5,8 +5,11 @@
 
 package kunlun.action.event.support.difference;
 
+import kunlun.common.constant.Nil;
 import kunlun.core.Builder;
 import kunlun.core.function.BiFunction;
+import kunlun.data.bean.BeanUtil;
+import kunlun.reflect.ReflectUtil;
 import kunlun.util.Assert;
 import kunlun.util.CollUtil;
 import kunlun.util.function.difference.FieldCompareResult;
@@ -62,21 +65,40 @@ public class FieldDifferenceBuilder implements Builder {
     protected final Object oldData;
     protected final Object newData;
 
-    public FieldDifferenceBuilder(Object oldData, Object newData,
+    public FieldDifferenceBuilder(Object oldData, Object newData, Class<?> targetClz,
                                   BiFunction<Object, Object, List<FieldCompareResult>> comparator) {
-        this.comparator = comparator;
+        Assert.isFalse(newData == null && oldData == null);
+        if (newData == null) { newData = ReflectUtil.newInstance(oldData.getClass()); }
+        if (oldData == null) { oldData = ReflectUtil.newInstance(newData.getClass()); }
+        if (targetClz != null && !targetClz.equals(Object.class)) {
+            if (!targetClz.isInstance(newData)) { newData = BeanUtil.beanToBean(newData, targetClz); }
+            if (!targetClz.isInstance(oldData)) { oldData = BeanUtil.beanToBean(oldData, targetClz); }
+        }
+        this.comparator = Assert.notNull(comparator);
         this.oldData = oldData;
         this.newData = newData;
     }
 
-    public FieldDifferenceBuilder(Object oldData, Object newData, boolean ignoreNullNewValue) {
+    public FieldDifferenceBuilder(Object oldData, Object newData, Class<?> targetClz, boolean ignoreNullNewValue) {
 
-        this(oldData, newData, new FieldDifferenceComparator(ignoreNullNewValue));
+        this(oldData, newData, targetClz, new FieldDifferenceComparator(ignoreNullNewValue));
     }
 
+    public FieldDifferenceBuilder(Object oldData, Object newData, Class<?> targetClz) {
+
+        this(oldData, newData, targetClz, new FieldDifferenceComparator());
+    }
+
+    @Deprecated
+    public FieldDifferenceBuilder(Object oldData, Object newData, boolean ignoreNullNewValue) {
+
+        this(oldData, newData, Nil.CLZ, new FieldDifferenceComparator(ignoreNullNewValue));
+    }
+
+    @Deprecated
     public FieldDifferenceBuilder(Object oldData, Object newData) {
 
-        this(oldData, newData, new FieldDifferenceComparator());
+        this(oldData, newData, Nil.CLZ);
     }
 
     protected void preProcess(List<FieldCompareResult> results) {
