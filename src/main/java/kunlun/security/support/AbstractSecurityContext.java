@@ -29,6 +29,7 @@ import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static kunlun.common.constant.Algorithms.UUID;
 import static kunlun.common.constant.Env.COMPUTER_NAME;
 import static kunlun.common.constant.Env.HOST_NAME;
 import static kunlun.security.TokenManager.Token;
@@ -182,9 +183,9 @@ public abstract class AbstractSecurityContext extends AbstractServletContext imp
     }
 
     @Override
-    public Collection<String> getUserPermissions() {
+    public Collection<String> getPermissions() {
 
-        return getUserManager().getUserPermissions(getUserId(), getUserType());
+        return getUserManager().getPermissions(getUserId(), getUserType());
     }
 
     @Override
@@ -305,7 +306,7 @@ public abstract class AbstractSecurityContext extends AbstractServletContext imp
         requestInfo.setTenantId(request.getHeader(TENANT_ID_NAME));
         requestInfo.setAccessTime(System.currentTimeMillis());
         if (StrUtil.isBlank(requestInfo.getTraceId())) {
-            requestInfo.setTraceId(IdUtil.nextString("uuid"));
+            requestInfo.setTraceId(IdUtil.nextString(UUID));
         }
 
         requestInfo.setToken(request.getHeader("authorization"));
