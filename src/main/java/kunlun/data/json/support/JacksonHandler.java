@@ -35,6 +35,11 @@ public class JacksonHandler extends AbstractJsonHandler {
         this.objectMapper = objectMapper;
     }
 
+    public ObjectMapper getObjectMapper() {
+
+        return objectMapper;
+    }
+
     @Override
     public String toJsonString(Object object, Object... arguments) {
         try {
