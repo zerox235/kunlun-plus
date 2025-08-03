@@ -1,9 +1,15 @@
+/*
+ * Copyright (c) 2018. the original author or authors.
+ * Kunlun is licensed under the "LICENSE" file in the project's root directory.
+ */
+
 package kunlun.data.fill.classic.support;
 
 import kunlun.common.constant.Nil;
 import kunlun.core.function.Function;
 import kunlun.data.CodeDefinition;
 import kunlun.data.bean.BeanUtil;
+import kunlun.data.fill.DataSupplier;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -14,9 +20,9 @@ import static kunlun.util.Assert.notNull;
 
 /**
  * The data supplier based on enumeration.
- * @author Kahle
+ * @author Zerox
  */
-public class EnumSupplier<E extends Enum<E>> implements Function<Collection<?>, Map<String, Map<String, Object>>> {
+public class EnumSupplier<E extends Enum<E>> implements DataSupplier {
 
     public static <E extends Enum<E>> EnumSupplier<E> of(Class<E> enumClass, Function<E, Object> keyMapper) {
 
@@ -38,7 +44,7 @@ public class EnumSupplier<E extends Enum<E>> implements Function<Collection<?>, 
     }
 
     @Override
-    public Map<String, Map<String, Object>> apply(Collection<?> coll) {
+    public Map<String, Map<String, Object>> acquire(Collection<?> coll) {
         Map<String, Map<String, Object>> enumMap = new LinkedHashMap<String, Map<String, Object>>();
         for (E eEnum : enumClass.getEnumConstants()) {
             if (keyMapper != null) {

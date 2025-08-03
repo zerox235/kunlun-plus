@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2018. the original author or authors.
+ * Kunlun is licensed under the "LICENSE" file in the project's root directory.
+ */
+
 package kunlun.data.fill.classic.support;
 
 import kunlun.common.constant.Nil;
@@ -5,6 +10,7 @@ import kunlun.core.function.Function;
 import kunlun.data.bean.BeanUtil;
 import kunlun.data.dict.DataDict;
 import kunlun.data.dict.DictUtil;
+import kunlun.data.fill.DataSupplier;
 import kunlun.util.MapUtil;
 
 import java.util.Collection;
@@ -16,9 +22,9 @@ import static kunlun.util.Assert.notBlank;
 
 /**
  * The data supplier based on data Dict.
- * @author Kahle
+ * @author Zerox
  */
-public class DictSupplier implements Function<Collection<?>, Map<String, Map<String, Object>>> {
+public class DictSupplier implements DataSupplier {
 
     public static DictSupplier of(String namespace, String groupCode, Function<DataDict, Object> keyMapper) {
 
@@ -46,7 +52,7 @@ public class DictSupplier implements Function<Collection<?>, Map<String, Map<Str
     }
 
     @Override
-    public Map<String, Map<String, Object>> apply(Collection<?> coll) {
+    public Map<String, Map<String, Object>> acquire(Collection<?> coll) {
         Map<String, Map<String, Object>> dictMap = new LinkedHashMap<String, Map<String, Object>>();
         List<DataDict> list = DictUtil.listByGroup(namespace, groupCode);
         for (DataDict dataDict : list) {
