@@ -3,10 +3,12 @@
  * Kunlun is licensed under the "LICENSE" file in the project's root directory.
  */
 
-package kunlun.generator.id.support;
+package kunlun.generator.id.support.jdbc;
 
+import kunlun.common.constant.Nil;
 import kunlun.exception.ExceptionUtil;
-import kunlun.spring.ApplicationContextUtils;
+import kunlun.generator.id.support.AbstractIncrementalIdGenerator;
+import kunlun.generator.id.support.IncrementalIdConfig;
 import kunlun.util.Assert;
 import kunlun.util.CollUtil;
 import org.springframework.jdbc.core.*;
@@ -18,10 +20,11 @@ import org.springframework.transaction.support.TransactionTemplate;
 import java.util.List;
 
 import static kunlun.common.constant.Numbers.ONE;
+import static kunlun.util.Assert.state;
 
 /**
- * Jdbc string identifier generator.
- * @author Kahle
+ * 基于 JDBC 的字符串 ID 生成器.<br />
+ * @author Zerox
  */
 public class JdbcTemplateIdGenerator extends AbstractIncrementalIdGenerator {
     private static final String SQL_QUERY_TEMPLATE = "SELECT `%s` FROM `%s` WHERE `%s` = ? FOR UPDATE;";
@@ -37,15 +40,13 @@ public class JdbcTemplateIdGenerator extends AbstractIncrementalIdGenerator {
                                    JdbcTemplate jdbcTemplate,
                                    IncrementalIdConfig config) {
         super(config);
-        this.transactionTemplate = Assert.notNull(transactionTemplate);
-        this.jdbcTemplate = Assert.notNull(jdbcTemplate);
+        this.transactionTemplate = transactionTemplate;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public JdbcTemplateIdGenerator(IncrementalIdConfig config) {
-        this(ApplicationContextUtils.getBean(TransactionTemplate.class),
-                ApplicationContextUtils.getBean(JdbcTemplate.class),
-                config
-        );
+
+        this(Nil.<TransactionTemplate>g(), Nil.<JdbcTemplate>g(), config);
     }
 
     public String getValueColumn() {
@@ -78,32 +79,65 @@ public class JdbcTemplateIdGenerator extends AbstractIncrementalIdGenerator {
         this.tableName = Assert.notBlank(tableName);
     }
 
+    protected TransactionTemplate getTransactionTemplate() {
+        state(transactionTemplate != null
+                , "In \"%s\", Please rewrite the \"getTransactionTemplate\" method! ", getClass().getName());
+        return transactionTemplate;
+    }
+
+    protected JdbcTemplate getJdbcTemplate() {
+        state(jdbcTemplate != null
+                , "In \"%s\", Please rewrite the \"getJdbcTemplate\" method! ", getClass().getName());
+        return jdbcTemplate;
+    }
+
     protected void insert(String name, Long value) {
-        String insertSql = String.format(SQL_INSERT_TEMPLATE, tableName, nameColumn, valueColumn);
-        int effect = jdbcTemplate.update(insertSql, name, value);
+        String insertSql = String.format(SQL_INSERT_TEMPLATE, getTableName(), getNameColumn(), getValueColumn());
+        int effect = getJdbcTemplate().update(insertSql, name, value);
         if (effect != ONE) {
             throw new IllegalStateException("Failed to insert the value of identifier. ");
         }
     }
 
     protected void update(String name, Long value) {
-        String updateSql = String.format(SQL_UPDATE_TEMPLATE, tableName, valueColumn, nameColumn);
-        int effect = jdbcTemplate.update(updateSql, value, name);
+        String updateSql = String.format(SQL_UPDATE_TEMPLATE, getTableName(), getValueColumn(), getNameColumn());
+        int effect = getJdbcTemplate().update(updateSql, value, name);
         if (effect != ONE) {
             throw new IllegalStateException("Failed to update the value of identifier. ");
         }
     }
 
     protected List<Long> query(String name) {
-        String querySql = String.format(SQL_QUERY_TEMPLATE, valueColumn, tableName, nameColumn);
+        String querySql = String.format(SQL_QUERY_TEMPLATE, getValueColumn(), getTableName(), getNameColumn());
         RowMapper<Long> rowMapper = new SingleColumnRowMapper<Long>(Long.class);
         ResultSetExtractor<List<Long>> resultSetExtractor = new RowMapperResultSetExtractor<Long>(rowMapper, ONE);
-        return jdbcTemplate.query(querySql, new Object[]{name}, resultSetExtractor);
+        return getJdbcTemplate().query(querySql, new Object[]{name}, resultSetExtractor);
     }
 
-    protected Long increment(Object... arguments) {
+    @Override
+    protected String buildQueryKey(Context context) {
+
+        return getConfig().getName();
+    }
+
+    @Override
+    protected Long onlyGet(Context context) {
+        String name = buildQueryKey(context);
         long stepLength = getConfig().getStepLength();
-        String name = getConfig().getName();
+        List<Long> longList = query(name);
+        Long result;
+        if (CollUtil.isNotEmpty(longList)) {
+            result = CollUtil.getFirst(longList);
+            result = result != null
+                    ? result + stepLength : stepLength;
+        }
+        else { result = stepLength; }
+        return result;
+    }
+
+    protected Long doIncrementAndGet(Context context) {
+        String name = buildQueryKey(context);
+        long stepLength = getConfig().getStepLength();
         List<Long> longList = query(name);
         Long result;
         if (CollUtil.isNotEmpty(longList)) {
@@ -117,15 +151,15 @@ public class JdbcTemplateIdGenerator extends AbstractIncrementalIdGenerator {
     }
 
     @Override
-    protected Long incrementAndGet(final Object... arguments) {
-        return transactionTemplate.execute(new TransactionCallback<Long>() {
+    protected Long incrementAndGet(final Context context) {
+        return getTransactionTemplate().execute(new TransactionCallback<Long>() {
             @Override
             public Long doInTransaction(@Nullable TransactionStatus status) {
                 if (status == null) {
                     throw new IllegalArgumentException(
                             "This is a mistake that should not have happened. ");
                 }
-                try { return increment(arguments); }
+                try { return doIncrementAndGet(context); }
                 catch (Exception e) {
                     status.setRollbackOnly();
                     throw ExceptionUtil.wrap(e);

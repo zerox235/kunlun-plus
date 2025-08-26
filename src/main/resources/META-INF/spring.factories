@@ -23,6 +23,7 @@ kunlun.spring.db.DbHandlerAutoConfiguration,\
 kunlun.spring.elasticsearch.RestClientAutoConfiguration,\
 kunlun.spring.exception.ExceptionAutoConfiguration,\
 kunlun.spring.feign.FeignSupportAutoConfiguration,\
+kunlun.spring.generator.id.IdAutoConfiguration,\
 kunlun.spring.generator.id.RedisIdAutoConfiguration,\
 kunlun.spring.hystrix.RequestContextHystrixAutoConfiguration,\
 kunlun.spring.io.fileprocessor.FileProcessorThreadPoolAutoConfiguration,\
