@@ -3,8 +3,10 @@
  * Kunlun is licensed under the "LICENSE" file in the project's root directory.
  */
 
-package kunlun.generator.id.support;
+package kunlun.generator.id.support.redis;
 
+import kunlun.common.constant.Nil;
+import kunlun.generator.id.support.AbstractIncrementalIdGenerator;
 import kunlun.time.DateUtil;
 import kunlun.util.Assert;
 import kunlun.util.StrUtil;
@@ -14,11 +16,12 @@ import org.springframework.data.redis.core.ValueOperations;
 import java.util.concurrent.TimeUnit;
 
 import static kunlun.common.constant.Numbers.ONE;
+import static kunlun.util.Assert.state;
 
 /**
- * The redis incremental identifier generator.
+ * 基于 Redis 的字符串 ID 生成器.<br />
  * @see <a href="https://redis.io/commands/incrby">INCRBY key increment</a>
- * @author Kahle
+ * @author Zerox
  */
 public class RedisIncrementalIdGenerator extends AbstractIncrementalIdGenerator {
     private final StringRedisTemplate stringRedisTemplate;
@@ -26,11 +29,22 @@ public class RedisIncrementalIdGenerator extends AbstractIncrementalIdGenerator 
     public RedisIncrementalIdGenerator(RedisIncrementalIdConfig config
             , StringRedisTemplate stringRedisTemplate) {
         super(config);
-        this.stringRedisTemplate = Assert.notNull(stringRedisTemplate);
+        this.stringRedisTemplate = stringRedisTemplate;
         String redisKeyPrefix = config.getRedisKeyPrefix();
         if (StrUtil.isBlank(redisKeyPrefix)) {
             config.setRedisKeyPrefix("_identifier:");
         }
+    }
+
+    public RedisIncrementalIdGenerator(RedisIncrementalIdConfig config) {
+
+        this(config, Nil.<StringRedisTemplate>g());
+    }
+
+    protected StringRedisTemplate getStringRedisTemplate() {
+        state(stringRedisTemplate != null
+                , "In \"%s\", Please rewrite the \"getStringRedisTemplate\" method! ", getClass().getName());
+        return stringRedisTemplate;
     }
 
     @Override
@@ -40,13 +54,37 @@ public class RedisIncrementalIdGenerator extends AbstractIncrementalIdGenerator 
     }
 
     @Override
-    protected Long incrementAndGet(Object... arguments) {
-        // Build the redis key.
+    protected String buildQueryKey(Context context) {
         String redisKeyPrefix = Assert.notBlank(getConfig().getRedisKeyPrefix());
         String redisKey = redisKeyPrefix.endsWith(":") ? redisKeyPrefix : redisKeyPrefix + ":";
-        redisKey = redisKey + getConfig().getName() + ":" + DateUtil.format("yyyyMMdd");
+        return redisKey + getConfig().getName() + ":" + DateUtil.format("yyyyMMdd");
+    }
+
+    @Override
+    protected Long onlyGet(Context context) {
+        // Build the redis key.
+        String redisKey = buildQueryKey(context);
         // Do increment.
-        ValueOperations<String, String> opsForValue = stringRedisTemplate.opsForValue();
+        ValueOperations<String, String> opsForValue = getStringRedisTemplate().opsForValue();
+        Integer stepLength = getConfig().getStepLength();
+        Long increment;
+        String valStr = opsForValue.get(redisKey);
+        if (StrUtil.isBlank(valStr)) {
+            increment = 0L;
+        } else {
+            increment = Long.parseLong(valStr);
+        }
+        increment += stepLength;
+        // Return result.
+        return increment;
+    }
+
+    @Override
+    protected Long incrementAndGet(Context context) {
+        // Build the redis key.
+        String redisKey = buildQueryKey(context);
+        // Do increment.
+        ValueOperations<String, String> opsForValue = getStringRedisTemplate().opsForValue();
         Integer stepLength = getConfig().getStepLength();
         Long increment = opsForValue.increment(redisKey, stepLength);
         if (increment == null) {
@@ -56,7 +94,7 @@ public class RedisIncrementalIdGenerator extends AbstractIncrementalIdGenerator 
         if (increment <= stepLength) {
             // In redis key, it has been fixed as one day.
             // So the expiration time only needs to be greater than one day.
-            stringRedisTemplate.expire(redisKey, ONE, TimeUnit.DAYS);
+            getStringRedisTemplate().expire(redisKey, ONE, TimeUnit.DAYS);
         }
         // Return result.
         return increment;
