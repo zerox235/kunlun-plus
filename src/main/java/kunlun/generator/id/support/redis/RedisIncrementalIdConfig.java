@@ -9,7 +9,7 @@ import kunlun.generator.id.support.IncrementalIdConfig;
 
 /**
  * 基于 Redis 的 ID 生成器的配置类.<br />
- * @author Zerox
+ * @author Kahle
  */
 public class RedisIncrementalIdConfig extends IncrementalIdConfig {
     private String redisKeyPrefix;

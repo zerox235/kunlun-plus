@@ -20,7 +20,7 @@ import static kunlun.util.Assert.notNull;
 
 /**
  * The data supplier based on enumeration.
- * @author Zerox
+ * @author Kahle
  */
 public class EnumSupplier<E extends Enum<E>> implements DataSupplier {
 

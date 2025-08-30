@@ -30,7 +30,7 @@ import static kunlun.util.Assert.notNull;
 
 /**
  * 基于 Paho 的 MQTT 消息总线.
- * @author Zerox
+ * @author Kahle
  */
 public class MqttPahoMessageBus extends AbstractMessageBus {
     private static final Logger log = LoggerFactory.getLogger(MqttPahoMessageBus.class);

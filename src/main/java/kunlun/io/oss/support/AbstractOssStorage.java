@@ -65,6 +65,9 @@ public abstract class AbstractOssStorage extends AbstractDataStorage implements 
         OssObject ossObject;
         if (data instanceof OssObject) {
             ossObject = (OssObject) data;
+            if (StrUtil.isBlank(ossObject.getBucketName())) {
+                ((OssObjectImpl) ossObject).setBucketName(getDefaultBucketName());
+            }
         }
         else if (data instanceof KeyValue) {
             try {

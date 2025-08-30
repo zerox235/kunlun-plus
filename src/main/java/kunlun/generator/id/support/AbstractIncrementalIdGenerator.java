@@ -13,7 +13,7 @@ import static kunlun.util.Assert.*;
 
 /**
  * 抽象的增量 ID 生成器.<br />
- * @author Zerox
+ * @author Kahle
  */
 public abstract class AbstractIncrementalIdGenerator extends StringIdGenerator {
     protected static final String SEQ_NUM_KEY = "seq-num";

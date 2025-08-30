@@ -22,7 +22,7 @@ import static kunlun.util.Assert.notBlank;
 
 /**
  * The data supplier based on data Dict.
- * @author Zerox
+ * @author Kahle
  */
 public class DictSupplier implements DataSupplier {
 
