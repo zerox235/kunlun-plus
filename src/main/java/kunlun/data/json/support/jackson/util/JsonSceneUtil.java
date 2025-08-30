@@ -28,7 +28,7 @@ import static kunlun.util.Assert.notNull;
 
 /**
  * JsonSceneUtil
- * @author Zerox
+ * @author Kahle
  */
 public class JsonSceneUtil {
     private static final Map<String, JsonSceneManager> MANAGERS = new ConcurrentHashMap<String, JsonSceneManager>();

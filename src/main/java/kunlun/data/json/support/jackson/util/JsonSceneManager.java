@@ -16,7 +16,7 @@ import static kunlun.util.Assert.notNull;
 
 /**
  * SceneManager
- * @author Zerox
+ * @author Kahle
  */
 public interface JsonSceneManager {
 
@@ -45,7 +45,7 @@ public interface JsonSceneManager {
          * @param codec codec
          * @return result
          */
-        Object serialize(Object rawData, JavaType fieldType, ObjectCodec codec);
+        Object serialize(Object rawData, JavaType fieldType, Map<String, String> configs, ObjectCodec codec);
     }
 
     /**
@@ -60,7 +60,7 @@ public interface JsonSceneManager {
          * @param codec codec
          * @return result
          */
-        Object deserialize(Object rawData, JavaType fieldType, ObjectCodec codec);
+        Object deserialize(Object rawData, JavaType fieldType, Map<String, String> configs, ObjectCodec codec);
     }
 
     /**
@@ -69,7 +69,7 @@ public interface JsonSceneManager {
      */
     class EmptySceneSerializer implements SceneSerializer {
         @Override
-        public Object serialize(Object rawData, JavaType fieldType, ObjectCodec codec) {
+        public Object serialize(Object rawData, JavaType fieldType, Map<String, String> configs, ObjectCodec codec) {
 
             return null;
         }
@@ -81,7 +81,7 @@ public interface JsonSceneManager {
      */
     class EmptySceneDeserializer implements SceneDeserializer {
         @Override
-        public Object deserialize(Object rawData, JavaType fieldType, ObjectCodec codec) {
+        public Object deserialize(Object rawData, JavaType fieldType, Map<String, String> configs, ObjectCodec codec) {
 
             return null;
         }

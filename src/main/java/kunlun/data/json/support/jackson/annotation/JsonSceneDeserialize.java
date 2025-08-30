@@ -7,6 +7,7 @@ package kunlun.data.json.support.jackson.annotation;
 
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import kunlun.core.annotation.Kv;
 import kunlun.data.json.support.jackson.JsonSceneDeserializer;
 import kunlun.data.json.support.jackson.model.Scene;
 
@@ -18,7 +19,7 @@ import java.lang.annotation.Target;
 /**
  * JsonSceneSerialize
  * @see Scene
- * @author Zerox
+ * @author Kahle
  */
 @JacksonAnnotationsInside
 @JsonDeserialize(using = JsonSceneDeserializer.class)
@@ -37,5 +38,11 @@ public @interface JsonSceneDeserialize {
      * @return custom
      */
     String custom() default "";
+
+    /**
+     * 额外的配置（数组）
+     * @return 额外的配置（数组）
+     */
+    Kv[] configs() default {};
 
 }

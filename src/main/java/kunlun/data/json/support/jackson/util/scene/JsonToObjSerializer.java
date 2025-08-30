@@ -15,13 +15,13 @@ import java.util.Map;
 
 /**
  * JsonToObjSerializer.
- * @author Zerox
+ * @author Kahle
  */
 public class JsonToObjSerializer implements SceneSerializer {
     private static final String NAME = "jackson";
 
     @Override
-    public Object serialize(Object rawData, JavaType fieldType, ObjectCodec codec) {
+    public Object serialize(Object rawData, JavaType fieldType, Map<String, String> configs, ObjectCodec codec) {
         if (!(rawData instanceof String)) { return null; }
         String data = (String) rawData;
         if (JsonUtil.isJsonArray(NAME, data)) {
