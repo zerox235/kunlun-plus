@@ -74,7 +74,7 @@ public abstract class AbstractSecurityContext extends AbstractServletContext imp
     }
 
     @Override
-    protected Map<String, Object> getBucket() {
+    public Map<String, Object> getBucket() {
         Map<String, Object> bucket = threadLocal.get();
         if (bucket == null) {
             threadLocal.set(bucket = new LinkedHashMap<String, Object>());

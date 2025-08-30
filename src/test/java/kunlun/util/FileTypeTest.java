@@ -42,7 +42,7 @@ public class FileTypeTest {
 
     @Test
     public void testClass() throws Exception {
-        byte[] bytes = FileUtil.read(new File("e:\\1.class"));
+        byte[] bytes = FileUtil.readBytes(new File("e:\\1.class"));
         // class file top four is magic number, magic number value always is "CAFEBABE".
         String magic = CodecUtil.encodeToString(HEX, Arrays.copyOfRange(bytes, 0, 4));
         System.out.println("magic number: " + magic.toUpperCase());

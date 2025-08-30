@@ -73,7 +73,7 @@ public class ExcelTest {
     @Test
     public void test4() throws Exception {
         System.out.println(JSON.toJSONString(students, true));
-        byte[] template = FileUtil.read(new File("e:\\template.xlsx"));
+        byte[] template = FileUtil.readBytes(new File("e:\\template.xlsx"));
         Excel excel = new Excel();
         excel.setExtension("XLSX");
         excel.setTemplate(template);

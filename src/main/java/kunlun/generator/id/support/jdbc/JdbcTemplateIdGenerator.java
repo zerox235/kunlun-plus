@@ -24,7 +24,7 @@ import static kunlun.util.Assert.state;
 
 /**
  * 基于 JDBC 的字符串 ID 生成器.<br />
- * @author Zerox
+ * @author Kahle
  */
 public class JdbcTemplateIdGenerator extends AbstractIncrementalIdGenerator {
     private static final String SQL_QUERY_TEMPLATE = "SELECT `%s` FROM `%s` WHERE `%s` = ? FOR UPDATE;";

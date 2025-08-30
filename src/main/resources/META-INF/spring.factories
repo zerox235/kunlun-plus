@@ -8,7 +8,6 @@ kunlun.spring.data.json.JsonAutoConfiguration,\
 kunlun.spring.data.xml.XmlAutoConfiguration,\
 kunlun.spring.logging.LoggingAutoConfiguration,\
 kunlun.mock.support.JMockDataAutoConfiguration,\
-kunlun.message.support.mq.rocketmq.RocketMqListenerAutoConfiguration,\
 kunlun.convert.ConversionAutoConfiguration,\
 kunlun.reflect.support.ReflectAutoConfiguration,\
 kunlun.data.desensitize.support.DesensitizeAutoConfiguration,\

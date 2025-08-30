@@ -19,7 +19,7 @@ import java.util.Map;
 
 /**
  * The data supplier of the "listByIds" method in the mybatis plus service.
- * @author Zerox
+ * @author Kahle
  */
 public class MpServIdsSupplier<T> extends BaseServDataSupplier<IService<T>, T> {
 

@@ -21,7 +21,7 @@ import static kunlun.util.CastUtil.cast;
 
 /**
  * 基础的基于 Service 的数据提供者.
- * @author Zerox
+ * @author Kahle
  */
 public abstract class BaseServDataSupplier<S, T> implements DataSupplier {
     private final Consumer<Map<String, Object>> dataProcessor;

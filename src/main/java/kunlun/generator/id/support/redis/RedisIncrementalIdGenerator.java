@@ -21,7 +21,7 @@ import static kunlun.util.Assert.state;
 /**
  * 基于 Redis 的字符串 ID 生成器.<br />
  * @see <a href="https://redis.io/commands/incrby">INCRBY key increment</a>
- * @author Zerox
+ * @author Kahle
  */
 public class RedisIncrementalIdGenerator extends AbstractIncrementalIdGenerator {
     private final StringRedisTemplate stringRedisTemplate;

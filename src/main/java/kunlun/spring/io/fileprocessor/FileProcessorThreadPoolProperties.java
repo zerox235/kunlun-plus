@@ -6,11 +6,29 @@ import java.util.concurrent.TimeUnit;
 
 @ConfigurationProperties("kunlun.file-processor.thread-pool")
 public class FileProcessorThreadPoolProperties {
+    /**
+     * 是否开启文件处理线程池.
+     */
     private Boolean enabled;
+    /**
+     * 核心线程池大小.
+     */
     private Integer corePoolSize;
+    /**
+     * 最大线程池大小.
+     */
     private Integer maxPoolSize;
+    /**
+     * 线程存活时间.
+     */
     private Integer keepAliveTime;
+    /**
+     * 线程存活时间的单位.
+     */
     private TimeUnit timeUnit;
+    /**
+     * 线程池队列大小.
+     */
     private Integer queueCapacity;
 
     public Boolean getEnabled() {
