@@ -12,18 +12,19 @@ import kunlun.util.StrUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 /**
  * SingleToListDeserializer.
- * @author Zerox
+ * @author Kahle
  */
 public class SingleToListDeserializer implements SceneDeserializer {
 
     @Override
-    public Object deserialize(Object rawData, JavaType fieldType, ObjectCodec codec) {
+    public Object deserialize(Object rawData, JavaType fieldType, Map<String, String> configs, ObjectCodec codec) {
         if (rawData == null) { return null; }
         if (rawData instanceof List) { return rawData; }
         if (rawData instanceof String && StrUtil.isBlank((String) rawData)) {

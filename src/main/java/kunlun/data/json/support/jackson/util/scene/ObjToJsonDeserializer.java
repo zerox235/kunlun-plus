@@ -10,15 +10,17 @@ import com.fasterxml.jackson.databind.JavaType;
 import kunlun.data.json.JsonUtil;
 import kunlun.data.json.support.jackson.util.JsonSceneManager.SceneDeserializer;
 
+import java.util.Map;
+
 /**
  * ObjToJsonDeserializer.
- * @author Zerox
+ * @author Kahle
  */
 public class ObjToJsonDeserializer implements SceneDeserializer {
     private static final String NAME = "jackson";
 
     @Override
-    public Object deserialize(Object rawData, JavaType fieldType, ObjectCodec codec) {
+    public Object deserialize(Object rawData, JavaType fieldType, Map<String, String> configs, ObjectCodec codec) {
         if (rawData == null) { return null; }
         if (fieldType.isTypeOrSubTypeOf(String.class) && !(rawData instanceof String)) {
             return JsonUtil.toJsonString(NAME, rawData);

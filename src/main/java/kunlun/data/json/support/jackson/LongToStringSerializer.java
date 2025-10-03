@@ -16,7 +16,7 @@ import static kunlun.common.constant.Numbers.ZERO;
 
 /**
  * LongToStringSerializer.
- * @author Zerox
+ * @author Kahle
  */
 public class LongToStringSerializer extends StdSerializer<Long> {
     private final int maxLength;

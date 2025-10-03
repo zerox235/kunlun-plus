@@ -17,7 +17,7 @@ import java.util.Date;
 
 /**
  * Jackson json date deserializer.
- * @author Zerox
+ * @author Kahle
  */
 @JsonComponent
 public class DateJsonDeserializer extends JsonDeserializer<Date> {

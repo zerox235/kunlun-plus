@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.ValueNode;
 import kunlun.common.constant.Nil;
+import kunlun.core.annotation.Kv;
 import kunlun.data.json.support.jackson.annotation.JsonSceneDeserialize;
 import kunlun.data.json.support.jackson.model.Scene;
 import kunlun.data.json.support.jackson.util.JsonSceneManager;
@@ -29,15 +30,17 @@ import static com.fasterxml.jackson.databind.type.TypeFactory.unknownType;
 
 /**
  * JsonSceneDeserializer.
- * @author Zerox
+ * @author Kahle
  */
 public class JsonSceneDeserializer extends JsonDeserializer<Object> implements ContextualDeserializer {
     private static final Logger log = LoggerFactory.getLogger(JsonSceneDeserializer.class);
+    private Map<String, String> configs;
     private JavaType fieldType;
     private String scene;
 
-    public JsonSceneDeserializer(String scene, JavaType fieldType) {
+    public JsonSceneDeserializer(String scene, JavaType fieldType, Map<String, String> configs) {
         this.fieldType = fieldType;
+        this.configs = configs;
         this.scene = scene;
     }
 
@@ -50,16 +53,18 @@ public class JsonSceneDeserializer extends JsonDeserializer<Object> implements C
         JsonSceneDeserialize jsonScene; Scene sceneEnum; String custom = null, scene;
         JavaType fieldType = property.getType();
         if ((jsonScene = property.getAnnotation(JsonSceneDeserialize.class)) == null) {
-            return new JsonSceneDeserializer(Nil.STR, fieldType);
+            return new JsonSceneDeserializer(Nil.STR, fieldType, Collections.<String, String>emptyMap());
         }
+        Map<String, String> map = new LinkedHashMap<String, String>();
+        for (Kv kv : jsonScene.configs()) { map.put(kv.k(), kv.v()); }
         if (Scene.DEFAULT.equals(sceneEnum = jsonScene.value()) &&
                 StrUtil.isBlank(custom = jsonScene.custom())) {
-            return new JsonSceneDeserializer(Nil.STR, fieldType);
+            return new JsonSceneDeserializer(Nil.STR, fieldType, map);
         }
         if (!Scene.DEFAULT.equals(sceneEnum)) {
             scene = sceneEnum.name();
         } else { scene = custom; }
-        return new JsonSceneDeserializer(scene, fieldType);
+        return new JsonSceneDeserializer(scene, fieldType, map);
     }
 
     @Override
@@ -106,7 +111,7 @@ public class JsonSceneDeserializer extends JsonDeserializer<Object> implements C
         else if (valueNode.isNull()) { value = null; }
         else { value = null; }
         //
-        Object processed = deserializer.deserialize(value, fieldType, parser.getCodec());
+        Object processed = deserializer.deserialize(value, fieldType, configs, parser.getCodec());
         if (processed == null) { return processDefault(valueNode, parser, context); }
         return processed;
     }
@@ -122,7 +127,7 @@ public class JsonSceneDeserializer extends JsonDeserializer<Object> implements C
             list.add(context.readValue(elementParser, elementType));
         }
         //
-        Object processed = deserializer.deserialize(list, fieldType, parser.getCodec());
+        Object processed = deserializer.deserialize(list, fieldType, configs, parser.getCodec());
         if (processed == null) { return list; }
         return processed;
     }
@@ -140,7 +145,7 @@ public class JsonSceneDeserializer extends JsonDeserializer<Object> implements C
             map.put(entry.getKey(), context.readValue(elementParser, elementType));
         }
         //
-        Object processed = deserializer.deserialize(map, fieldType, parser.getCodec());
+        Object processed = deserializer.deserialize(map, fieldType, configs, parser.getCodec());
         if (processed == null) {
             if (fieldType.isMapLikeType()) { return map; }
             else { return processDefault(objectNode, parser, context); }

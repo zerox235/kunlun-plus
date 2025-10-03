@@ -7,7 +7,7 @@ package kunlun.data.json.support.jackson.model;
 
 /**
  * Scene
- * @author Zerox
+ * @author Kahle
  */
 public enum Scene {
 
