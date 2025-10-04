@@ -29,10 +29,10 @@ import java.util.Map;
 import static kunlun.common.constant.Numbers.TWENTY;
 
 /**
- * The xml conversion handler based on XStream.
+ * The xml conversion processor based on XStream.
  * @author Kahle
  */
-public class XStreamXmlHandler extends AbstractXmlHandler {
+public class XStreamXmlProcessor extends AbstractXmlProcessor {
     private static final XppDriver XPP_DRIVER = new InternalXppDriver();
 
     private XStream createXStream() {

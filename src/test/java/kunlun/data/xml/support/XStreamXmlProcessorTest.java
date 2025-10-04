@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSON;
 import kunlun.data.mock.MockUtil;
 import kunlun.data.xml.XmlClassAlias;
 import kunlun.data.xml.XmlFieldAlias;
-import kunlun.data.xml.XmlHandler;
+import kunlun.data.xml.XmlProcessor;
 import kunlun.entity.Student;
 import kunlun.logging.Logger;
 import kunlun.logging.LoggerFactory;
@@ -18,9 +18,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XStreamXmlHandlerTest {
-    private static final Logger log = LoggerFactory.getLogger(XStreamXmlHandlerTest.class);
-    private final XmlHandler xmlHandler = new XStreamXmlHandler();
+public class XStreamXmlProcessorTest {
+    private static final Logger log = LoggerFactory.getLogger(XStreamXmlProcessorTest.class);
+    private final XmlProcessor xmlProcessor = new XStreamXmlProcessor();
 
     @Test
     public void test1() {
@@ -35,9 +35,9 @@ public class XStreamXmlHandlerTest {
                 new XmlClassAlias("xml", List.class),
         };
 
-        String xmlString = xmlHandler.toXmlString(list, arguments);
+        String xmlString = xmlProcessor.toXmlString(list, arguments);
         log.info("\n{}", xmlString);
-        List<Student> parseList = xmlHandler.parseObject(xmlString, List.class, arguments);
+        List<Student> parseList = xmlProcessor.parseObject(xmlString, List.class, arguments);
         log.info("\n{}", JSON.toJSONString(parseList, true));
     }
 

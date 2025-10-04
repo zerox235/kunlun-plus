@@ -6,7 +6,7 @@
 package kunlun.spring.data.xml;
 
 import kunlun.data.xml.XmlUtil;
-import kunlun.data.xml.support.XStreamXmlHandler;
+import kunlun.data.xml.support.XStreamXmlProcessor;
 import kunlun.util.ClassLoaderUtil;
 import kunlun.util.ClassUtil;
 import org.slf4j.Logger;
@@ -15,7 +15,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
 
-import static kunlun.data.xml.XmlUtil.getDefaultHandlerName;
+import static kunlun.data.xml.XmlUtil.getDefaultProcessorName;
 
 /**
  * The xml tools auto-configuration.
@@ -30,9 +30,9 @@ public class XmlAutoConfiguration implements InitializingBean, DisposableBean {
     public void afterPropertiesSet() throws Exception {
         ClassLoader classLoader = ClassLoaderUtil.getDefaultClassLoader();
         if (ClassUtil.isPresent(X_STREAM_CLASS, classLoader)) {
-            XStreamXmlHandler xmlHandler = new XStreamXmlHandler();
-            XmlUtil.registerHandler(getDefaultHandlerName(), xmlHandler);
-            XmlUtil.registerHandler("xstream", xmlHandler);
+            XStreamXmlProcessor xmlProcessor = new XStreamXmlProcessor();
+            XmlUtil.registerProcessor(getDefaultProcessorName(), xmlProcessor);
+            XmlUtil.registerProcessor("xstream", xmlProcessor);
         }
 //        else if (ClassUtil.isPresent("", classLoader)) {
 //            XmlUtils.registerHandler();
