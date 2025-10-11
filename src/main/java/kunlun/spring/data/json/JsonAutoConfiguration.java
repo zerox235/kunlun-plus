@@ -6,9 +6,9 @@
 package kunlun.spring.data.json;
 
 import kunlun.data.json.JsonUtil;
-import kunlun.data.json.support.FastJsonHandler;
-import kunlun.data.json.support.GsonHandler;
-import kunlun.data.json.support.JacksonHandler;
+import kunlun.data.json.support.FastJsonProcessor;
+import kunlun.data.json.support.GsonProcessor;
+import kunlun.data.json.support.JacksonProcessor;
 import kunlun.util.ClassLoaderUtil;
 import kunlun.util.ClassUtil;
 import kunlun.util.StrUtil;
@@ -32,25 +32,25 @@ public class JsonAutoConfiguration implements InitializingBean, DisposableBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         ClassLoader classLoader = ClassLoaderUtil.getDefaultClassLoader();
-        String defaultHandler = null;
+        String defaultProcessor = null;
         if (ClassUtil.isPresent(JACKSON_CLASS, classLoader)) {
-            JsonUtil.registerHandler("jackson", new JacksonHandler());
-            defaultHandler = "jackson";
+            JsonUtil.registerProcessor("jackson", new JacksonProcessor());
+            defaultProcessor = "jackson";
         }
         if (ClassUtil.isPresent(GSON_CLASS, classLoader)) {
-            JsonUtil.registerHandler("gson", new GsonHandler());
-            if (StrUtil.isBlank(defaultHandler)) {
-                defaultHandler = "gson";
+            JsonUtil.registerProcessor("gson", new GsonProcessor());
+            if (StrUtil.isBlank(defaultProcessor)) {
+                defaultProcessor = "gson";
             }
         }
         if (ClassUtil.isPresent(FASTJSON_CLASS, classLoader)) {
-            JsonUtil.registerHandler("fastjson", new FastJsonHandler());
-            if (StrUtil.isBlank(defaultHandler)) {
-                defaultHandler = "fastjson";
+            JsonUtil.registerProcessor("fastjson", new FastJsonProcessor());
+            if (StrUtil.isBlank(defaultProcessor)) {
+                defaultProcessor = "fastjson";
             }
         }
-        if (StrUtil.isNotBlank(defaultHandler)) {
-            JsonUtil.setDefaultHandlerName(defaultHandler);
+        if (StrUtil.isNotBlank(defaultProcessor)) {
+            JsonUtil.setDefaultProcessorName(defaultProcessor);
         }
         else {
             log.warn("Can not found \"jackson\" or \"gson\" or \"fastjson\", will keep default. ");

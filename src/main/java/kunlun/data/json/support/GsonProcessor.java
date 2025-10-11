@@ -16,19 +16,19 @@ import java.lang.reflect.Type;
 import static kunlun.data.json.JsonFormat.PRETTY_FORMAT;
 
 /**
- * The json handler simple implement by gson.
+ * The json processor simple implement by gson.
  * @author Kahle
  */
-public class GsonHandler extends AbstractJsonHandler {
+public class GsonProcessor extends AbstractJsonProcessor {
     private final Gson prettyFormatGson;
     private final Gson gson;
 
-    public GsonHandler() {
+    public GsonProcessor() {
 
         this(new Gson());
     }
 
-    public GsonHandler(Gson gson) {
+    public GsonProcessor(Gson gson) {
         Assert.notNull(gson, "Parameter \"gson\" must not null. ");
         this.gson = gson;
         GsonBuilder gsonBuilder = new GsonBuilder();

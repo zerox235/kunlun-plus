@@ -26,7 +26,7 @@ public class JacksonHandlerTest {
 
     @Before
     public void init() {
-        JsonUtil.registerHandler(Words.DEFAULT, new JacksonHandler());
+        JsonUtil.registerProcessor(Words.DEFAULT, new JacksonProcessor());
         data = MockUtil.mock(Student.class);
         for (int i = 0; i < 5; i++) {
             data1.add(MockUtil.mock(Student.class));
@@ -44,7 +44,7 @@ public class JacksonHandlerTest {
 
     @Test
     public void test2() {
-        JsonUtil.registerHandler(Words.DEFAULT, new JacksonHandler());
+        JsonUtil.registerProcessor(Words.DEFAULT, new JacksonProcessor());
         Student student = JsonUtil.parseObject(jsonString, Student.class);
         List<Student> list = JsonUtil.parseObject(jsonString1
                 , TypeUtil.parameterizedOf(List.class, Student.class));

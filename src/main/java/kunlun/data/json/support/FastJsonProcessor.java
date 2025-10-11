@@ -19,10 +19,10 @@ import static kunlun.common.constant.Numbers.ZERO;
 import static kunlun.data.json.JsonFormat.PRETTY_FORMAT;
 
 /**
- * The json handler simple implement by fastjson.
+ * The json processor simple implement by fastjson.
  * @author Kahle
  */
-public class FastJsonHandler extends AbstractJsonHandler {
+public class FastJsonProcessor extends AbstractJsonProcessor {
 
     protected Feature[] deserializerFeatures(Object[] features) {
 

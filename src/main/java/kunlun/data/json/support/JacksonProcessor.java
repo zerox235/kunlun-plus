@@ -19,18 +19,18 @@ import java.lang.reflect.Type;
 import static kunlun.data.json.JsonFormat.PRETTY_FORMAT;
 
 /**
- * The json handler simple implement by jackson.
+ * The json processor simple implement by jackson.
  * @author Kahle
  */
-public class JacksonHandler extends AbstractJsonHandler {
+public class JacksonProcessor extends AbstractJsonProcessor {
     private final ObjectMapper objectMapper;
 
-    public JacksonHandler() {
+    public JacksonProcessor() {
 
         this(new ObjectMapper());
     }
 
-    public JacksonHandler(ObjectMapper objectMapper) {
+    public JacksonProcessor(ObjectMapper objectMapper) {
         Assert.notNull(objectMapper, "Parameter \"objectMapper\" must not null. ");
         this.objectMapper = objectMapper;
     }
