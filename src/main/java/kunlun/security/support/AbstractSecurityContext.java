@@ -9,6 +9,7 @@ import cn.hutool.core.util.ObjUtil;
 import kunlun.context.support.AbstractServletContext;
 import kunlun.core.AccessController;
 import kunlun.core.DataController;
+import kunlun.data.json.support.jackson.util.JsonSceneUtil;
 import kunlun.generator.id.IdUtil;
 import kunlun.security.SecurityContext;
 import kunlun.security.TokenManager;
@@ -74,7 +75,7 @@ public abstract class AbstractSecurityContext extends AbstractServletContext imp
     }
 
     @Override
-    protected Map<String, Object> getBucket() {
+    public Map<String, Object> getBucket() {
         Map<String, Object> bucket = threadLocal.get();
         if (bucket == null) {
             threadLocal.set(bucket = new LinkedHashMap<String, Object>());
@@ -91,6 +92,11 @@ public abstract class AbstractSecurityContext extends AbstractServletContext imp
         if (accessLog) {
             log.info("#Trace Start request: {} ,remoteAddr: {}"
                     , getRequestInfo().getServletPath(), getRequestInfo().getRemoteAddr());
+        }
+        // todo 临时方案，走拦截器之类的，感觉上下文不是一个好方案
+        String jsonScene = request.getParameter("_jsonScene");
+        if (StrUtil.isNotBlank(jsonScene)) {
+            JsonSceneUtil.setCurrentConfig(jsonScene);
         }
     }
 

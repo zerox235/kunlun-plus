@@ -3,7 +3,9 @@
  * Kunlun is licensed under the "LICENSE" file in the project's root directory.
  */
 
-package kunlun.generator.id.support;
+package kunlun.generator.id.support.redis;
+
+import kunlun.generator.id.support.IncrementalIdConfig;
 
 /**
  * The redis incremental identifier configuration.

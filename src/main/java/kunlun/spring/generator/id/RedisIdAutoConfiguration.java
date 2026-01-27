@@ -2,8 +2,8 @@ package kunlun.spring.generator.id;
 
 import cn.hutool.core.util.StrUtil;
 import kunlun.generator.id.IdUtil;
-import kunlun.generator.id.support.RedisIncrementalIdConfig;
-import kunlun.generator.id.support.RedisIncrementalIdGenerator;
+import kunlun.generator.id.support.redis.RedisIncrementalIdConfig;
+import kunlun.generator.id.support.redis.RedisIncrementalIdGenerator;
 import kunlun.util.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +33,8 @@ public class RedisIdAutoConfiguration implements InitializingBean {
         for (Map.Entry<String, RedisIncrementalIdConfig> entry : configs.entrySet()) {
             RedisIncrementalIdConfig idConfig = entry.getValue();
             String name = entry.getKey();
-            handle(idConfig, Assert.notBlank(name));
+            Assert.notBlank(name, "ID生成器的名称不能为空！");
+            handle(idConfig, name);
             RedisIncrementalIdGenerator idGenerator =
                     new RedisIncrementalIdGenerator(idConfig, stringRedisTemplate);
             IdUtil.registerGenerator(name, idGenerator);
