@@ -13,6 +13,7 @@ import kunlun.util.NumberUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Map;
 
 import static java.math.RoundingMode.HALF_UP;
 import static kunlun.util.Assert.notBlank;
@@ -56,7 +57,7 @@ public class BigDecimalSerializer implements SceneSerializer {
     }
 
     @Override
-    public Object serialize(Object rawData, JavaType fieldType, ObjectCodec codec) {
+    public Object serialize(Object rawData, JavaType fieldType, Map<String, String> configs, ObjectCodec codec) {
         if (rawData == null) { return null; }
         if (!(rawData instanceof BigDecimal)) { return rawData; }
         return NumberUtil.format(rawData, pattern, roundingMode, threshold);
