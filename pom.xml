@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.kahle23</groupId>
     <artifactId>kunlun-plus</artifactId>
-    <version>1.0.17</version>
+    <version>1.0.21</version>
     <packaging>jar</packaging>
     <name>kunlun-plus</name>
     <url>https://github.com/kahle23/kunlun-plus</url>
@@ -59,7 +59,7 @@
         <dependency>
             <groupId>io.github.kahle23</groupId>
             <artifactId>kunlun</artifactId>
-            <version>1.0.17</version>
+            <version>1.0.21</version>
         </dependency>
         <!-- ///// end kunlun //// -->
 
@@ -147,6 +147,7 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
             <version>4.1.4</version>
+<!--            <version>5.3.1</version>新版本不能随便升级-->
             <scope>provided</scope>
         </dependency>
         <!-- ///// end database //// -->
